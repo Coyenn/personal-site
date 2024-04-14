@@ -1,0 +1,3 @@
+packages:
+  - "websites/*"
+  - "packages/*"

@@ -1,0 +1,25 @@
+{
+"extends": "@repo/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@payload-config": ["./payload.config.ts"],
+      "@payload-types": ["./payload-types.ts"],
+      "@/*": ["../../*"],
+      "@website/*": ["./*"],
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
+
