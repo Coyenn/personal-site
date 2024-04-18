@@ -32,13 +32,6 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { en, de },
   },
-  admin: {
-    autoLogin: {
-      email: 'dev@payloadcms.com',
-      password: 'test',
-      prefillOnly: true,
-    },
-  },
   async onInit(payload) {
     const existingUsers = await payload.find({
       collection: 'users',
@@ -49,8 +42,8 @@ export default buildConfig({
       await payload.create({
         collection: 'users',
         data: {
-          email: 'dev@payloadcms.com',
-          password: 'test',
+          email: process.env.PAYLOAD_ADMIN_USER_EMAIL ?? 'dev@tim-ritter.com',
+          password: process.env.PAYLOAD_ADMIN_USER_PASSWORD ?? 'dev',
         },
       })
     }

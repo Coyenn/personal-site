@@ -135,6 +135,94 @@ importers:
         specifier: ^5.4.2
         version: 5.4.5
 
+  websites/www:
+    dependencies:
+      '@payloadcms/db-postgres':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@types/react@18.2.78)(payload@3.0.0-beta.11)(react@18.2.0)
+      '@payloadcms/next':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@types/react@18.2.78)(http-status@1.6.2)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      '@payloadcms/richtext-lexical':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@lexical/clipboard@0.13.1)(@payloadcms/next@3.0.0-beta.11)(@payloadcms/translations@3.0.0-beta.11)(@payloadcms/ui@3.0.0-beta.11)(payload@3.0.0-beta.11)(typescript@5.4.5)(yjs@13.6.14)
+      '@payloadcms/richtext-slate':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@payloadcms/translations@3.0.0-beta.11)(@payloadcms/ui@3.0.0-beta.11)(payload@3.0.0-beta.11)(react-dom@18.2.0)
+      '@payloadcms/translations':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11
+      '@payloadcms/ui':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@types/react@18.2.78)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      next:
+        specifier: ^14.2.1
+        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
+      payload:
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@swc/core@1.4.13)(@swc/types@0.1.6)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      sharp:
+        specifier: 0.32.6
+        version: 0.32.6
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@tailwindcss/typography':
+        specifier: ^0.5.12
+        version: 0.5.12(tailwindcss@3.4.3)
+      '@types/node':
+        specifier: ^20.11.25
+        version: 20.12.7
+      '@types/react':
+        specifier: ^18.2.64
+        version: 18.2.78
+      '@types/react-dom':
+        specifier: ^18.2.21
+        version: 18.2.25
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.38)
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-next:
+        specifier: 14.1.0
+        version: 14.1.0(eslint@8.57.0)(typescript@5.4.5)
+      postcss:
+        specifier: ^8.4.38
+        version: 8.4.38
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3
+      tsx:
+        specifier: ^4.7.1
+        version: 4.7.2
+      typescript:
+        specifier: ^5.4.2
+        version: 5.4.5
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -3941,7 +4029,7 @@ packages:
       debug: 3.2.7
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
