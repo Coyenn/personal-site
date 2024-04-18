@@ -1,7 +1,10 @@
-import { CollectionConfig } from "payload/types";
+import { CollectionConfig } from 'payload/types'
 
 const layoutsCollection: CollectionConfig = {
   slug: 'layouts',
+  admin: {
+    useAsTitle: 'name',
+  },
   fields: [
     {
       name: 'name',
@@ -10,7 +13,7 @@ const layoutsCollection: CollectionConfig = {
     {
       name: 'identifier',
       type: 'text',
-    }
+    },
   ],
 }
 

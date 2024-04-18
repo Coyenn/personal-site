@@ -1,4 +1,3 @@
-import PageContent from '@website/src/components/page-content'
 import PageLayout from '@website/src/components/page-layout'
 import pageData from '@website/src/utilities/page-data'
 import { notFound } from 'next/navigation'
@@ -14,7 +13,5 @@ export default async function Page(props: PageProps) {
 
   if (!page) return notFound()
 
-  return (
-    <PageLayout page={page} />
-  )
+  return <PageLayout page={page} />
 }
