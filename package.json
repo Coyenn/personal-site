@@ -5,12 +5,12 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "biome check --apply ./"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
     "turbo": "^1.13.2",
-    "@repo/eslint-config": "workspace:*",
+    "@biomejs/biome": "1.7.0",
     "@repo/typescript-config": "workspace:*"
   }
 }

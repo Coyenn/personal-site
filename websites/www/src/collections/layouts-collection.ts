@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types';
 
 const layoutsCollection: CollectionConfig = {
   slug: 'layouts',
@@ -15,6 +15,6 @@ const layoutsCollection: CollectionConfig = {
       type: 'text',
     },
   ],
-}
+};
 
-export default layoutsCollection
+export default layoutsCollection;

@@ -32,7 +32,6 @@
     "slugify": "^1.6.6"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.11.25",
@@ -40,8 +39,6 @@
     "@types/react-dom": "^18.2.21",
     "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.1.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "tsx": "^4.7.1",

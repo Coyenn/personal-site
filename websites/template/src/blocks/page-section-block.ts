@@ -1,6 +1,6 @@
-import { ImageBlock } from "@website/src/blocks/image-block";
-import { TextBlock } from "@website/src/blocks/text-block";
-import { Block } from "payload/types";
+import { ImageBlock } from '@website/src/blocks/image-block';
+import { TextBlock } from '@website/src/blocks/text-block';
+import type { Block } from 'payload/types';
 
 export const PageSectionBlock: Block = {
   slug: 'PageSection',
@@ -18,4 +18,4 @@ export const PageSectionBlock: Block = {
       blocks: [ImageBlock, TextBlock],
     },
   ],
-}
+};

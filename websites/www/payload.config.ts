@@ -1,25 +1,30 @@
-import path from 'path'
-import { en } from 'payload/i18n/en'
-import { de } from 'payload/i18n/de'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig } from 'payload/config'
-import sharp from 'sharp'
-import { fileURLToPath } from 'url'
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { postgresAdapter } from '@payloadcms/db-postgres';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { buildConfig } from 'payload/config';
+import { de } from 'payload/i18n/de';
+import { en } from 'payload/i18n/en';
+import sharp from 'sharp';
 
-import usersCollection from '@website/src/collections/users-collection'
-import pagesCollection from '@website/src/collections/pages-collection'
-import mediaCollection from '@website/src/collections/media-collection'
-import layoutsCollection from '@website/src/collections/layouts-collection'
+import layoutsCollection from '@website/src/collections/layouts-collection';
+import mediaCollection from '@website/src/collections/media-collection';
+import pagesCollection from '@website/src/collections/pages-collection';
+import usersCollection from '@website/src/collections/users-collection';
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],
   }),
-  collections: [usersCollection, layoutsCollection, pagesCollection, mediaCollection],
+  collections: [
+    usersCollection,
+    layoutsCollection,
+    pagesCollection,
+    mediaCollection,
+  ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -36,7 +41,7 @@ export default buildConfig({
     const existingUsers = await payload.find({
       collection: 'users',
       limit: 1,
-    })
+    });
 
     if (existingUsers.docs.length === 0) {
       await payload.create({
@@ -45,8 +50,8 @@ export default buildConfig({
           email: process.env.PAYLOAD_ADMIN_USER_EMAIL ?? 'dev@tim-ritter.com',
           password: process.env.PAYLOAD_ADMIN_USER_PASSWORD ?? 'dev',
         },
-      })
+      });
     }
   },
   sharp,
-})
+});

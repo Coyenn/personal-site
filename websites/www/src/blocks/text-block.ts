@@ -1,4 +1,4 @@
-import { Block } from "payload/types";
+import type { Block } from 'payload/types';
 
 export const TextBlock: Block = {
   slug: 'Text',
@@ -10,4 +10,4 @@ export const TextBlock: Block = {
       required: true,
     },
   ],
-}
+};

@@ -1,16 +1,18 @@
+import configPromise from '@payload-config';
+import { RootLayout } from '@payloadcms/next/layouts';
 /* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
 /* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
-import React from 'react'
-import configPromise from '@payload-config'
-import { RootLayout } from '@payloadcms/next/layouts'
+import type React from 'react';
 
-import '@payloadcms/next/css'
-import '@website/src/styles/globals.scss'
+import '@payloadcms/next/css';
+import '@website/src/styles/globals.scss';
 
 type Args = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-const Layout = ({ children }: Args) => <RootLayout config={configPromise}>{children}</RootLayout>
+const Layout = ({ children }: Args) => (
+  <RootLayout config={configPromise}>{children}</RootLayout>
+);
 
-export default Layout
+export default Layout;

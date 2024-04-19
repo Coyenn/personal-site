@@ -1,17 +1,17 @@
-import PageLayout from '@website/src/components/page-layout'
-import pageData from '@website/src/utilities/page-data'
-import { notFound } from 'next/navigation'
+import PageLayout from '@website/src/components/page-layout';
+import pageData from '@website/src/utilities/page-data';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: {
-    slug?: string
-  }
+    slug?: string;
+  };
 }
 
 export default async function Page(props: PageProps) {
-  const page = await pageData(props.params.slug || '/')
+  const page = await pageData(props.params.slug || '/');
 
-  if (!page) return notFound()
+  if (!page) return notFound();
 
-  return <PageLayout page={page} />
+  return <PageLayout page={page} />;
 }

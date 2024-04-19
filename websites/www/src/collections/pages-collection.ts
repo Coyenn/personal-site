@@ -1,5 +1,5 @@
-import { PageSectionBlock } from "@website/src/blocks/page-section-block"
-import { CollectionConfig } from "payload/types"
+import { PageSectionBlock } from '@website/src/blocks/page-section-block';
+import type { CollectionConfig } from 'payload/types';
 
 const pagesCollection: CollectionConfig = {
   slug: 'pages',
@@ -30,6 +30,6 @@ const pagesCollection: CollectionConfig = {
       blocks: [PageSectionBlock],
     },
   ],
-}
+};
 
-export default pagesCollection
+export default pagesCollection;

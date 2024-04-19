@@ -1,5 +1,5 @@
 {
-"extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {
@@ -10,7 +10,7 @@
       "@payload-config": ["./payload.config.ts"],
       "@payload-types": ["./payload-types.ts"],
       "@/*": ["../../*"],
-      "@website/*": ["./*"],
+      "@website/*": ["./*"]
     }
   },
   "include": [
@@ -22,4 +22,3 @@
   ],
   "exclude": ["node_modules"]
 }
-

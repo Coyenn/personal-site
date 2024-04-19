@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload/types"
+import type { CollectionConfig } from 'payload/types';
 
 const usersCollection: CollectionConfig = {
   slug: 'users',
@@ -8,6 +8,6 @@ const usersCollection: CollectionConfig = {
     update: () => false,
   },
   fields: [],
-}
+};
 
-export default usersCollection
+export default usersCollection;
