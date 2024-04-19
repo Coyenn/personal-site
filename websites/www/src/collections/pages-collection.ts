@@ -1,30 +1,37 @@
-import { PageSectionBlock } from '@website/src/blocks/page-section-block';
-import type { CollectionConfig } from 'payload/types';
+import { PageSectionBlock } from "@website/src/blocks/page-section-block";
+import { SlugField } from "@repo/custom-fields";
+import type { CollectionConfig } from "payload/types";
 
 const pagesCollection: CollectionConfig = {
-  slug: 'pages',
+  slug: "pages",
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
     },
+    ...SlugField(
+      {
+        name: "slug",
+        admin: {
+          position: "sidebar",
+        },
+      },
+      {
+        useFields: ["title"],
+      }
+    ),
     {
-      name: 'slug',
-      type: 'text',
+      name: "layout",
+      type: "relationship",
+      relationTo: "layouts",
       required: true,
     },
     {
-      name: 'layout',
-      type: 'relationship',
-      relationTo: 'layouts',
-      required: true,
-    },
-    {
-      name: 'content',
-      type: 'blocks',
+      name: "content",
+      type: "blocks",
       minRows: 0,
       maxRows: 99,
       blocks: [PageSectionBlock],

@@ -11,12 +11,42 @@ importers:
       '@biomejs/biome':
         specifier: 1.7.0
         version: 1.7.0
+      '@repo/custom-fields':
+        specifier: workspace:*
+        version: link:packages/custom-fields
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
       turbo:
         specifier: ^1.13.2
         version: 1.13.2
+
+  packages/custom-fields:
+    dependencies:
+      '@payloadcms/ui':
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@types/react@18.2.78)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      '@types/react':
+        specifier: ^18.2.64
+        version: 18.2.78
+      '@types/react-dom':
+        specifier: ^18.2.21
+        version: 18.2.25
+      payload:
+        specifier: 3.0.0-beta.11
+        version: 3.0.0-beta.11(@swc/core@1.4.13)(@swc/types@0.1.6)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
 
   packages/typescript-config: {}
 
@@ -144,6 +174,9 @@ importers:
         specifier: ^1.6.6
         version: 1.6.6
     devDependencies:
+      '@repo/custom-fields':
+        specifier: workspace:*
+        version: link:../../packages/custom-fields
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -1941,7 +1974,6 @@ packages:
     resolution: {integrity: sha512-o/V48vf4MQh7juIKZU2QGDfli6p1+OOi5oXx36Hffpc9adsHeXjVp8rHuPkjd8VT8sOJ2Zp05HR7CdpGTIUFUA==}
     dependencies:
       '@types/react': 18.2.78
-    dev: true
 
   /@types/react-transition-group@4.4.10:
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}

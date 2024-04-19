@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
+    "@repo/custom-fields": "workspace:*",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.64",

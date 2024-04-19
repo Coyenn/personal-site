@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  transpilePackages: ['@repo/custom-fields'],
 };
 
 export default withPayload(nextConfig);
