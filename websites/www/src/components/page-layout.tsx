@@ -4,15 +4,20 @@ import DefaultLayout from '@website/src/layouts/default-layout';
 
 export interface PageContentProps {
   page?: Page;
+  children?: React.ReactNode;
 }
 
 export default function PageLayout(props: PageContentProps) {
-  const { page } = props;
+  const { page, children } = props;
   const layout = page?.layout as Layout;
 
   switch (layout.identifier) {
     case 'default':
-      return <DefaultLayout page={page} key={page?.id} />;
+      return (
+        <DefaultLayout page={page} key={page?.id}>
+          {children}
+        </DefaultLayout>
+      );
     default:
       return null;
   }

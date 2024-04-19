@@ -1,5 +1,5 @@
 {
-  "name": "projects",
+  "name": "www",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -8,7 +8,6 @@
     "format": "biome check --apply ./"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
     "turbo": "^1.13.2",
     "@biomejs/biome": "1.7.0",
     "@repo/typescript-config": "workspace:*"
