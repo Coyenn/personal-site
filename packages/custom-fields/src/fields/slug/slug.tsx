@@ -1,5 +1,3 @@
-'use client';
-
 import type { CheckboxField, Field, FieldHook, TextField } from 'payload/types';
 import type { SlugifyOptions } from './slug-component';
 import type { PartialRequired } from '../../utilities/partial-required';
@@ -16,7 +14,7 @@ type Config = {
    * An array of string mapping the field path names, nested fields are supported here
    * @default {string[]} ['title']
    */
-  useFields: string[];
+  useFields?: string[];
   /**
    * Append a '-1' on duplication of collection in the case that the slug needs to be unique
    */
@@ -79,7 +77,6 @@ const SlugField: Slug = (
 ) => {
   const slugifyOptions: SlugifyOptions = {
     lower: true,
-    remove: /[*+~\/\\.()'"!?#\.,:@]/g,
     ...config.slugify,
   };
 
@@ -144,7 +141,7 @@ const SlugField: Slug = (
       hooks: {
         beforeValidate: [
           beforeValidate(
-            config.useFields,
+            config.useFields ?? ['title'],
             Boolean(checkbox.enable),
             checkboxName,
             slugifyOptions,
@@ -169,9 +166,7 @@ const SlugField: Slug = (
     slugOverrides,
   );
 
-  const fields = [slugField, editField];
-
-  return fields;
+  return [slugField, editField];
 };
 
 export { SlugField };

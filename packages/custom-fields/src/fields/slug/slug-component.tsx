@@ -35,17 +35,30 @@ type SlugComponentProps = TextField & {
   };
 };
 
-const SlugComponent: React.FC<SlugComponentProps> = ({
-  readOnly,
-  className,
-  required,
-  path,
-  placeholder,
-  label,
-  admin,
-  custom,
-  ...others
-}) => {
+function SlugComponent(props: SlugComponentProps) {
+  console.log(props);
+  const {
+    path,
+    label,
+    required,
+    readOnly,
+    className,
+    admin,
+    custom = {
+      watchFields: ['title'],
+      slugifyOptions: {
+        lower: true,
+        replacement: '-',
+        remove: /[*+~\/\\.()'"!?#\.,:@]/g,
+      },
+      editFieldConfig: {
+        name: 'editSlug',
+        label: 'Edit slug',
+      },
+      enableEditSlug: true,
+    },
+    ...others
+  } = props;
   const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } =
     custom;
   const { value, setValue, showError, errorMessage } =
@@ -107,7 +120,7 @@ const SlugComponent: React.FC<SlugComponentProps> = ({
   };
 
   return (
-    <div className={'bfSlugFieldWrapper field-type'}>
+    <div className={'slug-field-wrapper field-type'}>
       <FieldLabel
         htmlFor={`field-${path.replace(/\./gi, '__')}`}
         label={label}
@@ -126,7 +139,7 @@ const SlugComponent: React.FC<SlugComponentProps> = ({
           onChange={(e) => {
             setValue(e.target.value);
           }}
-          className={'slugInput'}
+          className={'slug-input'}
           /* @ts-expect-error */
           value={value}
           showError={showError}
@@ -135,9 +148,9 @@ const SlugComponent: React.FC<SlugComponentProps> = ({
             marginBottom: 0,
           }}
         />
-        {custom.enableEditSlug && (
+        {enableEditSlug && (
           <div className={'checkbox'}>
-            <div className={'srOnly'}>
+            <div className={'sr-only'}>
               <FieldLabel
                 htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
                 label={editFieldConfig?.label ?? ''}
@@ -163,6 +176,6 @@ const SlugComponent: React.FC<SlugComponentProps> = ({
       />
     </div>
   );
-};
+}
 
 export { SlugComponent, type SlugComponentProps, type SlugifyOptions };

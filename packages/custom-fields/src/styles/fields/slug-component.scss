@@ -1,15 +1,19 @@
-.bfSlugFieldWrapper {
+.slug-field-wrapper {
   position: relative;
+
+  > .field-type {
+    padding: 0;
+  }
 
   .container {
     display: flex;
   }
 
-  .slugInput {
+  .slug-input {
     flex-grow: 2;
   }
 
-  .srOnly {
+  .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
     -webkit-clip-path: inset(50%) !important;

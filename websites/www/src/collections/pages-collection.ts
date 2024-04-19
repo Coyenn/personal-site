@@ -15,13 +15,8 @@ const pagesCollection: CollectionConfig = {
     ...SlugField(
       {
         name: "slug",
-        admin: {
-          position: "sidebar",
-        },
       },
-      {
-        useFields: ["title"],
-      }
+      {}
     ),
     {
       name: "layout",
