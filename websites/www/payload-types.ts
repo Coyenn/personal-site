@@ -56,7 +56,8 @@ export interface Layout {
 export interface Page {
   id: number;
   title?: string | null;
-  slug: string;
+  slug?: string | null;
+  editSlug?: boolean | null;
   layout: number | Layout;
   content?: PageSectionBlock[] | null;
   updatedAt: string;
@@ -90,6 +91,8 @@ export interface ImageBlock {
 export interface Media {
   id: number;
   alt?: string | null;
+  copyright?: string | null;
+  caption?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

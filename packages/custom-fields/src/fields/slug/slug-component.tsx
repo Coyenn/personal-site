@@ -36,7 +36,6 @@ type SlugComponentProps = TextField & {
 };
 
 function SlugComponent(props: SlugComponentProps) {
-  console.log(props);
   const {
     path,
     label,

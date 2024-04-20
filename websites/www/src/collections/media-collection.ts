@@ -8,6 +8,14 @@ const mediaCollection: CollectionConfig = {
       name: 'alt',
       type: 'text',
     },
+    {
+      name: 'copyright',
+      type: 'text',
+    },
+    {
+      name: 'caption',
+      type: 'textarea',
+    },
   ],
 };
 

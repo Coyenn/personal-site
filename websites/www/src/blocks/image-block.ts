@@ -6,9 +6,9 @@ export const ImageBlock: Block = {
   fields: [
     {
       name: 'image',
-      type: 'upload',
       relationTo: 'media',
       required: true,
+      type: 'upload',
       filterOptions: {
         mimeType: { contains: 'image' },
       },
