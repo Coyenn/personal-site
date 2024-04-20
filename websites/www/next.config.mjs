@@ -5,6 +5,9 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  images: {
+    remotePatterns: [{ hostname: '*.public.blob.vercel-storage.com' }],
+  },
 };
 
 export default withPayload(nextConfig);
