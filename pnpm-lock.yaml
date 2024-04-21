@@ -138,7 +138,7 @@ importers:
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@types/react@18.2.78)(http-status@1.6.2)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
       '@payloadcms/plugin-cloud-storage':
-        specifier: ^3.0.0-beta.10
+        specifier: ^3.0.0-beta.11
         version: 3.0.0-beta.6-86adc6f(@vercel/blob@0.23.2)(payload@3.0.0-beta.11)
       '@payloadcms/richtext-lexical':
         specifier: 3.0.0-beta.11
@@ -152,6 +152,9 @@ importers:
       '@payloadcms/ui':
         specifier: 3.0.0-beta.11
         version: 3.0.0-beta.11(@types/react@18.2.78)(monaco-editor@0.47.0)(next@14.2.1)(payload@3.0.0-beta.11)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      '@vercel/analytics':
+        specifier: ^1.2.2
+        version: 1.2.2(next@14.2.1)(react@18.2.0)
       '@vercel/blob':
         specifier: ^0.23.2
         version: 0.23.2
@@ -2032,6 +2035,22 @@ packages:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
     dependencies:
       '@types/node': 20.12.7
+    dev: false
+
+  /@vercel/analytics@1.2.2(next@14.2.1)(react@18.2.0):
+    resolution: {integrity: sha512-X0rctVWkQV1e5Y300ehVNqpOfSOufo7ieA5PIdna8yX/U7Vjz0GFsGf4qvAhxV02uQ2CVt7GYcrFfddXXK2Y4A==}
+    peerDependencies:
+      next: '>= 13'
+      react: ^18 || ^19
+    peerDependenciesMeta:
+      next:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      next: 14.2.1(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      server-only: 0.0.1
     dev: false
 
   /@vercel/blob@0.23.2:
@@ -5092,6 +5111,10 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: false
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
     dev: false
 
   /set-function-length@1.2.2:

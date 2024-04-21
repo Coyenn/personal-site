@@ -4,25 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "dev": "next dev",
+    "build": "next build",
+    "payload": "payload",
+    "start": "next start",
+    "lint": "next lint",
     "generate:types": "payload generate:types"
-  },
-  "engines": {
-    "node": ">=18.19.0"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.0.0-beta.11",
     "@payloadcms/next": "3.0.0-beta.11",
-    "@payloadcms/plugin-cloud-storage": "^3.0.0-beta.10",
+    "@payloadcms/plugin-cloud-storage": "^3.0.0-beta.11",
     "@payloadcms/richtext-lexical": "3.0.0-beta.11",
     "@payloadcms/richtext-slate": "3.0.0-beta.11",
     "@payloadcms/translations": "3.0.0-beta.11",
     "@payloadcms/ui": "3.0.0-beta.11",
+    "@vercel/analytics": "^1.2.2",
     "@vercel/blob": "^0.23.2",
     "classnames": "^2.5.1",
     "cross-env": "^7.0.3",
