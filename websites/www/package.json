@@ -9,26 +9,40 @@
     "payload": "payload",
     "start": "next start",
     "lint": "next lint",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "biome:format": "biome format . --write",
+    "biome:lint": "biome lint . --apply",
+    "biome:check": "biome check . --apply",
+    "biome:ci": "biome check ."
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.0.0-beta.11",
-    "@payloadcms/next": "3.0.0-beta.11",
-    "@payloadcms/plugin-cloud-storage": "^3.0.0-beta.11",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.11",
-    "@payloadcms/richtext-slate": "3.0.0-beta.11",
-    "@payloadcms/translations": "3.0.0-beta.11",
-    "@payloadcms/ui": "3.0.0-beta.11",
+    "@payloadcms/db-postgres": "3.0.0-beta.12",
+    "@payloadcms/next": "3.0.0-beta.12",
+    "@payloadcms/plugin-cloud-storage": "^3.0.0-beta.12",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.12",
+    "@payloadcms/richtext-slate": "3.0.0-beta.12",
+    "@payloadcms/translations": "3.0.0-beta.12",
+    "@payloadcms/ui": "3.0.0-beta.12",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/analytics": "^1.2.2",
     "@vercel/blob": "^0.23.2",
     "classnames": "^2.5.1",
+    "clsx": "^2.1.0",
     "cross-env": "^7.0.3",
+    "framer-motion": "^11.1.7",
+    "hamburger-react": "^2.5.0",
+    "lottie-react": "^2.4.0",
     "next": "^14.2.1",
-    "payload": "3.0.0-beta.11",
+    "payload": "3.0.0-beta.12",
     "react": "^18.2.0",
+    "react-clock": "^4.6.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
+    "react-responsive-masonry": "^2.2.0",
+    "react-zoom-pan-pinch": "^3.4.4",
     "sharp": "0.32.6",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@repo/custom-fields": "workspace:*",
@@ -42,7 +56,8 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "@types/react-responsive-masonry": "^2.1.3"
   },
   "packageManager": "pnpm@8.15.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
 }

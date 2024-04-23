@@ -1,11 +1,11 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
+import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload/config';
 import { en } from 'payload/i18n/en';
-import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
-import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import sharp from 'sharp';
 
 import layoutsCollection from '@website/src/collections/layouts-collection';

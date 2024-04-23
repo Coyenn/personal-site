@@ -1,0 +1,35 @@
+.link-effect {
+  position: relative;
+
+  &::before {
+    content: "";
+    width: calc(100% + 1rem);
+    height: calc(100% + 0.5rem);
+    position: absolute;
+    inset: 0;
+    top: -0.25rem;
+    left: -0.5rem;
+    opacity: 0;
+    border-radius: 5px;
+    transition: transform 100ms 0s ease-in-out, opacity 100ms 0s ease-in-out;
+    transform: scale(0.75);
+    z-index: -1;
+
+    background-color: rgb(var(--color-gray6));
+  }
+
+  &:hover {
+    z-index: 1;
+
+    &::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    &::before {
+      transform: scale(0.92);
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    height: 0.15rem;
+    border-radius: 0;
+    border: none;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: rgb(var(--color-gray5));
+    border: none;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-gray1));
+    border-radius: 0;
+    border: none;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-gray2));
+    border: none;
+  }
+}

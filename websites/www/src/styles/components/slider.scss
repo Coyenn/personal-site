@@ -1,0 +1,25 @@
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  background: rgb(var(--color-gray5));
+  outline: none;
+  width: 8rem;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: rgb(var(--color-gray1));
+  }
+
+  &::-moz-range-thumb {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: rgb(var(--color-gray1));
+  }
+}

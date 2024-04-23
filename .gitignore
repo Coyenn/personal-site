@@ -43,7 +43,7 @@ next-env.d.ts
 .turbo
 
 # payload
-media
+websites/*/media
 
 # windows
 *.Identifier

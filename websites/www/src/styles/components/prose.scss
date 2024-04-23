@@ -1,0 +1,73 @@
+.prose {
+  max-width: 800px !important;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a,
+  p,
+  ul,
+  ol,
+  blockquote,
+  pre,
+  table,
+  figure,
+  b,
+  strong,
+  em,
+  i,
+  img {
+    @apply text-gray1;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-medium text-base;
+
+    margin-bottom: 1em;
+    text-wrap: balance;
+
+    &:not(:first-child) {
+      margin-top: 3em;
+    }
+  }
+
+  b,
+  strong {
+    @apply font-medium;
+  }
+
+  pre {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  code {
+    @apply custom-scrollbar;
+  }
+
+  img {
+    margin-bottom: 0;
+  }
+
+  a {
+    scroll-margin-top: 5rem;
+
+    @apply link-effect;
+  }
+
+  li::marker {
+    color: rgb(var(--color-gray3));
+  }
+}

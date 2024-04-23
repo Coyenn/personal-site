@@ -1,3 +1,49 @@
+@import "components/clock.scss";
+@import "components/tooltip.scss";
+@import "components/prose.scss";
+@import "components/lightbox.scss";
+@import "components/scrollbar.scss";
+@import "components/link.scss";
+@import "components/slider.scss";
+@import "components/hamburger.scss";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-gray1: 16 16 16;
+    --color-gray2: 102 102 102;
+    --color-gray3: 170 170 170;
+    --color-gray4: 231 231 231;
+    --color-gray5: 242 242 242;
+    --color-gray6: 249 249 249;
+    --color-link: 2 99 209;
+    --color-background: 255 255 255;
+    --color-next-motion: 227 0 29;
+  }
+
+  :root[class~="dark"] {
+    --color-gray1: 250 250 250;
+    --color-gray2: 210 210 210;
+    --color-gray3: 180 180 180;
+    --color-gray4: 120 120 120;
+    --color-gray5: 80 80 80;
+    --color-gray6: 30 30 30;
+    --color-link: 2 99 209;
+    --color-background: 3 3 3;
+  }
+
+  *:focus-visible {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: 0 0 0 2px rgb(var(--color-gray6)),
+      0 0 0 4px rgb(var(--color-gray1));
+    outline: none;
+  }
+
+  ::selection {
+    @apply bg-gray5;
+  }
+}

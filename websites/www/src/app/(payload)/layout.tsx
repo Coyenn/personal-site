@@ -1,8 +1,8 @@
 import configPromise from '@payload-config';
 import { RootLayout } from '@payloadcms/next/layouts';
 
-import type React from 'react';
 import type { Metadata } from 'next';
+import type React from 'react';
 
 import '@payloadcms/next/css';
 import '@website/src/styles/globals.scss';
