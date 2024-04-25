@@ -19,7 +19,7 @@ export interface HeaderItemProps {
 }
 
 export interface HeaderProps {
-  items: HeaderItemProps[];
+  items?: HeaderItemProps[];
 }
 
 function HeaderDesktop(props: HeaderProps) {
@@ -129,7 +129,7 @@ function HeaderDesktop(props: HeaderProps) {
                 )}
               >
                 <ProfilePicture />
-                {items.map((item) => (
+                {items?.map((item) => (
                   <HeaderItem
                     key={item.href}
                     href={item.href}
@@ -254,7 +254,7 @@ function HeaderMobile(props: HeaderProps) {
                 initial='closed'
                 animate={isMenuOpen ? 'open' : 'closed'}
               >
-                {items.map((item) => (
+                {items?.map((item) => (
                   <HeaderItem
                     key={item.href}
                     href={item.href}
