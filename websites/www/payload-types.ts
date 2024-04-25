@@ -9,9 +9,12 @@
 export interface Config {
   collections: {
     users: User;
-    layouts: Layout;
     pages: Page;
     media: Media;
+    projects: Project;
+    'blog-posts': BlogPost;
+    'craft-items': CraftItem;
+    'inspiration-items': InspirationItem;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -40,25 +43,16 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "layouts".
- */
-export interface Layout {
-  id: number;
-  name?: string | null;
-  identifier?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: number;
   title?: string | null;
   slug?: string | null;
-  editSlug?: boolean | null;
-  layout: number | Layout;
+  layout: 'default';
+  'in-header'?: boolean | null;
+  'in-footer'?: boolean | null;
+  intro?: string | null;
   content?: PageSectionBlock[] | null;
   updatedAt: string;
   createdAt: string;
@@ -68,8 +62,12 @@ export interface Page {
  * via the `definition` "PageSectionBlock".
  */
 export interface PageSectionBlock {
-  title?: string | null;
-  content?: (ImageBlock | TextBlock)[] | null;
+  size: 'default' | 'xs' | 'sm' | 'lg' | 'xl' | '2xl' | 'full';
+  content?:
+    | (ImageBlock | TextBlock | ShowReelBlock | ProjectsBlock | BlogPostsBlock | InspirationsBlock | CraftBlock)[]
+    | null;
+  disablePadding?: boolean | null;
+  disableContainer?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'PageSection';
@@ -126,6 +124,119 @@ export interface TextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ShowReelBlock".
+ */
+export interface ShowReelBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ShowReel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectsBlock".
+ */
+export interface ProjectsBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Projects';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogPostsBlock".
+ */
+export interface BlogPostsBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'BlogPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InspirationsBlock".
+ */
+export interface InspirationsBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Inspirations';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CraftBlock".
+ */
+export interface CraftBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Craft';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  timeframe: string;
+  image: number | Media;
+  slug?: string | null;
+  content?: PageSectionBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts".
+ */
+export interface BlogPost {
+  id: number;
+  title: string;
+  date: string;
+  image: number | Media;
+  authors?:
+    | {
+        name: string;
+        image: number | Media;
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  content?: PageSectionBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "craft-items".
+ */
+export interface CraftItem {
+  id: number;
+  title: string;
+  description?: string | null;
+  image: number | Media;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inspiration-items".
+ */
+export interface InspirationItem {
+  id: number;
+  title: string;
+  link: string;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

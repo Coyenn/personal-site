@@ -7,11 +7,20 @@
       }
     ],
     "paths": {
-      "@payload-config": ["./payload.config.ts"],
-      "@payload-types": ["./payload-types.ts"],
-      "@/*": ["../../*"],
-      "@website/*": ["./*"]
-    }
+      "@payload-config": [
+        "./payload.config.ts"
+      ],
+      "@payload-types": [
+        "./payload-types.ts"
+      ],
+      "@/*": [
+        "../../*"
+      ],
+      "@website/*": [
+        "./*"
+      ]
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
@@ -20,5 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

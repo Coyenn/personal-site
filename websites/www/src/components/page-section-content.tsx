@@ -1,6 +1,11 @@
 import configPromise from '@payload-config';
 import type { PageSectionBlock } from '@payload-types';
+import BlogPostsBlockComponent from '@website/src/components/blocks/blog-posts-block-component';
+import CraftBlockComponent from '@website/src/components/blocks/craft-block-component';
 import ImageBlockComponent from '@website/src/components/blocks/image-block-component';
+import InspirationsBlockComponent from '@website/src/components/blocks/inspirations-block-component';
+import ProjectsBlockComponent from '@website/src/components/blocks/projects-block-component';
+import ShowReelBlockComponent from '@website/src/components/blocks/show-reel-block-component';
 import TextBlockComponent from '@website/src/components/blocks/text-block-component';
 import { getPayload } from 'payload';
 
@@ -24,6 +29,18 @@ export async function PageSectionContent(props: PageSectionContentProps) {
             return (
               <TextBlockComponent {...block} payload={payload} key={block.id} />
             );
+          case 'ShowReel':
+            return <ShowReelBlockComponent key={block.id} />;
+          case 'Projects':
+            return <ProjectsBlockComponent payload={payload} key={block.id} />;
+          case 'BlogPosts':
+            return <BlogPostsBlockComponent key={block.id} payload={payload} />;
+          case 'Inspirations':
+            return (
+              <InspirationsBlockComponent key={block.id} payload={payload} />
+            );
+          case 'Craft':
+            return <CraftBlockComponent key={block.id} payload={payload} />;
           default:
             return null;
         }

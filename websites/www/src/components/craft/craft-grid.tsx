@@ -3,28 +3,27 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect, useState } from 'react';
 
-import CraftGridItem, {
-  type Craft,
-} from '@website/src/components/craft/craft-grid-item';
+import CraftGridItem from '@website/src/components/craft/craft-grid-item';
 import MasonryGrid from '@website/src/components/layout/masonry';
 import Image from '@website/src/components/media/image';
 import MediaDetail from '@website/src/components/media/media-detail';
 import slugify from '@website/src/utilities/slugify';
+import type { CraftItem, Media } from '@payload-types';
 
 export interface CraftGridProps {
-  craft: Craft[];
+  items: CraftItem[];
 }
 
 export default function CraftGrid(props: CraftGridProps) {
-  const { craft } = props;
+  const { items } = props;
   const [detailIsOpen, setDetailIsOpen] = useState(false);
-  const [currentDetail, setCurrentDetail] = useState<Craft>();
-  const [similar, setSimilar] = useState<Craft[]>(craft);
+  const [currentDetail, setCurrentDetail] = useState<CraftItem>();
+  const [similar, setSimilar] = useState<CraftItem[]>(items);
   const [columns, setColumns] = useState(3);
   const craftPath = '/craft';
 
   function findCurrentDetailBySlug(slug: string) {
-    return craft.find((item) => slugify(item.title) === slug);
+    return items.find((item) => slugify(item.title) === slug);
   }
 
   function removeScrollingOnBody() {
@@ -38,12 +37,12 @@ export default function CraftGrid(props: CraftGridProps) {
   // Find 0-5 items that have atleast one tag in common with the current detail
   function getSimilarToCurrentDetail() {
     const currentDetailTags = currentDetail?.tags;
-    const similar: Craft[] = [];
+    const similar: CraftItem[] = [];
 
     // Add 3 related items that have atleast one tag in common with the current detail
     if (currentDetailTags) {
-      for (let i = 0; i < craft.length; i++) {
-        const item = craft[i];
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
         const itemTags = item?.tags;
 
         if (itemTags) {
@@ -67,7 +66,7 @@ export default function CraftGrid(props: CraftGridProps) {
 
     // If there are less than 5 similar items, add random items until there are 5
     if (similar.length < 5) {
-      const randomItems = craft
+      const randomItems = items
         .filter((item) => !similar.includes(item))
         .filter((item) => item !== currentDetail)
         .sort(() => 0.5 - Math.random())
@@ -97,7 +96,7 @@ export default function CraftGrid(props: CraftGridProps) {
     }
   }, []);
 
-  function onOpen(item: Craft) {
+  function onOpen(item: CraftItem) {
     const baseUrl = window.location.origin;
     const url = `${baseUrl}${craftPath}#${slugify(item.title)}`;
 
@@ -123,7 +122,7 @@ export default function CraftGrid(props: CraftGridProps) {
           onClose={onClose}
           open={detailIsOpen}
           similar={getSimilarToCurrentDetail()}
-          onSimilarClick={(item) => onOpen(item as Craft)}
+          onSimilarClick={(item) => onOpen(item as CraftItem)}
           {...currentDetail}
         />
       )}
@@ -134,11 +133,11 @@ export default function CraftGrid(props: CraftGridProps) {
           className='w-full placeholder-gray2 text-sm bg-gray6 px-3 py-2 text-gray1 md:max-w-72 h-10'
           onChange={(e) => {
             const value = e.target.value.toLowerCase();
-            const filtered = craft.filter((item) => {
+            const filtered = items.filter((item) => {
               const title = item.title.toLowerCase();
               const tags = item.tags?.join(' ').toLowerCase();
               const description = item.description?.toLowerCase();
-              const date = item.date?.toLowerCase();
+              const date = item.createdAt?.toLowerCase();
 
               return (
                 title.includes(value) ||
@@ -193,32 +192,16 @@ export default function CraftGrid(props: CraftGridProps) {
       </div>
       <MasonryGrid cols={columns}>
         {similar.map((item, index) => (
-          <CraftGridItem
-            key={index}
-            {...item}
-            onClick={() => onOpen(item)}
-            itemsVertical={columns > 4}
-          >
-            {item.image ? (
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={columns > 4 ? 300 : 400}
-                quality={90}
-                loading={index < 3 ? 'eager' : 'lazy'}
-                placeholder={item.showPlaceholderImage ? 'blur' : 'empty'}
-                className='w-full bg-gray5 text-gray1'
-              />
-            ) : (
-              <video
-                className='w-full bg-gray5'
-                autoPlay
-                loop
-                muted
-                playsInline
-                src={item.video}
-              />
-            )}
+          <CraftGridItem key={index} {...item} onClick={() => onOpen(item)}>
+            <Image
+              src={(item.image as Media)?.url ?? ''}
+              alt={item.title}
+              width={columns > 4 ? 300 : 400}
+              height={columns > 4 ? 300 : 400}
+              quality={90}
+              loading={index < 3 ? 'eager' : 'lazy'}
+              className='w-full bg-gray5 text-gray1'
+            />
           </CraftGridItem>
         ))}
       </MasonryGrid>

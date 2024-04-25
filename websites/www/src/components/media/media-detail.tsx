@@ -6,37 +6,24 @@ import FadeIn from '@website/src/components/common/fade-in';
 import Spinner from '@website/src/components/common/spinner';
 import Image from '@website/src/components/media/image';
 import { cn } from '@website/src/utilities/cn';
+import type { CraftItem, Media } from '@payload-types';
 
-export interface MediaDetailItemProps {
-  title: string;
-  description?: string;
-  link?: string;
-  target?: string;
-  tags?: string[];
-  image?: StaticImageData;
-  video?: string;
-  showPlaceholderImage?: boolean;
-}
-
-export interface MediaDetailProps extends MediaDetailItemProps {
-  similar?: MediaDetailItemProps[];
+export interface MediaDetailProps extends CraftItem {
+  similar?: CraftItem[];
   open: boolean;
   onClose: () => void;
-  onSimilarClick?: (item: MediaDetailItemProps) => void;
+  onSimilarClick?: (item: CraftItem) => void;
 }
 
 const MediaDetail = (props: MediaDetailProps) => {
   const {
     title,
     description,
-    link,
-    target,
+    slug,
     image,
-    video,
     similar,
     onSimilarClick,
     open = false,
-    showPlaceholderImage = false,
     tags,
   } = props;
   const [contentIsLoading, setContentIsLoading] = useState(true);
@@ -62,7 +49,7 @@ const MediaDetail = (props: MediaDetailProps) => {
 
   useEffect(() => {
     setContentIsLoading(true);
-  }, [image, video]);
+  }, [image]);
 
   return (
     <>
@@ -99,43 +86,24 @@ const MediaDetail = (props: MediaDetailProps) => {
               </svg>
             </button>
             <FadeIn runAnimation={!contentIsLoading}>
-              {image ? (
-                <Image
-                  src={image}
-                  alt={title}
-                  width={1400}
-                  quality={100}
-                  loading='eager'
-                  placeholder={showPlaceholderImage ? 'blur' : 'empty'}
-                  className={cn(
-                    'max-h-[80vh] w-auto max-w-[90vw] object-contain lg:max-w-full xl:max-w-[60vw]',
-                    contentIsLoading ? 'hidden' : 'border border-gray6',
-                  )}
-                  sizes='100vw'
-                  onLoad={() => {
-                    setTimeout(() => {
-                      setContentIsLoading(false);
-                    }, 10);
-                  }}
-                />
-              ) : (
-                <video
-                  className={cn(
-                    'max-h-[80vh] w-auto max-w-[90vw] object-contain lg:max-w-full xl:max-w-[50vw]',
-                    contentIsLoading ? 'hidden' : 'border border-gray6',
-                  )}
-                  onLoadedData={() => {
-                    setTimeout(() => {
-                      setContentIsLoading(false);
-                    }, 10);
-                  }}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  src={video}
-                />
-              )}
+              <Image
+                src={(image as Media)?.url ?? ''}
+                alt={title}
+                width={1400}
+                height={1400}
+                quality={100}
+                loading='eager'
+                className={cn(
+                  'max-h-[80vh] w-auto max-w-[90vw] object-contain lg:max-w-full xl:max-w-[60vw]',
+                  contentIsLoading ? 'hidden' : 'border border-gray6',
+                )}
+                sizes='100vw'
+                onLoad={() => {
+                  setTimeout(() => {
+                    setContentIsLoading(false);
+                  }, 10);
+                }}
+              />
             </FadeIn>
             {contentIsLoading && (
               <div className='flex items-center justify-center'>
@@ -153,25 +121,25 @@ const MediaDetail = (props: MediaDetailProps) => {
                 <div className='flex flex-col gap-3 lg:gap-4'>
                   <h1>{title}</h1>
                   <p className='text-gray3'>{description}</p>
-                  {link && (
+                  {slug && (
                     <Link
-                      href={link}
-                      target={target}
+                      href={slug}
+                      target={'_blank'}
                       scroll={false}
                       className='hover:underline'
                       onClick={enableScrollingOnBody}
                     >
-                      {link.startsWith('/') ? `tim-ritter.com${link}` : link}
+                      {slug}
                     </Link>
                   )}
                   {tags && (
                     <div className='flex flex-wrap gap-2'>
                       {tags.map((tag) => (
                         <span
-                          key={tag}
+                          key={tag.tag}
                           className='rounded bg-gray6 px-2 py-1 text-xs text-gray2'
                         >
-                          {tag}
+                          {tag.tag}
                         </span>
                       ))}
                     </div>

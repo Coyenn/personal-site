@@ -8,10 +8,13 @@ import { buildConfig } from 'payload/config';
 import { en } from 'payload/i18n/en';
 import sharp from 'sharp';
 
-import layoutsCollection from '@website/src/collections/layouts-collection';
 import mediaCollection from '@website/src/collections/media-collection';
 import pagesCollection from '@website/src/collections/pages-collection';
 import usersCollection from '@website/src/collections/users-collection';
+import projectsCollection from '@website/src/collections/projects-collection';
+import blogPostsCollection from '@website/src/collections/blog-posts-collection';
+import craftItemsCollection from '@website/src/collections/craft-items-collection';
+import inspirationItemsCollection from '@website/src/collections/inspiration-items-collection';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -22,9 +25,12 @@ export default buildConfig({
   }),
   collections: [
     usersCollection,
-    layoutsCollection,
     pagesCollection,
     mediaCollection,
+    projectsCollection,
+    blogPostsCollection,
+    craftItemsCollection,
+    inspirationItemsCollection,
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

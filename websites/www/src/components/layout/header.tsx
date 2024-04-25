@@ -13,15 +13,20 @@ import Container from '@website/src/components/layout/container';
 import PageSection from '@website/src/components/layout/page-section';
 import { cn } from '@website/src/utilities/cn';
 
-interface HeaderItemProps {
+export interface HeaderItemProps {
   href: string;
   title: string;
 }
 
-function HeaderDesktop() {
+export interface HeaderProps {
+  items: HeaderItemProps[];
+}
+
+function HeaderDesktop(props: HeaderProps) {
   const [borderOffset, setBorderOffset] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const currentPath = usePathname();
+  const { items } = props;
 
   useEffect(() => {
     setIsLoaded(true);
@@ -124,10 +129,13 @@ function HeaderDesktop() {
                 )}
               >
                 <ProfilePicture />
-                <HeaderItem href='/' title='Home' />
-                <HeaderItem href='/writing' title='Writing' />
-                <HeaderItem href='/inspiration' title='Inspiration' />
-                <HeaderItem href='/craft' title='Craft' />
+                {items.map((item) => (
+                  <HeaderItem
+                    key={item.href}
+                    href={item.href}
+                    title={item.title}
+                  />
+                ))}
               </ul>
             </Container>
           </PageSection>
@@ -138,7 +146,8 @@ function HeaderDesktop() {
   );
 }
 
-function HeaderMobile() {
+function HeaderMobile(props: HeaderProps) {
+  const { items } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentPath = usePathname();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -245,10 +254,13 @@ function HeaderMobile() {
                 initial='closed'
                 animate={isMenuOpen ? 'open' : 'closed'}
               >
-                <HeaderItem href='/' title='Home' />
-                <HeaderItem href='/writing' title='Writing' />
-                <HeaderItem href='/inspiration' title='Inspiration' />
-                <HeaderItem href='/craft' title='Craft' />
+                {items.map((item) => (
+                  <HeaderItem
+                    key={item.href}
+                    href={item.href}
+                    title={item.title}
+                  />
+                ))}
               </motion.ul>
             </Container>
           </PageSection>
@@ -258,7 +270,7 @@ function HeaderMobile() {
   );
 }
 
-export default function Header() {
+export default function Header(props: HeaderProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -278,8 +290,8 @@ export default function Header() {
   }, []);
 
   if (isMobile) {
-    return <HeaderMobile />;
+    return <HeaderMobile {...props} />;
   }
 
-  return <HeaderDesktop />;
+  return <HeaderDesktop {...props} />;
 }

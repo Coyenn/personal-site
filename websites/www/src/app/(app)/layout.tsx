@@ -7,8 +7,6 @@ import ColorScheme from '@website/src/components/accessibility/color-scheme';
 import JumpToContent from '@website/src/components/accessibility/jump-to-content';
 import FloatingTooltipListener from '@website/src/components/common/floating-tooltip-listener';
 import PageTransition from '@website/src/components/common/page-transition';
-import Footer from '@website/src/components/layout/footer';
-import Header from '@website/src/components/layout/header';
 import TooltipProvider from '@website/src/components/providers/tooltip-provider';
 
 import '@website/src/styles/globals.scss';
@@ -70,10 +68,8 @@ function Layout(props: LayoutProps) {
             <PageTransition />
             <ColorScheme />
             <JumpToContent />
-            <Header />
             {children}
             <FloatingTooltipListener />
-            <Footer />
           </TooltipProvider>
         </main>
         <Analytics />

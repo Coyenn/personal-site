@@ -1,4 +1,4 @@
-import type { Page } from '@payload-types';
+import type { Project } from '@payload-types';
 import Footer from '@website/src/components/layout/footer';
 import Header, {
   type HeaderItemProps,
@@ -6,21 +6,20 @@ import Header, {
 import PageIntro from '@website/src/components/layout/page-intro';
 import type { ReactNode } from 'react';
 
-export interface DefaultLayoutProps {
-  page?: Page;
+export interface ProjectLayoutProps {
+  project?: Project;
   headerItems?: HeaderItemProps[];
   children?: ReactNode;
 }
 
-export default function DefaultLayout(props: DefaultLayoutProps) {
-  const { page, children, headerItems } = props;
-  const intro = page?.intro;
+export default function ProjectLayout(props: ProjectLayoutProps) {
+  const { project, children, headerItems } = props;
 
   return (
     <>
-      <title>Tim Ritter - {page?.title}</title>
+      <title>Tim Ritter - {project?.title}</title>
       <Header items={headerItems ?? []} />
-      {intro && <PageIntro title={intro} />}
+      <PageIntro title={project?.description} backButton backButtonHref='/' />
       {children}
       <Footer />
     </>
