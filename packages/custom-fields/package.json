@@ -11,10 +11,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@payloadcms/ui": "3.0.0-beta.15",
+    "@payloadcms/ui": "3.0.0-beta.18",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
-    "payload": "3.0.0-beta.15",
+    "payload": "3.0.0-beta.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slugify": "^1.6.6",
