@@ -1,8 +1,4 @@
 import type { BlogPost, Media } from '@payload-types';
-import Footer from '@website/src/components/layout/footer';
-import Header, {
-  type HeaderItemProps,
-} from '@website/src/components/layout/header';
 import PageIntro from '@website/src/components/layout/page-intro';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
@@ -13,17 +9,15 @@ import CodeHighlight from '@website/src/components/media/code-hightlight';
 
 export interface BlogPostLayoutProps {
   blogPost?: BlogPost;
-  headerItems?: HeaderItemProps[];
   children?: ReactNode;
 }
 
 export default function BlogPostLayout(props: BlogPostLayoutProps) {
-  const { blogPost, children, headerItems } = props;
+  const { blogPost, children } = props;
 
   return (
     <>
       <title>Tim Ritter - {blogPost?.title}</title>
-      <Header items={headerItems ?? []} />
       <PageIntro
         title={
           <>
@@ -99,7 +93,6 @@ export default function BlogPostLayout(props: BlogPostLayoutProps) {
           <span>Go back</span>
         </TextButton>
       </PageSection>
-      <Footer />
     </>
   );
 }

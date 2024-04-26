@@ -1,8 +1,8 @@
 import configPromise from '@payload-config';
-import type { HeaderItemProps } from '@website/src/components/layout/header';
+import type { FooterItemProps } from '@website/src/components/layout/footer';
 import { getPayload } from 'payload';
 
-async function getFooterItems(): Promise<HeaderItemProps[]> {
+async function getFooterItems(): Promise<FooterItemProps[]> {
   const payload = await getPayload({
     config: configPromise,
   });
@@ -10,7 +10,7 @@ async function getFooterItems(): Promise<HeaderItemProps[]> {
   const data = await payload.find({
     collection: 'pages',
     where: {
-      'in-header': {
+      'in-footer': {
         equals: true,
       },
     },
@@ -21,7 +21,7 @@ async function getFooterItems(): Promise<HeaderItemProps[]> {
   return pages.map((page) => ({
     href: page.slug,
     title: page.title,
-  })) as HeaderItemProps[];
+  })) as FooterItemProps[];
 }
 
 export default getFooterItems;

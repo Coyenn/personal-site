@@ -10,6 +10,10 @@ import PageTransition from '@website/src/components/common/page-transition';
 import TooltipProvider from '@website/src/components/providers/tooltip-provider';
 
 import '@website/src/styles/globals.scss';
+import Header from '@website/src/components/layout/header';
+import Footer from '@website/src/components/layout/footer';
+import getHeaderItems from '@website/src/utilities/get-header-items';
+import getFooterItems from '@website/src/utilities/get-footer-items';
 
 const newsreader = Newsreader({
   subsets: ['latin'],
@@ -57,8 +61,10 @@ export const metadata: Metadata = {
   },
 };
 
-function Layout(props: LayoutProps) {
+async function Layout(props: LayoutProps) {
   const { children } = props;
+  const headerItems = await getHeaderItems();
+  const footerItems = await getFooterItems();
 
   return (
     <html lang='en' className={`${newsreader.variable} ${inter.variable}`}>
@@ -68,7 +74,9 @@ function Layout(props: LayoutProps) {
             <PageTransition />
             <ColorScheme />
             <JumpToContent />
+            <Header items={headerItems} />
             {children}
+            <Footer items={footerItems} />
             <FloatingTooltipListener />
           </TooltipProvider>
         </main>

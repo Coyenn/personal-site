@@ -7,7 +7,18 @@ import Clock from '@website/src/components/common/clock';
 import Container from '@website/src/components/layout/container';
 import PageSection from '@website/src/components/layout/page-section';
 
-export default function Footer() {
+export interface FooterItemProps {
+  title: string;
+  href: string;
+  target?: string;
+}
+
+export interface FooterProps {
+  items?: FooterItemProps[];
+}
+
+export default function Footer(props: FooterProps) {
+  const { items = [] } = props;
   const currentYear = new Date().getFullYear();
   const [currentMotivatingPhrase, setCurrentMotivatingPhrase] = useState('');
 
@@ -26,27 +37,7 @@ export default function Footer() {
     );
   }, []);
 
-  const links = [
-    {
-      title: 'Home',
-      href: '/',
-    },
-    {
-      title: 'About',
-      href: '/about',
-    },
-    {
-      title: 'Writing',
-      href: '/writing',
-    },
-    {
-      title: 'Craft',
-      href: '/craft',
-    },
-    {
-      title: 'Inspiration',
-      href: '/inspiration',
-    },
+  const staticItems: FooterItemProps[] = [
     {
       title: 'E-Mail',
       href: 'mailto:t-ritter-mail@web.de',
@@ -78,15 +69,15 @@ export default function Footer() {
               <p>{currentYear}</p>
             </div>
             <div className='grid grid-cols-2 gap-3 sm:ml-8 sm:gap-4 md:ml-12'>
-              {links.map((link) => (
-                <p key={link.title}>
+              {[...items, ...staticItems].map((item) => (
+                <p key={item.title}>
                   <Link
                     className='link-effect'
-                    href={link.href}
-                    target={link.target}
-                    key={link.title}
+                    href={item.href}
+                    target={item.target}
+                    key={item.title}
                   >
-                    {link.title}
+                    {item.title}
                   </Link>
                 </p>
               ))}
