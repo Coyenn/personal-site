@@ -83,7 +83,7 @@ function SlugComponent(props: SlugComponentProps) {
     .filter(Boolean)
     .join(' ');
 
-  const fields = useFormFields(([fields, dispatch]) => {
+  const fields = useFormFields(([fields]) => {
     return watchFields.map((watch) => fields[watch]);
   });
 

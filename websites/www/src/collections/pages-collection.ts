@@ -1,4 +1,5 @@
 import { PageSectionBlock } from '@website/src/blocks/page-section-block';
+import { SlugField } from '@repo/custom-fields';
 import type { CollectionConfig } from 'payload/types';
 
 const pagesCollection: CollectionConfig = {
@@ -11,10 +12,9 @@ const pagesCollection: CollectionConfig = {
       name: 'title',
       type: 'text',
     },
-    {
+    ...SlugField({
       name: 'slug',
-      type: 'text',
-    },
+    }),
     {
       name: 'layout',
       type: 'select',

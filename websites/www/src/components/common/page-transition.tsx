@@ -30,7 +30,7 @@ export default function PageTransition() {
 
   return (
     <div
-      className='absolute inset-0 w-full h-full bg-background z-[1] pointer-events-none'
+      className='fixed inset-0 w-full h-full bg-background z-[1] pointer-events-none'
       ref={scope}
       aria-hidden
     />

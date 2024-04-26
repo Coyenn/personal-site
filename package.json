@@ -9,8 +9,6 @@
   },
   "devDependencies": {
     "turbo": "^1.13.2",
-    "@biomejs/biome": "1.7.0",
-    "@repo/typescript-config": "workspace:*",
-    "@repo/custom-fields": "workspace:*"
+    "@biomejs/biome": "1.7.0"
   }
 }

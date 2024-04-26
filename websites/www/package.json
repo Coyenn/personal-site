@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@repo/custom-fields": "workspace:*",
+    "@repo/custom-richtext-blocks": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.12.7",

@@ -3,9 +3,14 @@ import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import {
+  lexicalEditor,
+  BlocksFeature,
+  type FeatureProviderServer,
+} from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload/config';
 import { en } from 'payload/i18n/en';
+import { CodeBlock } from '@repo/custom-richtext-blocks';
 import sharp from 'sharp';
 
 import mediaCollection from '@website/src/collections/media-collection';
@@ -21,7 +26,12 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   editor: lexicalEditor({
-    features: ({ defaultFeatures }) => [...defaultFeatures],
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      BlocksFeature({
+        blocks: [CodeBlock],
+      }) as FeatureProviderServer<unknown, unknown>,
+    ],
   }),
   collections: [
     usersCollection,

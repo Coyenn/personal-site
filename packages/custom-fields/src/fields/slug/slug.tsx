@@ -54,7 +54,7 @@ type Slug = (
   /**
    * Slug field config
    */
-  config: Config,
+  config?: Config,
   /**
    * Checkbox field config
    */
