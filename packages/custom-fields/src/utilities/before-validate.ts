@@ -1,14 +1,14 @@
-import type { SlugifyOptions } from "../fields/slug/slug-component";
-import getItemInNestObject from "./get-item-in-nest-object";
-import type { FieldHook } from "payload/types";
-import slugify from "slugify";
+import type { FieldHook } from 'payload/types';
+import slugify from 'slugify';
+import type { SlugifyOptions } from '../fields/slug/slug-component';
+import getItemInNestObject from './get-item-in-nest-object';
 
 const beforeValidate =
   (
     watchFields: string[],
     enableEditSlug: boolean,
     editFieldName: string,
-    slugifyOptions: SlugifyOptions
+    slugifyOptions: SlugifyOptions,
   ): FieldHook =>
   ({ siblingData, value, originalDoc, data, req }) => {
     if (enableEditSlug && Boolean(siblingData[editFieldName])) {
@@ -39,17 +39,17 @@ const beforeValidate =
       }
     }
 
-    const separator = slugifyOptions?.replacement ?? "-";
+    const separator = slugifyOptions?.replacement ?? '-';
 
     const processedValue = fields
       .filter((item) => Boolean(item))
       .reduce((accumulator, currentValue, currentIndex) => {
         return (
           String(accumulator) +
-          (currentIndex > 0 ? separator : "") +
+          (currentIndex > 0 ? separator : '') +
           slugify(String(currentValue), slugifyOptions)
         );
-      }, "");
+      }, '');
 
     return processedValue;
   };

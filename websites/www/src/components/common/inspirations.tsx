@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
+import type { InspirationItem, Media } from '@payload-types';
 import FloatingTooltip from '@website/src/components/common/floating-tooltip';
 import MasonryGrid from '@website/src/components/layout/masonry';
 import { MasonryItem } from '@website/src/components/layout/masonry';
 import Image from '@website/src/components/media/image';
-import type { InspirationItem, Media } from '@payload-types';
 
 interface InspirationsProps {
   items: InspirationItem[];

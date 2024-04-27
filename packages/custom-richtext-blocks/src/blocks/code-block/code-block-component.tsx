@@ -1,8 +1,8 @@
 'use client';
 
-import type { SelectField } from 'payload/types';
-import { useFormFields } from '@payloadcms/ui/forms/Form';
 import { Code as CodeField } from '@payloadcms/ui/fields/Code';
+import { useFormFields } from '@payloadcms/ui/forms/Form';
+import type { SelectField } from 'payload/types';
 
 export interface CodeBlockComponentProps {
   field?: SelectField & { path?: string };

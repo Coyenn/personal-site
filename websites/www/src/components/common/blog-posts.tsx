@@ -1,7 +1,7 @@
-import FloatingTooltip from '@website/src/components/common/floating-tooltip';
-import Link from 'next/link';
-import Image from 'next/image';
 import type { BlogPost, Media } from '@payload-types';
+import FloatingTooltip from '@website/src/components/common/floating-tooltip';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export interface BlogPostPreviewProps extends BlogPost {

@@ -2,11 +2,11 @@ import type { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import type { CraftItem, Media } from '@payload-types';
 import FadeIn from '@website/src/components/common/fade-in';
 import Spinner from '@website/src/components/common/spinner';
 import Image from '@website/src/components/media/image';
 import { cn } from '@website/src/utilities/cn';
-import type { CraftItem, Media } from '@payload-types';
 
 export interface MediaDetailProps extends CraftItem {
   similar?: CraftItem[];

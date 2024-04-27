@@ -1,10 +1,10 @@
 import type { CheckboxField, Field, FieldHook, TextField } from 'payload/types';
-import type { SlugifyOptions } from './slug-component';
 import type { PartialRequired } from '../../utilities/partial-required';
+import type { SlugifyOptions } from './slug-component';
 
-import { SlugComponent } from './slug-component';
 import beforeValidate from '../../utilities/before-validate';
 import deepMerge from '../../utilities/deep-merge';
+import { SlugComponent } from './slug-component';
 
 /**
  * Additional config unique to the Slug field

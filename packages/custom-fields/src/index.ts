@@ -1,1 +1,1 @@
-export { SlugField } from "./fields/slug/slug";
+export { SlugField } from './fields/slug/slug';

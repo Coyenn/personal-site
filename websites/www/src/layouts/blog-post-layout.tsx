@@ -1,11 +1,11 @@
 import type { BlogPost, Media } from '@payload-types';
+import TextButton from '@website/src/components/common/text-button';
 import PageIntro from '@website/src/components/layout/page-intro';
+import PageSection from '@website/src/components/layout/page-section';
+import CodeHighlight from '@website/src/components/media/code-hightlight';
+import Image from '@website/src/components/media/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import PageSection from '@website/src/components/layout/page-section';
-import Image from '@website/src/components/media/image';
-import TextButton from '@website/src/components/common/text-button';
-import CodeHighlight from '@website/src/components/media/code-hightlight';
 
 export interface BlogPostLayoutProps {
   blogPost?: BlogPost;

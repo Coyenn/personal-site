@@ -1,14 +1,14 @@
 'use client';
 
-import { useMemo, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import type { CheckboxField, TextField } from 'payload/types';
-import { useField } from '@payloadcms/ui/forms/useField';
-import { useFormFields } from '@payloadcms/ui/forms/Form';
 import { CheckboxInput } from '@payloadcms/ui/fields/Checkbox';
-import { FieldLabel } from '@payloadcms/ui/forms/FieldLabel';
-import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription';
 import { TextInput } from '@payloadcms/ui/fields/Text';
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription';
+import { FieldLabel } from '@payloadcms/ui/forms/FieldLabel';
+import { useFormFields } from '@payloadcms/ui/forms/Form';
+import { useField } from '@payloadcms/ui/forms/useField';
+import type { CheckboxField, TextField } from 'payload/types';
 import slugify from 'slugify';
 
 import '../../styles/fields/slug-component.scss';

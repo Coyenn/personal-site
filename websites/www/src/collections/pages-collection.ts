@@ -1,5 +1,5 @@
-import { PageSectionBlock } from '@website/src/blocks/page-section-block';
 import { SlugField } from '@repo/custom-fields';
+import { PageSectionBlock } from '@website/src/blocks/page-section-block';
 import type { CollectionConfig } from 'payload/types';
 
 const pagesCollection: CollectionConfig = {

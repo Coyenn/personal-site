@@ -3,12 +3,12 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect, useState } from 'react';
 
+import type { CraftItem, Media } from '@payload-types';
 import CraftGridItem from '@website/src/components/craft/craft-grid-item';
 import MasonryGrid from '@website/src/components/layout/masonry';
 import Image from '@website/src/components/media/image';
 import MediaDetail from '@website/src/components/media/media-detail';
 import slugify from '@website/src/utilities/slugify';
-import type { CraftItem, Media } from '@payload-types';
 
 export interface CraftGridProps {
   items: CraftItem[];

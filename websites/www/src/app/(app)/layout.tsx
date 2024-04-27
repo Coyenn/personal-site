@@ -9,11 +9,11 @@ import FloatingTooltipListener from '@website/src/components/common/floating-too
 import PageTransition from '@website/src/components/common/page-transition';
 import TooltipProvider from '@website/src/components/providers/tooltip-provider';
 
-import '@website/src/styles/globals.scss';
-import Header from '@website/src/components/layout/header';
 import Footer from '@website/src/components/layout/footer';
-import getHeaderItems from '@website/src/utilities/get-header-items';
+import Header from '@website/src/components/layout/header';
+import '@website/src/styles/globals.scss';
 import getFooterItems from '@website/src/utilities/get-footer-items';
+import getHeaderItems from '@website/src/utilities/get-header-items';
 
 const newsreader = Newsreader({
   subsets: ['latin'],

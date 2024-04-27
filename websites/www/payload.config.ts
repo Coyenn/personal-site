@@ -4,22 +4,22 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
 import {
-  lexicalEditor,
   BlocksFeature,
   type FeatureProviderServer,
+  lexicalEditor,
 } from '@payloadcms/richtext-lexical';
+import { CodeBlock } from '@repo/custom-richtext-blocks';
 import { buildConfig } from 'payload/config';
 import { en } from 'payload/i18n/en';
-import { CodeBlock } from '@repo/custom-richtext-blocks';
 import sharp from 'sharp';
 
-import mediaCollection from '@website/src/collections/media-collection';
-import pagesCollection from '@website/src/collections/pages-collection';
-import usersCollection from '@website/src/collections/users-collection';
-import projectsCollection from '@website/src/collections/projects-collection';
 import blogPostsCollection from '@website/src/collections/blog-posts-collection';
 import craftItemsCollection from '@website/src/collections/craft-items-collection';
 import inspirationItemsCollection from '@website/src/collections/inspiration-items-collection';
+import mediaCollection from '@website/src/collections/media-collection';
+import pagesCollection from '@website/src/collections/pages-collection';
+import projectsCollection from '@website/src/collections/projects-collection';
+import usersCollection from '@website/src/collections/users-collection';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

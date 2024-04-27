@@ -1,6 +1,6 @@
 import type { LexicalBlock } from '@payloadcms/richtext-lexical';
-import CodeBlockComponent from './code-block-component';
 import { createElement } from 'react';
+import CodeBlockComponent from './code-block-component';
 
 const LANGUAGES = {
   css: 'CSS',
