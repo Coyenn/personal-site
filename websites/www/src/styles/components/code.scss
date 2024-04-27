@@ -1,0 +1,38 @@
+@use "sass:meta";
+
+.language-bash::before {
+  content: "$ " !important;
+  color: rgb(var(--color-gray3));
+}
+
+html.light {
+  @include meta.load-css(
+    "../../../node_modules/highlight.js/styles/ascetic.css"
+  );
+
+  .prose {
+    pre {
+      background-color: rgb(var(--color-gray6)) !important;
+    }
+
+    code {
+      background-color: transparent !important;
+    }
+  }
+}
+
+html.dark {
+  @include meta.load-css(
+    "../../../node_modules/highlight.js/styles/base16/black-metal-venom.css"
+  );
+
+  .prose {
+    pre {
+      background-color: rgb(var(--color-gray6)) !important;
+    }
+
+    code {
+      background-color: transparent !important;
+    }
+  }
+}
