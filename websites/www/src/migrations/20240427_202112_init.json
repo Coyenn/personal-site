@@ -1,5 +1,5 @@
 {
-  "id": "00b4ced1-449c-4a89-a91b-bbbd538f9659",
+  "id": "79cab1c9-13d3-48c8-879c-3932e8ccdf7f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -3816,6 +3816,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "edit_slug": {
+          "name": "edit_slug",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -3832,6 +3838,13 @@
         }
       },
       "indexes": {
+        "blog_posts_slug_idx": {
+          "name": "blog_posts_slug_idx",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        },
         "blog_posts_created_at_idx": {
           "name": "blog_posts_created_at_idx",
           "columns": [
@@ -4024,6 +4037,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "edit_slug": {
+          "name": "edit_slug",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -4040,6 +4059,13 @@
         }
       },
       "indexes": {
+        "craft_items_slug_idx": {
+          "name": "craft_items_slug_idx",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        },
         "craft_items_created_at_idx": {
           "name": "craft_items_created_at_idx",
           "columns": [

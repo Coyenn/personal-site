@@ -454,6 +454,7 @@ CREATE TABLE IF NOT EXISTS "blog_posts" (
 	"title" varchar NOT NULL,
 	"date" timestamp(3) with time zone NOT NULL,
 	"slug" varchar,
+	"edit_slug" boolean,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
 );
@@ -478,6 +479,7 @@ CREATE TABLE IF NOT EXISTS "craft_items" (
 	"title" varchar NOT NULL,
 	"description" varchar,
 	"slug" varchar,
+	"edit_slug" boolean,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
 );
@@ -663,12 +665,14 @@ CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_path_idx" ON "blog_posts_blo
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_order_idx" ON "blog_posts_blocks_page_section" ("_order");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_parent_id_idx" ON "blog_posts_blocks_page_section" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_path_idx" ON "blog_posts_blocks_page_section" ("_path");
+CREATE UNIQUE INDEX IF NOT EXISTS "blog_posts_slug_idx" ON "blog_posts" ("slug");
 CREATE INDEX IF NOT EXISTS "blog_posts_created_at_idx" ON "blog_posts" ("created_at");
 CREATE INDEX IF NOT EXISTS "blog_posts_rels_order_idx" ON "blog_posts_rels" ("order");
 CREATE INDEX IF NOT EXISTS "blog_posts_rels_parent_idx" ON "blog_posts_rels" ("parent_id");
 CREATE INDEX IF NOT EXISTS "blog_posts_rels_path_idx" ON "blog_posts_rels" ("path");
 CREATE INDEX IF NOT EXISTS "craft_items_tags_order_idx" ON "craft_items_tags" ("_order");
 CREATE INDEX IF NOT EXISTS "craft_items_tags_parent_id_idx" ON "craft_items_tags" ("_parent_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "craft_items_slug_idx" ON "craft_items" ("slug");
 CREATE INDEX IF NOT EXISTS "craft_items_created_at_idx" ON "craft_items" ("created_at");
 CREATE INDEX IF NOT EXISTS "craft_items_rels_order_idx" ON "craft_items_rels" ("order");
 CREATE INDEX IF NOT EXISTS "craft_items_rels_parent_idx" ON "craft_items_rels" ("parent_id");
