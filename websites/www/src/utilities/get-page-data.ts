@@ -1,7 +1,9 @@
 import configPromise from '@payload-config';
 import { getPayload } from 'payload';
+import { cache } from 'react';
 
-async function getPageData(slug: string | string[]) {
+// Notice the use of cache to ensure that the payload is only fetched once
+const getPageData = cache(async (slug: string) => {
   const payload = await getPayload({
     config: configPromise,
   });
@@ -11,7 +13,7 @@ async function getPageData(slug: string | string[]) {
       collection: 'pages',
       where: {
         slug: {
-          equals: typeof slug === 'string' ? slug : `/${slug.join('/')}`,
+          equals: slug,
         },
       },
     })
@@ -22,7 +24,7 @@ async function getPageData(slug: string | string[]) {
       collection: 'projects',
       where: {
         slug: {
-          equals: typeof slug === 'string' ? slug : `/${slug.join('/')}`,
+          equals: slug,
         },
       },
     })
@@ -33,13 +35,13 @@ async function getPageData(slug: string | string[]) {
       collection: 'blog-posts',
       where: {
         slug: {
-          equals: typeof slug === 'string' ? slug : `/${slug.join('/')}`,
+          equals: slug,
         },
       },
     })
   ).docs[0];
 
   return page ?? project ?? blogPost;
-}
+});
 
 export default getPageData;
