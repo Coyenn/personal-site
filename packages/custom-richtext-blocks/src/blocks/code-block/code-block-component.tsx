@@ -14,12 +14,8 @@ function CodeBlockComponent(props: CodeBlockComponentProps) {
   const language = useFormFields(([fields]) => {
     return fields.language;
   });
-  const key = language?.value as keyof typeof languages;
-  const label = languages[key];
-
-  if (languages[key] === undefined) {
-    return null;
-  }
+  const key = language?.value ?? 'typescript';
+  const label = languages[key as keyof typeof languages];
 
   return (
     <CodeField

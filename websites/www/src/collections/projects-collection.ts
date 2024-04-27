@@ -1,3 +1,4 @@
+import { SlugField } from '@repo/custom-fields';
 import { PageSectionBlock } from '@website/src/blocks/page-section-block';
 import type { CollectionConfig } from 'payload/types';
 
@@ -31,10 +32,9 @@ const projectsCollection: CollectionConfig = {
         mimeType: { contains: 'image' },
       },
     },
-    {
+    ...SlugField({
       name: 'slug',
-      type: 'text',
-    },
+    }),
     {
       name: 'content',
       type: 'blocks',
