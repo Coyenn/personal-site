@@ -1,0 +1,39 @@
+html[data-theme="dark"] {
+  .logo {
+    fill: white;
+  }
+
+  --theme-elevation-0: rgb(20, 20, 20);
+  --theme-elevation-50: rgb(30, 30, 30);
+  --theme-elevation-100: rgb(40, 40, 40);
+  --theme-elevation-150: rgb(50, 50, 50);
+  --theme-elevation-200: rgb(60, 60, 60);
+  --theme-elevation-250: rgb(70, 70, 70);
+  --theme-elevation-300: rgb(80, 80, 80);
+  --theme-elevation-350: rgb(90, 90, 90);
+  --theme-elevation-400: rgb(100, 100, 100);
+  --theme-elevation-450: rgb(110, 110, 110);
+  --theme-elevation-550: rgb(120, 120, 120);
+  --theme-elevation-600: rgb(130, 130, 130);
+  --theme-elevation-650: rgb(140, 140, 140);
+  --theme-elevation-700: rgb(150, 150, 150);
+  --theme-elevation-750: rgb(160, 160, 160);
+  --theme-elevation-800: rgb(170, 170, 170);
+  --theme-elevation-850: rgb(180, 180, 180);
+  --theme-elevation-900: rgb(200, 200, 200);
+  --theme-elevation-950: rgb(230, 230, 230);
+  --theme-elevation-1000: rgb(255, 255, 255);
+  --theme-bg: rgb(20, 20, 20);
+}
+
+.login {
+  .logo {
+    width: 100px;
+  }
+}
+
+.app-header {
+  .logo {
+    width: 20px;
+  }
+}

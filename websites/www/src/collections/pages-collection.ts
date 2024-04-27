@@ -11,6 +11,9 @@ const pagesCollection: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
     },
     ...SlugField({
       name: 'slug',
@@ -18,6 +21,9 @@ const pagesCollection: CollectionConfig = {
     {
       name: 'layout',
       type: 'select',
+      admin: {
+        position: 'sidebar',
+      },
       options: [
         {
           label: 'Default',
@@ -33,6 +39,9 @@ const pagesCollection: CollectionConfig = {
       label: 'Appears in header',
       defaultValue: false,
       required: false,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'in-footer',
@@ -40,6 +49,9 @@ const pagesCollection: CollectionConfig = {
       label: 'Appears in footer',
       defaultValue: false,
       required: false,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'intro',

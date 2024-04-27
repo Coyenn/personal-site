@@ -20,6 +20,7 @@ import mediaCollection from '@website/src/collections/media-collection';
 import pagesCollection from '@website/src/collections/pages-collection';
 import projectsCollection from '@website/src/collections/projects-collection';
 import usersCollection from '@website/src/collections/users-collection';
+import Logo from '@website/src/components/media/logo';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -68,6 +69,19 @@ export default buildConfig({
       },
     }),
   ],
+  admin: {
+    meta: {
+      favicon: '/favicon.ico',
+      ogImage: '/og-image.png',
+      titleSuffix: ' — Tim Ritter',
+    },
+    components: {
+      graphics: {
+        Logo: Logo,
+        Icon: Logo,
+      },
+    },
+  },
   async onInit(payload) {
     const existingUsers = await payload.find({
       collection: 'users',

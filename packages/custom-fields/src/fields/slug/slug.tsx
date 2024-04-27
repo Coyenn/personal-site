@@ -123,6 +123,7 @@ const SlugField: Slug = (
       required: false,
       admin: {
         disabled: !checkbox.enable,
+        position: 'sidebar',
         hidden: true,
       },
       hooks: {
@@ -152,6 +153,7 @@ const SlugField: Slug = (
       unique: true,
       admin: {
         readOnly: false,
+        position: 'sidebar',
         components: {
           Field: SlugComponent,
         },

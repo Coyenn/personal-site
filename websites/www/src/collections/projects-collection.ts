@@ -12,16 +12,25 @@ const projectsCollection: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'description',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'timeframe',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'image',

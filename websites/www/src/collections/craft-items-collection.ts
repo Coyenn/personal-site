@@ -11,11 +11,17 @@ const craftItemsCollection: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'description',
       type: 'text',
       required: false,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'image',

@@ -12,11 +12,17 @@ const blogPostsCollection: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'date',
       type: 'date',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'image',

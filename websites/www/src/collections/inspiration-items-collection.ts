@@ -10,11 +10,17 @@ const inspirationItemsCollection: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'link',
       type: 'text',
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'image',

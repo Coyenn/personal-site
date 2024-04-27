@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import type React from 'react';
 
 import '@payloadcms/next/css';
+import '@website/src/styles/admin.scss';
 import '@website/src/styles/globals.scss';
 
 export const metadata: Metadata = {
