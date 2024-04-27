@@ -13,6 +13,10 @@ import type { Block } from 'payload/types';
 export const PageSectionBlock: Block = {
   slug: 'PageSection',
   interfaceName: 'PageSectionBlock',
+  labels: {
+    plural: 'Page Sections',
+    singular: 'Page Section',
+  },
   fields: [
     {
       name: 'size',

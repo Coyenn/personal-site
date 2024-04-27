@@ -3,6 +3,10 @@ import type { Block } from 'payload/types';
 export const ToolsBlock: Block = {
   slug: 'Tools',
   interfaceName: 'ToolsBlock',
+  labels: {
+    plural: 'Tools',
+    singular: 'Tools',
+  },
   fields: [
     {
       name: 'tools',

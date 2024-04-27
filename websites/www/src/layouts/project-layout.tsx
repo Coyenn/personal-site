@@ -12,7 +12,6 @@ export default function ProjectLayout(props: ProjectLayoutProps) {
 
   return (
     <>
-      <title>Tim Ritter - {project?.title}</title>
       <PageIntro title={project?.description} backButton backButtonHref='/' />
       {children}
     </>

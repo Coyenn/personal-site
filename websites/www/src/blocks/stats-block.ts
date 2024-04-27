@@ -3,6 +3,10 @@ import type { Block } from 'payload/types';
 export const StatsBlock: Block = {
   slug: 'Stats',
   interfaceName: 'StatsBlock',
+  labels: {
+    plural: 'Stats',
+    singular: 'Stats',
+  },
   fields: [
     {
       name: 'stats',

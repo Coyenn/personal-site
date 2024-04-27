@@ -69,17 +69,17 @@ async function Layout(props: LayoutProps) {
   return (
     <html lang='en' className={`${newsreader.variable} ${inter.variable}`}>
       <body className='bg-background'>
-        <main id='content' className='bg-background antialiased min-h-screen'>
-          <TooltipProvider>
-            <PageTransition />
-            <ColorScheme />
-            <JumpToContent />
-            <Header items={headerItems} />
+        <TooltipProvider>
+          <PageTransition />
+          <ColorScheme />
+          <JumpToContent />
+          <Header items={headerItems} />
+          <main id='content' className='bg-background antialiased min-h-screen'>
             {children}
-            <Footer items={footerItems} />
-            <FloatingTooltipListener />
-          </TooltipProvider>
-        </main>
+          </main>
+          <Footer items={footerItems} />
+          <FloatingTooltipListener />
+        </TooltipProvider>
         <Analytics />
       </body>
     </html>

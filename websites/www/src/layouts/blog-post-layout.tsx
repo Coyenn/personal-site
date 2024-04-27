@@ -17,7 +17,6 @@ export default function BlogPostLayout(props: BlogPostLayoutProps) {
 
   return (
     <>
-      <title>Tim Ritter - {blogPost?.title}</title>
       <PageIntro
         title={
           <>

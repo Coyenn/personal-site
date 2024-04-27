@@ -13,7 +13,6 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
 
   return (
     <>
-      <title>Tim Ritter - {page?.title}</title>
       {intro && <PageIntro title={intro} />}
       {children}
     </>

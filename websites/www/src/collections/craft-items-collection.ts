@@ -1,3 +1,4 @@
+import { SlugField } from '@repo/custom-fields';
 import type { CollectionConfig } from 'payload/types';
 
 const craftItemsCollection: CollectionConfig = {
@@ -37,10 +38,9 @@ const craftItemsCollection: CollectionConfig = {
       ],
       required: false,
     },
-    {
+    ...SlugField({
       name: 'slug',
-      type: 'text',
-    },
+    }),
   ],
 };
 

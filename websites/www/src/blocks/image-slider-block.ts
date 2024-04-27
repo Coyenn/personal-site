@@ -3,6 +3,10 @@ import type { Block } from 'payload/types';
 export const ImageSliderBlock: Block = {
   slug: 'ImageSlider',
   interfaceName: 'ImageSliderBlock',
+  labels: {
+    plural: 'Image Sliders',
+    singular: 'Image Slider',
+  },
   fields: [
     {
       name: 'images',

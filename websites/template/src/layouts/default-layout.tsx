@@ -11,7 +11,6 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
 
   return (
     <>
-      <title>Tim Ritter - {page?.title}</title>
       <PageSection className='my-2 sm:my-4 md:my-6 lg:my-8'>
         <h1 className='font-normal text-3xl'>{page?.title}</h1>
       </PageSection>
