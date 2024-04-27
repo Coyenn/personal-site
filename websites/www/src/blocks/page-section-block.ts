@@ -1,10 +1,13 @@
 import { BlogPostsBlock } from '@website/src/blocks/blog-posts-block';
 import { CraftBlock } from '@website/src/blocks/craft-block';
 import { ImageBlock } from '@website/src/blocks/image-block';
+import { ImageSliderBlock } from '@website/src/blocks/image-slider-block';
 import { InspirationsBlock } from '@website/src/blocks/inspirations-block';
 import { ProjectsBlock } from '@website/src/blocks/projects-block';
 import { ShowReelBlock } from '@website/src/blocks/show-reel-block';
+import { StatsBlock } from '@website/src/blocks/stats-block';
 import { TextBlock } from '@website/src/blocks/text-block';
+import { ToolsBlock } from '@website/src/blocks/tools-block';
 import type { Block } from 'payload/types';
 
 export const PageSectionBlock: Block = {
@@ -39,6 +42,9 @@ export const PageSectionBlock: Block = {
         BlogPostsBlock,
         InspirationsBlock,
         CraftBlock,
+        ImageSliderBlock,
+        StatsBlock,
+        ToolsBlock,
       ],
     },
     {

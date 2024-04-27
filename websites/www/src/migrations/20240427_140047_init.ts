@@ -97,6 +97,53 @@ CREATE TABLE IF NOT EXISTS "pages_blocks_craft" (
 	"block_name" varchar
 );
 
+CREATE TABLE IF NOT EXISTS "pages_blocks_image_slider_images" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "pages_blocks_image_slider" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "pages_blocks_stats_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"value" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "pages_blocks_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "pages_blocks_tools_tools" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"description" varchar NOT NULL,
+	"link" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "pages_blocks_tools" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
 CREATE TABLE IF NOT EXISTS "pages_blocks_page_section" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
@@ -112,6 +159,7 @@ CREATE TABLE IF NOT EXISTS "pages" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"title" varchar,
 	"slug" varchar,
+	"edit_slug" boolean,
 	"layout" "enum_pages_layout" NOT NULL,
 	"in_header" boolean,
 	"in_footer" boolean,
@@ -201,6 +249,53 @@ CREATE TABLE IF NOT EXISTS "projects_blocks_craft" (
 	"block_name" varchar
 );
 
+CREATE TABLE IF NOT EXISTS "projects_blocks_image_slider_images" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "projects_blocks_image_slider" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "projects_blocks_stats_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"value" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "projects_blocks_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "projects_blocks_tools_tools" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"description" varchar NOT NULL,
+	"link" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "projects_blocks_tools" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
 CREATE TABLE IF NOT EXISTS "projects_blocks_page_section" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
@@ -218,6 +313,7 @@ CREATE TABLE IF NOT EXISTS "projects" (
 	"description" varchar NOT NULL,
 	"timeframe" varchar NOT NULL,
 	"slug" varchar,
+	"edit_slug" boolean,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
 );
@@ -288,6 +384,53 @@ CREATE TABLE IF NOT EXISTS "blog_posts_blocks_inspirations" (
 );
 
 CREATE TABLE IF NOT EXISTS "blog_posts_blocks_craft" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_image_slider_images" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_image_slider" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_stats_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"value" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_stats" (
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_tools_tools" (
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"description" varchar NOT NULL,
+	"link" varchar NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "blog_posts_blocks_tools" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
 	"_path" text NOT NULL,
@@ -410,9 +553,25 @@ CREATE INDEX IF NOT EXISTS "pages_blocks_inspirations_path_idx" ON "pages_blocks
 CREATE INDEX IF NOT EXISTS "pages_blocks_craft_order_idx" ON "pages_blocks_craft" ("_order");
 CREATE INDEX IF NOT EXISTS "pages_blocks_craft_parent_id_idx" ON "pages_blocks_craft" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "pages_blocks_craft_path_idx" ON "pages_blocks_craft" ("_path");
+CREATE INDEX IF NOT EXISTS "pages_blocks_image_slider_images_order_idx" ON "pages_blocks_image_slider_images" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_image_slider_images_parent_id_idx" ON "pages_blocks_image_slider_images" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_image_slider_order_idx" ON "pages_blocks_image_slider" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_image_slider_parent_id_idx" ON "pages_blocks_image_slider" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_image_slider_path_idx" ON "pages_blocks_image_slider" ("_path");
+CREATE INDEX IF NOT EXISTS "pages_blocks_stats_stats_order_idx" ON "pages_blocks_stats_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_stats_stats_parent_id_idx" ON "pages_blocks_stats_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_stats_order_idx" ON "pages_blocks_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_stats_parent_id_idx" ON "pages_blocks_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_stats_path_idx" ON "pages_blocks_stats" ("_path");
+CREATE INDEX IF NOT EXISTS "pages_blocks_tools_tools_order_idx" ON "pages_blocks_tools_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_tools_tools_parent_id_idx" ON "pages_blocks_tools_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_tools_order_idx" ON "pages_blocks_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "pages_blocks_tools_parent_id_idx" ON "pages_blocks_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "pages_blocks_tools_path_idx" ON "pages_blocks_tools" ("_path");
 CREATE INDEX IF NOT EXISTS "pages_blocks_page_section_order_idx" ON "pages_blocks_page_section" ("_order");
 CREATE INDEX IF NOT EXISTS "pages_blocks_page_section_parent_id_idx" ON "pages_blocks_page_section" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "pages_blocks_page_section_path_idx" ON "pages_blocks_page_section" ("_path");
+CREATE UNIQUE INDEX IF NOT EXISTS "pages_slug_idx" ON "pages" ("slug");
 CREATE INDEX IF NOT EXISTS "pages_created_at_idx" ON "pages" ("created_at");
 CREATE INDEX IF NOT EXISTS "pages_rels_order_idx" ON "pages_rels" ("order");
 CREATE INDEX IF NOT EXISTS "pages_rels_parent_idx" ON "pages_rels" ("parent_id");
@@ -440,9 +599,25 @@ CREATE INDEX IF NOT EXISTS "projects_blocks_inspirations_path_idx" ON "projects_
 CREATE INDEX IF NOT EXISTS "projects_blocks_craft_order_idx" ON "projects_blocks_craft" ("_order");
 CREATE INDEX IF NOT EXISTS "projects_blocks_craft_parent_id_idx" ON "projects_blocks_craft" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "projects_blocks_craft_path_idx" ON "projects_blocks_craft" ("_path");
+CREATE INDEX IF NOT EXISTS "projects_blocks_image_slider_images_order_idx" ON "projects_blocks_image_slider_images" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_image_slider_images_parent_id_idx" ON "projects_blocks_image_slider_images" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_image_slider_order_idx" ON "projects_blocks_image_slider" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_image_slider_parent_id_idx" ON "projects_blocks_image_slider" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_image_slider_path_idx" ON "projects_blocks_image_slider" ("_path");
+CREATE INDEX IF NOT EXISTS "projects_blocks_stats_stats_order_idx" ON "projects_blocks_stats_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_stats_stats_parent_id_idx" ON "projects_blocks_stats_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_stats_order_idx" ON "projects_blocks_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_stats_parent_id_idx" ON "projects_blocks_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_stats_path_idx" ON "projects_blocks_stats" ("_path");
+CREATE INDEX IF NOT EXISTS "projects_blocks_tools_tools_order_idx" ON "projects_blocks_tools_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_tools_tools_parent_id_idx" ON "projects_blocks_tools_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_tools_order_idx" ON "projects_blocks_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "projects_blocks_tools_parent_id_idx" ON "projects_blocks_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "projects_blocks_tools_path_idx" ON "projects_blocks_tools" ("_path");
 CREATE INDEX IF NOT EXISTS "projects_blocks_page_section_order_idx" ON "projects_blocks_page_section" ("_order");
 CREATE INDEX IF NOT EXISTS "projects_blocks_page_section_parent_id_idx" ON "projects_blocks_page_section" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "projects_blocks_page_section_path_idx" ON "projects_blocks_page_section" ("_path");
+CREATE UNIQUE INDEX IF NOT EXISTS "projects_slug_idx" ON "projects" ("slug");
 CREATE INDEX IF NOT EXISTS "projects_created_at_idx" ON "projects" ("created_at");
 CREATE INDEX IF NOT EXISTS "projects_rels_order_idx" ON "projects_rels" ("order");
 CREATE INDEX IF NOT EXISTS "projects_rels_parent_idx" ON "projects_rels" ("parent_id");
@@ -470,6 +645,21 @@ CREATE INDEX IF NOT EXISTS "blog_posts_blocks_inspirations_path_idx" ON "blog_po
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_craft_order_idx" ON "blog_posts_blocks_craft" ("_order");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_craft_parent_id_idx" ON "blog_posts_blocks_craft" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_craft_path_idx" ON "blog_posts_blocks_craft" ("_path");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_image_slider_images_order_idx" ON "blog_posts_blocks_image_slider_images" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_image_slider_images_parent_id_idx" ON "blog_posts_blocks_image_slider_images" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_image_slider_order_idx" ON "blog_posts_blocks_image_slider" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_image_slider_parent_id_idx" ON "blog_posts_blocks_image_slider" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_image_slider_path_idx" ON "blog_posts_blocks_image_slider" ("_path");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_stats_stats_order_idx" ON "blog_posts_blocks_stats_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_stats_stats_parent_id_idx" ON "blog_posts_blocks_stats_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_stats_order_idx" ON "blog_posts_blocks_stats" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_stats_parent_id_idx" ON "blog_posts_blocks_stats" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_stats_path_idx" ON "blog_posts_blocks_stats" ("_path");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_tools_order_idx" ON "blog_posts_blocks_tools_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_tools_parent_id_idx" ON "blog_posts_blocks_tools_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_order_idx" ON "blog_posts_blocks_tools" ("_order");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_parent_id_idx" ON "blog_posts_blocks_tools" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "blog_posts_blocks_tools_path_idx" ON "blog_posts_blocks_tools" ("_path");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_order_idx" ON "blog_posts_blocks_page_section" ("_order");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_parent_id_idx" ON "blog_posts_blocks_page_section" ("_parent_id");
 CREATE INDEX IF NOT EXISTS "blog_posts_blocks_page_section_path_idx" ON "blog_posts_blocks_page_section" ("_path");
@@ -536,6 +726,42 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
+ ALTER TABLE "pages_blocks_image_slider_images" ADD CONSTRAINT "pages_blocks_image_slider_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages_blocks_image_slider"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "pages_blocks_image_slider" ADD CONSTRAINT "pages_blocks_image_slider_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "pages_blocks_stats_stats" ADD CONSTRAINT "pages_blocks_stats_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages_blocks_stats"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "pages_blocks_stats" ADD CONSTRAINT "pages_blocks_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "pages_blocks_tools_tools" ADD CONSTRAINT "pages_blocks_tools_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages_blocks_tools"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "pages_blocks_tools" ADD CONSTRAINT "pages_blocks_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
  ALTER TABLE "pages_blocks_page_section" ADD CONSTRAINT "pages_blocks_page_section_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -591,6 +817,42 @@ END $$;
 
 DO $$ BEGIN
  ALTER TABLE "projects_blocks_craft" ADD CONSTRAINT "projects_blocks_craft_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_image_slider_images" ADD CONSTRAINT "projects_blocks_image_slider_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects_blocks_image_slider"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_image_slider" ADD CONSTRAINT "projects_blocks_image_slider_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_stats_stats" ADD CONSTRAINT "projects_blocks_stats_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects_blocks_stats"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_stats" ADD CONSTRAINT "projects_blocks_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_tools_tools" ADD CONSTRAINT "projects_blocks_tools_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects_blocks_tools"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "projects_blocks_tools" ADD CONSTRAINT "projects_blocks_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "projects"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -657,6 +919,42 @@ END $$;
 
 DO $$ BEGIN
  ALTER TABLE "blog_posts_blocks_craft" ADD CONSTRAINT "blog_posts_blocks_craft_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_image_slider_images" ADD CONSTRAINT "blog_posts_blocks_image_slider_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts_blocks_image_slider"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_image_slider" ADD CONSTRAINT "blog_posts_blocks_image_slider_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_stats_stats" ADD CONSTRAINT "blog_posts_blocks_stats_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts_blocks_stats"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_stats" ADD CONSTRAINT "blog_posts_blocks_stats_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_tools_tools" ADD CONSTRAINT "blog_posts_blocks_tools_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts_blocks_tools"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "blog_posts_blocks_tools" ADD CONSTRAINT "blog_posts_blocks_tools_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blog_posts"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -735,6 +1033,12 @@ DROP TABLE "pages_blocks_projects";
 DROP TABLE "pages_blocks_blog_posts";
 DROP TABLE "pages_blocks_inspirations";
 DROP TABLE "pages_blocks_craft";
+DROP TABLE "pages_blocks_image_slider_images";
+DROP TABLE "pages_blocks_image_slider";
+DROP TABLE "pages_blocks_stats_stats";
+DROP TABLE "pages_blocks_stats";
+DROP TABLE "pages_blocks_tools_tools";
+DROP TABLE "pages_blocks_tools";
 DROP TABLE "pages_blocks_page_section";
 DROP TABLE "pages";
 DROP TABLE "pages_rels";
@@ -746,6 +1050,12 @@ DROP TABLE "projects_blocks_projects";
 DROP TABLE "projects_blocks_blog_posts";
 DROP TABLE "projects_blocks_inspirations";
 DROP TABLE "projects_blocks_craft";
+DROP TABLE "projects_blocks_image_slider_images";
+DROP TABLE "projects_blocks_image_slider";
+DROP TABLE "projects_blocks_stats_stats";
+DROP TABLE "projects_blocks_stats";
+DROP TABLE "projects_blocks_tools_tools";
+DROP TABLE "projects_blocks_tools";
 DROP TABLE "projects_blocks_page_section";
 DROP TABLE "projects";
 DROP TABLE "projects_rels";
@@ -757,6 +1067,12 @@ DROP TABLE "blog_posts_blocks_projects";
 DROP TABLE "blog_posts_blocks_blog_posts";
 DROP TABLE "blog_posts_blocks_inspirations";
 DROP TABLE "blog_posts_blocks_craft";
+DROP TABLE "blog_posts_blocks_image_slider_images";
+DROP TABLE "blog_posts_blocks_image_slider";
+DROP TABLE "blog_posts_blocks_stats_stats";
+DROP TABLE "blog_posts_blocks_stats";
+DROP TABLE "blog_posts_blocks_tools_tools";
+DROP TABLE "blog_posts_blocks_tools";
 DROP TABLE "blog_posts_blocks_page_section";
 DROP TABLE "blog_posts";
 DROP TABLE "blog_posts_rels";

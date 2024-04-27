@@ -3,10 +3,13 @@ import type { PageSectionBlock } from '@payload-types';
 import BlogPostsBlockComponent from '@website/src/components/blocks/blog-posts-block-component';
 import CraftBlockComponent from '@website/src/components/blocks/craft-block-component';
 import ImageBlockComponent from '@website/src/components/blocks/image-block-component';
+import ImageSliderBlockComponent from '@website/src/components/blocks/image-slider-block-component';
 import InspirationsBlockComponent from '@website/src/components/blocks/inspirations-block-component';
 import ProjectsBlockComponent from '@website/src/components/blocks/projects-block-component';
 import ShowReelBlockComponent from '@website/src/components/blocks/show-reel-block-component';
+import StatsBlockComponent from '@website/src/components/blocks/stats-block-component';
 import TextBlockComponent from '@website/src/components/blocks/text-block-component';
+import ToolsBlockComponent from '@website/src/components/blocks/tools-block-component';
 import { getPayload } from 'payload';
 
 export interface PageSectionContentProps {
@@ -41,6 +44,12 @@ export async function PageSectionContent(props: PageSectionContentProps) {
             );
           case 'Craft':
             return <CraftBlockComponent key={block.id} payload={payload} />;
+          case 'ImageSlider':
+            return <ImageSliderBlockComponent {...block} key={block.id} />;
+          case 'Stats':
+            return <StatsBlockComponent {...block} key={block.id} />;
+          case 'Tools':
+            return <ToolsBlockComponent {...block} key={block.id} />;
           default:
             return null;
         }

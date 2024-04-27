@@ -49,6 +49,7 @@ export interface Page {
   id: number;
   title?: string | null;
   slug?: string | null;
+  editSlug?: boolean | null;
   layout: 'default';
   'in-header'?: boolean | null;
   'in-footer'?: boolean | null;
@@ -64,7 +65,18 @@ export interface Page {
 export interface PageSectionBlock {
   size: 'default' | 'xs' | 'sm' | 'lg' | 'xl' | '2xl' | 'full';
   content?:
-    | (ImageBlock | TextBlock | ShowReelBlock | ProjectsBlock | BlogPostsBlock | InspirationsBlock | CraftBlock)[]
+    | (
+        | ImageBlock
+        | TextBlock
+        | ShowReelBlock
+        | ProjectsBlock
+        | BlogPostsBlock
+        | InspirationsBlock
+        | CraftBlock
+        | ImageSliderBlock
+        | StatsBlock
+        | ToolsBlock
+      )[]
     | null;
   disablePadding?: boolean | null;
   disableContainer?: boolean | null;
@@ -172,6 +184,54 @@ export interface CraftBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageSliderBlock".
+ */
+export interface ImageSliderBlock {
+  images?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ImageSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  stats?:
+    | {
+        title: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Stats';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ToolsBlock".
+ */
+export interface ToolsBlock {
+  tools?:
+    | {
+        title: string;
+        description: string;
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Tools';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
@@ -181,6 +241,7 @@ export interface Project {
   timeframe: string;
   image: number | Media;
   slug?: string | null;
+  editSlug?: boolean | null;
   content?: PageSectionBlock[] | null;
   updatedAt: string;
   createdAt: string;
