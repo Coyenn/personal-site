@@ -13,10 +13,11 @@ html.light {
   .prose {
     pre {
       background-color: rgb(var(--color-gray6)) !important;
+      padding: 1rem !important;
     }
 
     code {
-      padding: 1rem !important;
+      padding: 0rem !important;
       background-color: transparent !important;
     }
   }
@@ -30,10 +31,11 @@ html.dark {
   .prose {
     pre {
       background-color: rgb(var(--color-gray6)) !important;
+      padding: 1rem !important;
     }
 
     code {
-      padding: 1rem !important;
+      padding: 0rem !important;
       background-color: transparent !important;
     }
   }
