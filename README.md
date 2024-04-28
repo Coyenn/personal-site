@@ -2,8 +2,6 @@
 
 <img src="./assets/preview.webp" />
 
-<hr />
-
 # Tim Ritter - Personal Website
 
 [Live Website](https://tim-ritter.com) •
@@ -45,20 +43,20 @@ Before getting started, it is important to note that this project is a [Monorepo
 
 1. Clone the repository
 2. Install dependencies using `pnpm install`
-3. Start the postgres database using `cd websites/www && ./start-database.sh`
+3. Start the postgres database using `cd websites/www && ./start-database.sh` (requires Docker)
 4. Copy the `.env.example` file to `.env` and fill in the values
 5. Start the website using `pnpm dev`
 
 You can now access the website at `http://localhost:3000`.
 
-## Deploying
-
-This is just a simple guide on how to deploy the project to Vercel. For more information on how to deploy to Vercel, refer to the [Vercel documentation](https://vercel.com/docs/concepts/deployments/overview).
+## Deploying to Vercel
 
 1. Create a new repository on GitHub
 2. Push your code to the new repository
 3. Import the repository to Vercel
 4. Configure the environment variables
 5. Create a Blob Storage and Postgres Database on Vercel
-6. Connect thhe Blob Storage and Postgres Database to the Vercel project
+6. Connect the Blob Storage and Postgres Database to the Vercel project
 7. Deploy the project
+
+This is just a rough overview on how to deploy the project to Vercel. For more information on how to deploy to Vercel, refer to the [Vercel documentation](https://vercel.com/docs/concepts/deployments/overview).
