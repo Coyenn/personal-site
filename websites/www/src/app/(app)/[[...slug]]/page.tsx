@@ -23,9 +23,6 @@ function getPageSlug(slug?: string | string[]) {
   return pageSlug;
 }
 
-// revalidate the data at most every hour
-export const revalidate = 3600;
-
 export default async function Page(props: PageProps) {
   const page = await getPageData(getPageSlug(props.params.slug));
 
