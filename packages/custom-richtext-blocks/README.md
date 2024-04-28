@@ -1,3 +1,3 @@
 # Custom Richtext Features
 
-This package includes several custom richtext features that can be used in withe the lexical richtext editor.
+This package includes custom richtext features that can be used in with the lexical richtext editor.
