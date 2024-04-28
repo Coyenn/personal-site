@@ -121,17 +121,6 @@ const MediaDetail = (props: MediaDetailProps) => {
                 <div className='flex flex-col gap-3 lg:gap-4'>
                   <h1>{title}</h1>
                   <p className='text-gray3'>{description}</p>
-                  {slug && (
-                    <Link
-                      href={slug}
-                      target={'_blank'}
-                      scroll={false}
-                      className='hover:underline'
-                      onClick={enableScrollingOnBody}
-                    >
-                      {slug}
-                    </Link>
-                  )}
                   {tags && (
                     <div className='flex flex-wrap gap-2'>
                       {tags.map((tag) => (
