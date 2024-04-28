@@ -12,7 +12,7 @@ interface PageProps {
 function getPageSlug(slug?: string | string[]) {
   let pageSlug = '/';
 
-  if (typeof slug === 'string') {
+  if (typeof slug === 'string' && slug !== 'index') {
     pageSlug = pageSlug + slug;
   }
 
