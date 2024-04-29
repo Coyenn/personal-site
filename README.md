@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/preview.webp" />
+<img src="./websites/www/public/images/preview.webp" />
 
 # Tim Ritter - Personal Website
 

@@ -1,6 +1,6 @@
 import configPromise from '@payload-config';
-import { getPayload } from 'payload';
 import { memoize } from 'nextjs-better-unstable-cache';
+import { getPayload } from 'payload';
 
 // Notice the use of memoize to ensure that the payload is only fetched periodically
 const getPageData = memoize(
