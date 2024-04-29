@@ -14,7 +14,7 @@ export interface BlogPostProps {
 
 function BlogPostPreview(props: BlogPostPreviewProps) {
   const { image, date, title, loading, slug, content } = props;
-  const bodyLength = content?.length ?? 0;
+  const bodyLength = JSON.stringify(content).length;
 
   return (
     <FloatingTooltip text='View'>
@@ -44,7 +44,7 @@ function BlogPostPreview(props: BlogPostPreviewProps) {
                 year: 'numeric',
               })}
             </time>{' '}
-            · {Math.ceil((bodyLength ?? 0) / 100)} min read
+            · {Math.ceil(((bodyLength ?? 0) - 25000) / 1000)} min. read
           </p>
         </div>
       </Link>

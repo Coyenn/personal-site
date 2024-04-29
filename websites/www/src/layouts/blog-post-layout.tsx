@@ -14,6 +14,7 @@ export interface BlogPostLayoutProps {
 
 export default function BlogPostLayout(props: BlogPostLayoutProps) {
   const { blogPost, children } = props;
+  const bodyLength = JSON.stringify(blogPost?.content).length;
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function BlogPostLayout(props: BlogPostLayoutProps) {
                     year: 'numeric',
                   })}
                 </time>{' '}
-                · {Math.ceil((blogPost?.content?.length ?? 0) / 100)} min. read
+                · {Math.ceil(((bodyLength ?? 0) - 25000) / 1000)} min. read
               </span>
             </div>
             <div className='flex justify-center gap-8'>

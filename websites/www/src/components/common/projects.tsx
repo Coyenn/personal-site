@@ -80,8 +80,11 @@ function ProjectItem(props: Project) {
 
 export default function ProjectGrid(props: ProjectGridProps) {
   const { projects } = props;
-  const firstItem = projects[0];
-  const secondItem = projects[1];
+  const sortedProjects = projects.sort((a, b) =>
+    b.timeframe.localeCompare(a.timeframe),
+  );
+  const firstItem = sortedProjects[0];
+  const secondItem = sortedProjects[1];
 
   return (
     <div className='my-10 sm:my-16 md:my-24 lg:my-36 xl:gap-18 grid grid-cols-1 gap-12 sm:grid-cols-2 md:lg:gap-16 lg:gap-24 xl:gap-36'>

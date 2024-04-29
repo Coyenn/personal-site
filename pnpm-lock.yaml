@@ -11,6 +11,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.7.1
         version: 1.7.1
+      husky:
+        specifier: ^9.0.11
+        version: 9.0.11
       turbo:
         specifier: ^1.13.3
         version: 1.13.3
@@ -2457,6 +2460,11 @@ packages:
   http-status@1.6.2:
     resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
     engines: {node: '>= 0.4.0'}
+
+  husky@9.0.11:
+    resolution: {integrity: sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -5893,6 +5901,8 @@ snapshots:
       parse-passwd: 1.0.0
 
   http-status@1.6.2: {}
+
+  husky@9.0.11: {}
 
   ieee754@1.2.1: {}
 

@@ -1,30 +1,13 @@
 import PageContent from '@website/src/components/page-content';
 import PageLayout from '@website/src/components/page-layout';
 import getPageData from '@website/src/utilities/get-page-data';
+import { getPageSlug } from '@website/src/utilities/get-page-slug';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: {
     slug?: string | string[];
   };
-}
-
-function getPageSlug(slug?: string | string[]) {
-  let pageSlug = '/';
-
-  if (typeof slug === 'string') {
-    pageSlug = pageSlug + slug;
-  }
-
-  if (Array.isArray(slug)) {
-    pageSlug = pageSlug + slug.join('/');
-  }
-
-  if (pageSlug === '/index') {
-    pageSlug = '/';
-  }
-
-  return pageSlug;
 }
 
 export default async function Page(props: PageProps) {

@@ -27,13 +27,13 @@ This repository contains the source code for my personal website. It is built us
 
 ## Copying
 
-The souce code for my website is licensed under the MIT license. You may copy and use the source code for your own website, but you must include a link to this repository.
+My website is licensed under the MIT license. You may copy and use the source code for your own project, but you must include a link to this repository.
 
-If you don't want to credit me and just need a starter template, use my [Template](./websites/template/). It's licensed under the CC0 license.
+If you don't want to credit me and just need a starter template, use my [Template](./websites/template/). It's licensed under CC0. (Meaning you can use it for pretty much anything)
 
 # Getting Started
 
-Before getting started, it is important to note that this project is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) and is therefore devided into multiple apps and packages.
+It's important to note that this project is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) and is therefore devided into multiple [apps](./websites/) (websites) and [packages](./packages/).
 
 ## Prerequisites
 
@@ -59,4 +59,4 @@ You can now access the website at `http://localhost:3000`.
 6. Connect the Blob Storage and Postgres Database to the Vercel project
 7. Deploy the project
 
-This is just a rough overview on how to deploy the project to Vercel. For more information on how to deploy to Vercel, refer to the [Vercel documentation](https://vercel.com/docs/concepts/deployments/overview).
+This is just a rough overview. For more information on how to deploy to Vercel, refer to the [Vercel documentation](https://vercel.com/docs/concepts/deployments/overview).

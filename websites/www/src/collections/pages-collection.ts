@@ -1,11 +1,30 @@
+import type { Page } from '@payload-types';
 import { SlugField } from '@repo/custom-fields';
 import { PageSectionBlock } from '@website/src/blocks/page-section-block';
-import type { CollectionConfig } from 'payload/types';
+import { revalidateTag } from 'next/cache';
+import type {
+  CollectionAfterChangeHook,
+  CollectionConfig,
+} from 'payload/types';
+
+// Invalidate the pages cache
+const afterChangeHook: CollectionAfterChangeHook = async ({ doc }) => {
+  const pageSlug = (doc as Page)?.slug ?? '';
+
+  console.log('Invalidating pages cache for', pageSlug);
+
+  revalidateTag(pageSlug);
+
+  return doc;
+};
 
 const pagesCollection: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [afterChangeHook],
   },
   fields: [
     {
