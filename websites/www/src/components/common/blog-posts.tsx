@@ -44,7 +44,7 @@ function BlogPostPreview(props: BlogPostPreviewProps) {
                 year: 'numeric',
               })}
             </time>{' '}
-            · {Math.ceil(((bodyLength ?? 0) - 25000) / 1000)} min. read
+            · {Math.ceil(((bodyLength ?? 0) - 10000) / 3000)} min. read
           </p>
         </div>
       </Link>

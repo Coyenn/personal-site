@@ -34,7 +34,7 @@ export default function BlogPostLayout(props: BlogPostLayoutProps) {
                     year: 'numeric',
                   })}
                 </time>{' '}
-                · {Math.ceil(((bodyLength ?? 0) - 25000) / 1000)} min. read
+                · {Math.ceil(((bodyLength ?? 0) - 10000) / 3000)} min. read
               </span>
             </div>
             <div className='flex justify-center gap-8'>
