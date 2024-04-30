@@ -90,6 +90,7 @@ export interface PageSectionBlock {
  */
 export interface ImageBlock {
   image: number | Media;
+  lightbox?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Image';
@@ -264,6 +265,7 @@ export interface BlogPost {
       }[]
     | null;
   slug?: string | null;
+  editSlug?: boolean | null;
   content?: PageSectionBlock[] | null;
   updatedAt: string;
   createdAt: string;
@@ -284,6 +286,7 @@ export interface CraftItem {
       }[]
     | null;
   slug?: string | null;
+  editSlug?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }

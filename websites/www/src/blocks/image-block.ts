@@ -17,5 +17,10 @@ export const ImageBlock: Block = {
         mimeType: { contains: 'image' },
       },
     },
+    {
+      name: 'lightbox',
+      type: 'checkbox',
+      defaultValue: false,
+    },
   ],
 };

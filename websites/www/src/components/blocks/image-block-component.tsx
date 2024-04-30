@@ -1,5 +1,5 @@
 import type { ImageBlock as ImageBlockType, Media } from '@payload-types';
-import Image from 'next/image';
+import Image from '@website/src/components/media/image';
 
 export default function ImageBlockComponent(props: ImageBlockType) {
   const image = props.image as Media;
@@ -10,6 +10,8 @@ export default function ImageBlockComponent(props: ImageBlockType) {
       alt={image?.alt ?? 'No alt text provided'}
       width={image?.width ?? 0}
       height={image?.height ?? 0}
+      lightbox={props?.lightbox ?? false}
+      caption={image?.caption ?? ''}
     />
   );
 }
