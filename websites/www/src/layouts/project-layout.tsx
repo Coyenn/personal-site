@@ -2,8 +2,8 @@ import type { Project } from '@payload-types';
 import TextButton from '@website/src/components/common/text-button';
 import PageIntro from '@website/src/components/layout/page-intro';
 import PageSection from '@website/src/components/layout/page-section';
-import type { ReactNode } from 'react';
 import parse from 'html-react-parser';
+import type { ReactNode } from 'react';
 
 export interface ProjectLayoutProps {
   project?: Project;

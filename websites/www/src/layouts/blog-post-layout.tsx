@@ -4,9 +4,9 @@ import PageIntro from '@website/src/components/layout/page-intro';
 import PageSection from '@website/src/components/layout/page-section';
 import CodeHighlight from '@website/src/components/media/code-hightlight';
 import Image from '@website/src/components/media/image';
+import parse from 'html-react-parser';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import parse from 'html-react-parser';
 
 export interface BlogPostLayoutProps {
   blogPost?: BlogPost;

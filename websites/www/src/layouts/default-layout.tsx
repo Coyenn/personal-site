@@ -1,7 +1,7 @@
 import type { Page } from '@payload-types';
 import PageIntro from '@website/src/components/layout/page-intro';
-import type { ReactNode } from 'react';
 import parse from 'html-react-parser';
+import type { ReactNode } from 'react';
 
 export interface DefaultLayoutProps {
   page?: Page;
