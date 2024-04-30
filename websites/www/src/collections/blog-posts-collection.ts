@@ -1,11 +1,30 @@
+import type { BlogPost } from '@payload-types';
 import { SlugField } from '@repo/custom-fields';
 import { PageSectionBlock } from '@website/src/blocks/page-section-block';
-import type { CollectionConfig } from 'payload/types';
+import { revalidateTag } from 'next/cache';
+import type {
+  CollectionAfterChangeHook,
+  CollectionConfig,
+} from 'payload/types';
+
+// Invalidate cache
+const afterChangeHook: CollectionAfterChangeHook = async ({ doc }) => {
+  const pageSlug = (doc as BlogPost)?.slug ?? '';
+
+  console.log('Invalidating cache for', pageSlug);
+
+  revalidateTag(pageSlug);
+
+  return doc;
+};
 
 const blogPostsCollection: CollectionConfig = {
   slug: 'blog-posts',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [afterChangeHook],
   },
   fields: [
     {

@@ -7,11 +7,11 @@ import type {
   CollectionConfig,
 } from 'payload/types';
 
-// Invalidate the pages cache
+// Invalidate cache
 const afterChangeHook: CollectionAfterChangeHook = async ({ doc }) => {
   const pageSlug = (doc as Page)?.slug ?? '';
 
-  console.log('Invalidating pages cache for', pageSlug);
+  console.log('Invalidating cache for', pageSlug);
 
   revalidateTag(pageSlug);
 
