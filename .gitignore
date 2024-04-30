@@ -47,3 +47,6 @@ websites/*/media
 
 # windows
 *.Identifier
+
+# database
+backups

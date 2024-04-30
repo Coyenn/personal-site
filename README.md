@@ -43,7 +43,7 @@ It's important to note that this project is a [Monorepo](https://en.wikipedia.or
 
 1. Clone the repository
 2. Install dependencies using `pnpm install`
-3. Start the postgres database using `cd websites/www && ./start-database.sh` (requires Docker)
+3. Start the postgres database using `cd websites/www && ./scripts/start-database.sh` (requires Docker)
 4. Copy the `.env.example` file to `.env` and fill in the values
 5. Start the website using `pnpm dev`
 
