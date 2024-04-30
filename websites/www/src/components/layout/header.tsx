@@ -241,7 +241,7 @@ function HeaderMobile(props: HeaderProps) {
               size={24}
             />
           </div>
-          <PageSection className='!py-0'>
+          <>
             <Container
               className={cn(
                 'absolute inset-0 top-0 z-0 h-0 w-full flex flex-col items-center justify-center overflow-hidden bg-background text-gray1 transition-[height] duration-300',
@@ -263,7 +263,7 @@ function HeaderMobile(props: HeaderProps) {
                 ))}
               </motion.ul>
             </Container>
-          </PageSection>
+          </>
         </ul>
       </nav>
     </header>
