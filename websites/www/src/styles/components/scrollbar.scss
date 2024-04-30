@@ -1,4 +1,4 @@
-.custom-scrollbar {
+@mixin scrollbar {
   &::-webkit-scrollbar {
     height: 0.15rem;
     border-radius: 0;
@@ -23,4 +23,9 @@
     background: rgb(var(--color-gray2));
     border: none;
   }
+}
+
+.custom-scrollbar,
+.prose > pre {
+  @include scrollbar;
 }
