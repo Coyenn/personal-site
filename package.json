@@ -1,6 +1,11 @@
 {
   "name": "www",
   "private": true,
+  "author": {
+    "name": "Tim Ritter",
+    "email": "timritter@gmail.com",
+    "url": "https://tim-ritter.com"
+  },
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
