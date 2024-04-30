@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.0.0-beta.20",
-    "@payloadcms/next": "3.0.0-beta.19",
+    "@payloadcms/next": "3.0.0-beta.20",
     "@payloadcms/richtext-lexical": "3.0.0-beta.20",
     "@payloadcms/richtext-slate": "3.0.0-beta.20",
     "@payloadcms/translations": "3.0.0-beta.19",
