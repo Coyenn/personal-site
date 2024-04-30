@@ -44,7 +44,8 @@
     "react-zoom-pan-pinch": "^3.4.4",
     "sharp": "0.33.3",
     "slugify": "^1.6.6",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "html-react-parser": "^5.1.10"
   },
   "devDependencies": {
     "@repo/custom-fields": "workspace:*",

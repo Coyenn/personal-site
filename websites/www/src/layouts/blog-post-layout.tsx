@@ -6,6 +6,7 @@ import CodeHighlight from '@website/src/components/media/code-hightlight';
 import Image from '@website/src/components/media/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import parse from 'html-react-parser';
 
 export interface BlogPostLayoutProps {
   blogPost?: BlogPost;
@@ -23,7 +24,7 @@ export default function BlogPostLayout(props: BlogPostLayoutProps) {
           <>
             <div className='mb-3 sm:mb-4 md:mb-5'>
               <div className='text-2xl text-gray1 md:text-3xl'>
-                {blogPost?.title}
+                {parse(blogPost?.title ?? '')}
               </div>
               <span className='text-xs text-gray3'>
                 <time dateTime={blogPost?.date}>

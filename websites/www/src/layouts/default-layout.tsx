@@ -1,6 +1,7 @@
 import type { Page } from '@payload-types';
 import PageIntro from '@website/src/components/layout/page-intro';
 import type { ReactNode } from 'react';
+import parse from 'html-react-parser';
 
 export interface DefaultLayoutProps {
   page?: Page;
@@ -13,7 +14,7 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
 
   return (
     <>
-      {intro && <PageIntro title={intro} />}
+      {intro && <PageIntro title={parse(intro ?? '')} />}
       {children}
     </>
   );
