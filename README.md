@@ -19,7 +19,7 @@ This repository contains the source code for my personal website. It is built us
 ## Features
 
 - Extremely customizable thanks to [Payload CMS](https://payloadcms.com/)
-- Very fast loading times thanks to aggressive caching with [Next.js Better Unstable Cache](https://github.com/vercel/next.js/tree/canary/packages/nextjs-better-unstable-cache)
+- Very fast loading times thanks to aggressive caching with [Next.js Better Unstable Cache](https://github.com/alfonsusac/nextjs-better-unstable-cache)
 - Hosted on [Vercel](https://vercel.com/) using Vercel Blob Storage and Postgres Database
 - Responsive design
 - SEO-friendly
