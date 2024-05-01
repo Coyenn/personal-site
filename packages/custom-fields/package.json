@@ -13,7 +13,7 @@
   "dependencies": {
     "@payloadcms/next": "3.0.0-beta.20",
     "@payloadcms/richtext-lexical": "3.0.0-beta.20",
-    "@payloadcms/ui": "3.0.0-beta.19",
+    "@payloadcms/ui": "3.0.0-beta.20",
     "next": "^14.2.2",
     "payload": "3.0.0-beta.20",
     "react": "^18.2.0",
