@@ -49,7 +49,7 @@ const getPageData = memoize(
     persist: true,
 
     // Invalidation period, default Infinity
-    duration: 3600, // 1 hour
+    duration: 60 * 60 * 12, // 12 hours
 
     // For next's revalidateTags() purposes.
     revalidateTags: (slug) => ['pages', slug],
