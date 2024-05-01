@@ -25,6 +25,11 @@ This repository contains the source code for my personal website. It is built us
 - SEO-friendly
 - Dark and light mode
 
+<div align="center">
+  <img src="./websites/www/public/images/preview-payload.webp" />
+  <small>Payload CMS</small>
+</div>
+
 ## Copying
 
 My website is licensed under the MIT license. You may copy and use the source code for your own project, but you must include a link to this repository.
