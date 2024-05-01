@@ -27,7 +27,7 @@ This repository contains the source code for my personal website. It is built us
 
 <div align="center">
   <img src="./websites/www/public/images/preview-payload.webp" />
-  <small>Payload CMS</small>
+  <small>All content is managed by Payload CMS</small>
 </div>
 
 ## Copying
