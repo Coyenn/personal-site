@@ -21,7 +21,7 @@
     "@payloadcms/plugin-cloud-storage": "3.0.0-beta.6-86adc6f",
     "@payloadcms/richtext-lexical": "3.0.0-beta.20",
     "@payloadcms/richtext-slate": "3.0.0-beta.20",
-    "@payloadcms/translations": "3.0.0-beta.19",
+    "@payloadcms/translations": "3.0.0-beta.20",
     "@payloadcms/ui": "3.0.0-beta.19",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/analytics": "^1.2.2",
