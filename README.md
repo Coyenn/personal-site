@@ -46,6 +46,8 @@ It's important to note that this project is a [Monorepo](https://en.wikipedia.or
 - [PNPM](https://pnpm.io/)
 - [Docker](https://www.docker.com/) (only when using a local PostgreSQL database)
 
+## Installation
+
 1. Clone the repository
 2. Install dependencies using `pnpm install`
 3. Start the postgres database using `cd websites/www && ./scripts/start-database.sh` (requires Docker)
