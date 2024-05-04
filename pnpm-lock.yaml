@@ -121,8 +121,8 @@ importers:
         specifier: 3.0.0-beta.20
         version: 3.0.0-beta.20(@payloadcms/next@3.0.0-beta.20(@types/react@18.3.1)(file-type@16.5.4)(graphql@16.8.1)(http-status@1.6.2)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.14)
       '@payloadcms/richtext-slate':
-        specifier: 3.0.0-beta.23
-        version: 3.0.0-beta.23(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0-beta.24
+        version: 3.0.0-beta.24(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@payloadcms/translations':
         specifier: 3.0.0-beta.20
         version: 3.0.0-beta.20
@@ -203,8 +203,8 @@ importers:
         specifier: 3.0.0-beta.20
         version: 3.0.0-beta.20(@payloadcms/next@3.0.0-beta.20(@types/react@18.3.1)(file-type@16.5.4)(graphql@16.8.1)(http-status@1.6.2)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.14)
       '@payloadcms/richtext-slate':
-        specifier: 3.0.0-beta.23
-        version: 3.0.0-beta.23(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0-beta.24
+        version: 3.0.0-beta.24(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@payloadcms/translations':
         specifier: 3.0.0-beta.20
         version: 3.0.0-beta.20
@@ -1354,13 +1354,13 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@payloadcms/richtext-slate@3.0.0-beta.23':
-    resolution: {integrity: sha512-FUN8E2iZ1Qyh9GgkHUd6dPKRhVvLSxJX9ZzfH85mWCy+mYhHXKQeRaNpC0CU7BlOLwgTI1ihwqTbc+WtQov7pw==}
+  '@payloadcms/richtext-slate@3.0.0-beta.24':
+    resolution: {integrity: sha512-RdTMG5hH0+JWhRDIBtf4/OHCpSFQrqz5AdIvagsrI3uA6vgnSRp6Ah9Yl7vRpwEQp1nrA13QObUSCJ5qlr+q4Q==}
     engines: {node: '>=18.20.2'}
     peerDependencies:
-      '@payloadcms/translations': 3.0.0-beta.23
-      '@payloadcms/ui': 3.0.0-beta.23
-      payload: 3.0.0-beta.23
+      '@payloadcms/translations': 3.0.0-beta.24
+      '@payloadcms/ui': 3.0.0-beta.24
+      payload: 3.0.0-beta.24
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
   '@payloadcms/translations@3.0.0-beta.20':
@@ -4901,7 +4901,7 @@ snapshots:
     transitivePeerDependencies:
       - yjs
 
-  '@payloadcms/richtext-slate@3.0.0-beta.23(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@payloadcms/richtext-slate@3.0.0-beta.24(@payloadcms/translations@3.0.0-beta.20)(@payloadcms/ui@3.0.0-beta.20(@types/react@18.3.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2))(payload@3.0.0-beta.20(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@faceless-ui/modal': 2.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@payloadcms/translations': 3.0.0-beta.20
