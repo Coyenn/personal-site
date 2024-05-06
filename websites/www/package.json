@@ -16,7 +16,7 @@
     "biome:ci": "biome check ."
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.0.0-beta.24",
+    "@payloadcms/db-postgres": "3.0.0-beta.25",
     "@payloadcms/next": "3.0.0-beta.20",
     "@payloadcms/plugin-cloud-storage": "3.0.0-beta.6-86adc6f",
     "@payloadcms/richtext-lexical": "3.0.0-beta.20",
