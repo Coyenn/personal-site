@@ -2,7 +2,7 @@
 
 DB_CONTAINER_NAME="www"
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../"
 
 if ! [ -x "$(command -v docker)" ]; then
   echo "Docker is not installed. Please install docker and try again.\nDocker install guide: https://docs.docker.com/engine/install/"

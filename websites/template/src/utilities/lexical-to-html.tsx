@@ -1,3 +1,4 @@
+import configPromise from '@payload-config';
 import {
   consolidateHTMLConverters,
   convertLexicalToHTML,
@@ -8,7 +9,11 @@ import type { Payload } from 'payload';
 
 // biome-ignore lint/suspicious/noExplicitAny: Lexical to HTML is a complex function that requires any
 async function lexicalToHTML(editorData: any, payload: Payload) {
-  const editorConfig = sanitizeServerEditorConfig(defaultEditorConfig);
+  const config = await configPromise;
+  const editorConfig = await sanitizeServerEditorConfig(
+    defaultEditorConfig,
+    config,
+  );
 
   return await convertLexicalToHTML({
     converters: consolidateHTMLConverters({ editorConfig }),
