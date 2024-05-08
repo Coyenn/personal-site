@@ -112,8 +112,8 @@ importers:
   websites/template:
     dependencies:
       '@payloadcms/db-postgres':
-        specifier: 3.0.0-beta.25
-        version: 3.0.0-beta.25(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)
+        specifier: 3.0.0-beta.28
+        version: 3.0.0-beta.28(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)
       '@payloadcms/next':
         specifier: 3.0.0-beta.25
         version: 3.0.0-beta.25(@types/react@18.3.1)(graphql@16.8.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)(typescript@5.4.5)
@@ -191,8 +191,8 @@ importers:
   websites/www:
     dependencies:
       '@payloadcms/db-postgres':
-        specifier: 3.0.0-beta.25
-        version: 3.0.0-beta.25(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)
+        specifier: 3.0.0-beta.28
+        version: 3.0.0-beta.28(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)
       '@payloadcms/next':
         specifier: 3.0.0-beta.25
         version: 3.0.0-beta.25(@types/react@18.3.1)(graphql@16.8.1)(monaco-editor@0.48.0)(next@14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.75.0))(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)(typescript@5.4.5)
@@ -1298,10 +1298,10 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@payloadcms/db-postgres@3.0.0-beta.25':
-    resolution: {integrity: sha512-hRto7KHPHQQppGqbBtNqgWoLechFv8AsYJbgmssYoDtJ2mO3HCBe2ccbRZEHYpvu1Ks07kdx1Yz9BkJzstRyWQ==}
+  '@payloadcms/db-postgres@3.0.0-beta.28':
+    resolution: {integrity: sha512-3HJ45XhwJrlm7GejRQNX5SCdK09gK5PV9sjTM5F1nA4hvJjuFgovZNVjNqCvwHFnIiFKsstQfbNl3joIH09rxg==}
     peerDependencies:
-      payload: 3.0.0-beta.25
+      payload: 3.0.0-beta.28
 
   '@payloadcms/graphql@3.0.0-beta.25':
     resolution: {integrity: sha512-xKPEuEKNESwEjRA3DS2jH9QhAJfnj9MhbusYpVAsfVerheC3GIU1oqkDRUMYcaa/PyEOWJaUVi2weQ9ZkGq0oQ==}
@@ -4805,7 +4805,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@payloadcms/db-postgres@3.0.0-beta.25(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)':
+  '@payloadcms/db-postgres@3.0.0-beta.28(@types/react@18.3.1)(payload@3.0.0-beta.25(@swc/core@1.4.17(@swc/helpers@0.5.10))(@swc/types@0.1.6)(graphql@16.8.1)(typescript@5.4.5))(react@18.3.1)':
     dependencies:
       '@libsql/client': 0.5.6
       console-table-printer: 2.11.2
