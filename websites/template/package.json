@@ -10,7 +10,7 @@
     "@payloadcms/db-postgres": "3.0.0-canary.92e4997",
     "@payloadcms/next": "3.0.0-beta.28",
     "@payloadcms/richtext-lexical": "3.0.0-beta.25",
-    "@payloadcms/richtext-slate": "3.0.0-beta.28",
+    "@payloadcms/richtext-slate": "3.0.0-canary.92e4997",
     "@payloadcms/translations": "3.0.0-beta.28",
     "@payloadcms/ui": "3.0.0-beta.28",
     "classnames": "^2.5.1",
