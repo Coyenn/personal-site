@@ -231,7 +231,7 @@ importers:
         version: 7.0.3
       framer-motion:
         specifier: ^11.1.7
-        version: 11.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       hamburger-react:
         specifier: ^2.5.0
         version: 2.5.1(react@18.3.1)
@@ -2435,8 +2435,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.2.0:
-    resolution: {integrity: sha512-LRfLVPEwtO9IXJCAsWvtj3XZxrdZDcTxNNkZEq30aQ8p7/wimfUkDy67TDWdtzPiyKDkqOHDhaQC6XVrQ4Fh7A==}
+  framer-motion@11.2.2:
+    resolution: {integrity: sha512-Jq65YXsRUUDPJ1VQ30pblGeE5g+a/oOKGiP3zlZT9whL652guO6KJjFhNXtcmatoVkyyNjZ2NDVPUlydpCprzA==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -2844,8 +2844,8 @@ packages:
   lexical@0.14.5:
     resolution: {integrity: sha512-ouV7Gyr9+3WT3WTrCgRAD3iZnlJWfs2/kBl2x3J2Q3X9uCWJn/zn21fQ8G1EUHlu0dvXPBmdk9hXb/FjTClt6Q==}
 
-  lib0@0.2.93:
-    resolution: {integrity: sha512-M5IKsiFJYulS+8Eal8f+zAqf5ckm1vffW0fFDxfgxJ+uiVopvDdd3PxJmz0GsVi3YNO7QCFSq0nAsiDmNhLj9Q==}
+  lib0@0.2.94:
+    resolution: {integrity: sha512-hZ3p54jL4Wpu7IOg26uC7dnEWiMyNlUrb9KoG7+xYs45WkQwpVvKFndVq2+pqLYKe1u8Fp3+zAfZHVvTK34PvQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -6063,7 +6063,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.6.2
     optionalDependencies:
@@ -6462,7 +6462,7 @@ snapshots:
 
   lexical@0.14.5: {}
 
-  lib0@0.2.93:
+  lib0@0.2.94:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -7643,6 +7643,6 @@ snapshots:
 
   yjs@13.6.14:
     dependencies:
-      lib0: 0.2.93
+      lib0: 0.2.94
 
   zod@3.23.4: {}
