@@ -19,7 +19,7 @@
     "payload": "3.0.0-beta.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "0.33.3",
+    "sharp": "0.33.4",
     "slugify": "^1.6.6"
   },
   "devDependencies": {
