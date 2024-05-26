@@ -19,6 +19,7 @@
     "@payloadcms/db-postgres": "3.0.0-beta.36",
     "@payloadcms/next": "3.0.0-beta.36",
     "@payloadcms/plugin-cloud-storage": "3.0.0-beta.36",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.36",
     "@payloadcms/richtext-lexical": "3.0.0-beta.36",
     "@payloadcms/richtext-slate": "3.0.0-beta.36",
     "@payloadcms/translations": "3.0.0-beta.36",

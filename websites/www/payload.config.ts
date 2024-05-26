@@ -1,13 +1,12 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
-import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
 import {
   BlocksFeature,
   type FeatureProviderServer,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import { CodeBlock } from '@repo/custom-richtext-blocks';
 import { buildConfig } from 'payload/config';
 import { en } from 'payload/i18n/en';
@@ -56,17 +55,12 @@ export default buildConfig({
     supportedLanguages: { en },
   },
   plugins: [
-    cloudStoragePlugin({
-      enabled: process.env.NODE_ENV === 'production',
+    vercelBlobStorage({
       collections: {
-        [mediaCollection.slug]: {
-          adapter: vercelBlobAdapter({
-            token: process.env.BLOB_READ_WRITE_TOKEN || '',
-          }),
-          disableLocalStorage: true,
-          disablePayloadAccessControl: true,
-        },
+        [mediaCollection.slug]: true,
       },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      enabled: process.env.NODE_ENV === 'production',
     }),
   ],
   admin: {
