@@ -37,7 +37,7 @@
     "nextjs-better-unstable-cache": "^1.1.0",
     "payload": "3.0.0-beta.36",
     "react": "next",
-    "react-clock": "^4.6.0",
+    "react-clock": "^5.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "next",
     "react-responsive-masonry": "^2.2.0",
