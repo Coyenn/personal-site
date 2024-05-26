@@ -1,4 +1,4 @@
-import type { LexicalBlock } from '@payloadcms/richtext-lexical';
+import type { Block } from 'payload/types';
 import { createElement } from 'react';
 import CodeBlockComponent from './code-block-component';
 
@@ -23,7 +23,7 @@ const LANGUAGES = {
   yaml: 'YAML',
 };
 
-export const CodeBlock: LexicalBlock = {
+export const CodeBlock: Block = {
   fields: [
     {
       name: 'code',
@@ -33,7 +33,8 @@ export const CodeBlock: LexicalBlock = {
         components: {
           Field(field) {
             return createElement(CodeBlockComponent, {
-              field: field,
+              name: field.name,
+              path: field.path,
               languages: LANGUAGES,
             });
           },

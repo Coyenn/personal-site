@@ -2,7 +2,6 @@ import type {
   HTMLConverter,
   SerializedBlockNode,
 } from '@payloadcms/richtext-lexical';
-import payload from 'payload';
 
 export const CodeBlockHTMLConverter: HTMLConverter = {
   converter: async ({ node }) => {

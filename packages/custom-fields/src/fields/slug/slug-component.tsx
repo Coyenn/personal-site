@@ -122,7 +122,7 @@ function SlugComponent(props: SlugComponentProps) {
     <div className={'slug-field-wrapper field-type'}>
       <FieldLabel
         htmlFor={`field-${path.replace(/\./gi, '__')}`}
-        label={label}
+        label={label?.toString() ?? undefined}
         required={isRequired}
       />
       {Array.isArray(beforeInput) &&
@@ -131,7 +131,7 @@ function SlugComponent(props: SlugComponentProps) {
         <TextInput
           path={path}
           name={others.name}
-          label={false}
+          label={undefined}
           required={isRequired}
           description={admin?.description}
           readOnly={isReadonly}
@@ -152,7 +152,7 @@ function SlugComponent(props: SlugComponentProps) {
             <div className={'sr-only'}>
               <FieldLabel
                 htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
-                label={editFieldConfig?.label ?? ''}
+                label={editFieldConfig?.label?.toString() ?? ''}
               />
             </div>
             <CheckboxInput

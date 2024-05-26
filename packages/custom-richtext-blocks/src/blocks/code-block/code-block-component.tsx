@@ -5,12 +5,13 @@ import { useFormFields } from '@payloadcms/ui/forms/Form';
 import type { SelectField } from 'payload/types';
 
 export interface CodeBlockComponentProps {
-  field?: SelectField & { path?: string };
+  name: string;
+  path: string;
   languages: Record<string, string>;
 }
 
 function CodeBlockComponent(props: CodeBlockComponentProps) {
-  const { field, languages } = props;
+  const { languages, name, path } = props;
   const language = useFormFields(([fields]) => {
     return fields.language;
   });
@@ -21,8 +22,8 @@ function CodeBlockComponent(props: CodeBlockComponentProps) {
     <CodeField
       width='full'
       language={key}
-      name={field?.name}
-      path={field?.path}
+      name={name}
+      path={path}
       label={label}
     />
   );

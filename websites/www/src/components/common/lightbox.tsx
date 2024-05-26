@@ -97,7 +97,7 @@ export default function LightBox(props: LightBoxProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className='absolute inset-0 bg-black bg-opacity-70'
+                className='absolute inset-0 bg-black bg-opacity-70 !opacity-100'
               />
               <div
                 className='pointer-events-none absolute inset-0 flex items-center justify-center'

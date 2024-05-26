@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 import { vercelBlobAdapter } from '@payloadcms/plugin-cloud-storage/vercelBlob';
 import {
   BlocksFeature,
@@ -56,7 +56,7 @@ export default buildConfig({
     supportedLanguages: { en },
   },
   plugins: [
-    cloudStorage({
+    cloudStoragePlugin({
       enabled: process.env.NODE_ENV === 'production',
       collections: {
         [mediaCollection.slug]: {
@@ -71,9 +71,16 @@ export default buildConfig({
   ],
   admin: {
     meta: {
-      favicon: '/favicon.ico',
-      ogImage: '/og-image.png',
-      titleSuffix: ' — Tim Ritter',
+      openGraph: {
+        images: [
+          {
+            url: '/og-image.png',
+            width: 1200,
+            height: 630,
+            alt: 'Tim Ritter',
+          },
+        ],
+      },
     },
     components: {
       graphics: {
