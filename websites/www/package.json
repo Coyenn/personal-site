@@ -22,7 +22,7 @@
     "@payloadcms/storage-vercel-blob": "3.0.0-beta.36",
     "@payloadcms/richtext-lexical": "3.0.0-beta.36",
     "@payloadcms/richtext-slate": "3.0.0-beta.36",
-    "@payloadcms/translations": "3.0.0-beta.36",
+    "@payloadcms/translations": "3.0.0-canary.f6e77b8",
     "@payloadcms/ui": "3.0.0-beta.36",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/analytics": "^1.2.2",
