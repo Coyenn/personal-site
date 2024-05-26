@@ -36,7 +36,7 @@
     "lottie-react": "^2.4.0",
     "next": "^15.0.0-rc.0",
     "nextjs-better-unstable-cache": "^1.1.0",
-    "payload": "3.0.0-beta.36",
+    "payload": "3.0.0-canary.f6e77b8",
     "react": "next",
     "react-clock": "^4.6.0",
     "react-countup": "^6.5.3",
