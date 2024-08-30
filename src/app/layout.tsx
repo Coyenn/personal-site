@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { inter, newsreader } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import Nav from "@/components/nav";
 
 export const metadata: Metadata = {
 	title: "Tim Ritter. Design Engineer",
@@ -23,7 +24,11 @@ export default function RootLayout({
 				newsreader.variable,
 			)}
 		>
-			<body className={"container px-6 sm:px-0 bg-background"}>{children}</body>
+			<body className={"container px-6 sm:px-0 bg-background"}>
+				<div className="blur" />
+				{children}
+				<Nav />
+			</body>
 		</html>
 	);
 }

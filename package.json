@@ -1,33 +1,34 @@
 {
-	"name": "www-new",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev --turbo",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"biome": "biome check --write"
-	},
-	"dependencies": {
-		"babel-plugin-react-compiler": "^0.0.0-experimental-4e0eccf-20240830",
-		"class-variance-authority": "^0.7.0",
-		"clsx": "^2.1.1",
-		"lucide-react": "^0.436.0",
-		"next": "^15.0.0-canary.135",
-		"react": "^19.0.0-rc-e56f4ae3-20240830",
-		"react-dom": "^19.0.0-rc-e56f4ae3-20240830",
-		"sharp": "^0.33.5",
-		"tailwind-merge": "^2.5.2",
-		"tailwindcss-animate": "^1.0.7"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.8.3",
-		"@types/node": "^20",
-		"@types/react": "^18",
-		"@types/react-dom": "^18",
-		"postcss": "^8",
-		"tailwindcss": "^3.4.1",
-		"typescript": "^5"
-	}
+  "name": "www-new",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "biome": "biome check --write"
+  },
+  "dependencies": {
+    "babel-plugin-react-compiler": "^0.0.0-experimental-4e0eccf-20240830",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.31",
+    "lucide-react": "^0.436.0",
+    "next": "^15.0.0-canary.135",
+    "react": "^19.0.0-rc-e56f4ae3-20240830",
+    "react-dom": "^19.0.0-rc-e56f4ae3-20240830",
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
 }

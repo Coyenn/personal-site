@@ -1,68 +1,74 @@
-import {
-	PageLoadAnimationSection,
-	PageLoadAnimationWrapper,
-} from "@/components/page-load-animation";
+import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
 import { ProjectContainer, ProjectItem } from "@/components/project";
 import Link from "next/link";
 
 export default function Home() {
 	return (
-		<PageLoadAnimationWrapper className="flex flex-col my-16 md:my-24 gap-y-10 md:gap-y-12">
-			<PageLoadAnimationSection>
-				<h1>Tim Ritter</h1>
-				<h2 className="text-muted-foreground contrast-more:text-foreground">
-					Design Engineer
-				</h2>
-			</PageLoadAnimationSection>
-			<PageLoadAnimationSection>
+		<PageLoadAnimationWrapper className="flex flex-col my-16 md:my-24 lg:my-32 gap-y-10 md:gap-y-12">
+			<section>
+				<h1>
+					<span>Tim Ritter</span>
+					<br />
+					<span className="text-muted-foreground contrast-more:text-foreground">
+						Design Engineer
+					</span>
+				</h1>
+			</section>
+			<section>
 				<p>
 					<em>Crafting interfaces.</em> Building polished software and web
 					experiences. Experimenting with magical details in user interfaces.
 					Webmaster at Linear.
 				</p>
-			</PageLoadAnimationSection>
-			<PageLoadAnimationSection className="flex flex-col gap-y-4 md:gap-y-6">
+			</section>
+			<section className="flex flex-col gap-y-4 md:gap-y-6">
 				<h2>Projects</h2>
 				<ProjectContainer>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="Pixel Pirates"
-						year="Present"
-						summary="Founder, game development studio"
+						position="Founder"
+						summary="Game development studio"
 					/>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="BluBlox Development"
-						year="Present"
-						summary="Developer, game development studio"
+						position="Developer"
+						summary="Game development studio"
 					/>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="Luminary Games"
-						year="Present"
-						summary="Co-Founder, game development studio"
+						position="Co-Founder"
+						summary="Game development studio"
 					/>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="Roblox Model Renderer "
-						year="2024"
+						position="Creator"
 						summary="3D model renderer for Roblox"
 					/>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="p"
-						year="2023"
+						position="Creator"
 						summary="Simple and tasteful project management"
 					/>
 					<ProjectItem
 						href="#"
+						target="_blank"
 						name="Create T3 App"
-						year="2022"
+						position="Contributor"
 						summary="Popular full-stack project boilerplate"
 					/>
 				</ProjectContainer>
-			</PageLoadAnimationSection>
-			<PageLoadAnimationSection className="flex flex-col gap-y-4 md:gap-y-6">
+			</section>
+			<section className="flex flex-col gap-y-4 md:gap-y-6">
 				<h2>Now</h2>
 				<p>
 					Developing skill through doing, guiltlessly exploring passion and
@@ -74,8 +80,8 @@ export default function Home() {
 					copywriting, performance—the web is an endless medium of opportunity
 					and creativity of which I’ve only scratched the surface.
 				</p>
-			</PageLoadAnimationSection>
-			<PageLoadAnimationSection className="flex flex-col gap-y-4 md:gap-y-6">
+			</section>
+			<section className="flex flex-col gap-y-4 md:gap-y-6">
 				<h2>Get in touch</h2>
 				<p>
 					Reach me at{" "}
@@ -87,7 +93,7 @@ export default function Home() {
 						t-ritter-mail@web.de
 					</Link>
 				</p>
-			</PageLoadAnimationSection>
+			</section>
 		</PageLoadAnimationWrapper>
 	);
 }

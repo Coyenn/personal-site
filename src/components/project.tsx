@@ -4,8 +4,9 @@ import type { HTMLAttributes } from "react";
 
 export interface PropjectItemProps extends HTMLAttributes<HTMLLIElement> {
 	href: string;
+	target?: string;
 	name: string;
-	year: string;
+	position: string;
 	summary: string;
 }
 
@@ -15,24 +16,20 @@ export interface ProjectContainerProps
 }
 
 export function ProjectItem(props: PropjectItemProps) {
-	const { href, name, year, summary, className, ...rest } = props;
+	const { href, target, name, position, summary, className, ...rest } = props;
 
 	return (
 		<li className={cn("flex flex-col relative gap-y-1", className)} {...rest}>
-			<h3>
-				<Link
-					href={href}
-					className="after:absolute after:inset-0 after:w-full after:h-full"
-				>
-					{name}
-				</Link>
-			</h3>
-			<div
-				className="flex gap-x-1 text-muted-foreground contrast-more:text-foreground text-sm"
-				id={`${name}-project-description`}
+			<Link
+				href={href}
+				target={target}
+				className="before:absolute before:inset-0 before:w-full before:h-full w-fit"
 			>
+				{name}
+			</Link>
+			<div className="flex gap-x-1 text-muted-foreground contrast-more:text-foreground">
 				<p>
-					{year}
+					{position}
 					<span aria-hidden="true"> &middot; </span>
 					{summary}
 				</p>
