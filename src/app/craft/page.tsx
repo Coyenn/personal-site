@@ -1,90 +1,64 @@
 import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
 import { ProjectContainer, ProjectItem } from "@/components/project";
-import {
-	Tooltip,
-	TooltipTrigger,
-	TooltipContent,
-} from "@/components/ui/tooltip";
 import Link from "next/link";
 
-export default function Home() {
+export default function Craft() {
 	return (
 		<PageLoadAnimationWrapper className="flex flex-col my-16 md:my-24 lg:my-32 gap-y-10 md:gap-y-12">
 			<section>
-				<h1>
-					<span>Tim Ritter</span>
-					<br />
-					<Tooltip>
-						<TooltipTrigger asChild>
-							<span
-								className="text-muted-foreground contrast-more:text-foreground cursor-help"
-								role="presentation"
-							>
-								Design Engineer
-								<span className="sr-only">
-									Blurring the boundaries between design and engineering
-								</span>
-							</span>
-						</TooltipTrigger>
-						<TooltipContent aria-hidden="true">
-							<p>Blurring the boundaries between design and engineering</p>
-						</TooltipContent>
-					</Tooltip>
-				</h1>
+				<h1>Craft</h1>
 			</section>
 			<section>
 				<p>
-					<em>Crafting interfaces</em> with meticulous attention to detail and
-					diving deep into technical intricacies. Currently pushing pixels at{" "}
-					<Link href="https://next-motion.de" target="_blank">
-						next.motion
-					</Link>{" "}
+					<em>Crafting interfaces.</em> Building polished software and web
+					experiences. Experimenting with magical details in user interfaces.
+					Webmaster at Linear.
 				</p>
 			</section>
 			<section className="flex flex-col gap-y-4 md:gap-y-6">
-				<h2 id="projects">Projects</h2>
-				<ProjectContainer aria-labelledby="projects">
+				<h2>Projects</h2>
+				<ProjectContainer>
 					<ProjectItem
-						href="https://www.roblox.com/groups/34260095"
+						href="#"
 						target="_blank"
 						name="Pixel Pirates"
 						position="Founder"
 						summary="Game development studio"
 					/>
 					<ProjectItem
-						href="https://create.t3.gg"
+						href="#"
 						target="_blank"
-						name="Create T3 App"
-						position="Contributor"
-						summary="Popular full-stack project boilerplate"
+						name="BluBlox Development"
+						position="Developer"
+						summary="Game development studio"
 					/>
 					<ProjectItem
-						href="https://github.com/Coyenn/roblox-model-renderer"
-						target="_blank"
-						name="Roblox Model Renderer "
-						position="Creator"
-						summary="3D model renderer for Roblox"
-					/>
-					<ProjectItem
-						href="https://github.com/RevisionOrg/p"
-						target="_blank"
-						name="p"
-						position="Creator"
-						summary="Simple and tasteful project management"
-					/>
-					<ProjectItem
-						href="https://www.roblox.com/groups/32385121"
+						href="#"
 						target="_blank"
 						name="Luminary Games"
 						position="Co-Founder"
 						summary="Game development studio"
 					/>
 					<ProjectItem
-						href="https://www.roblox.com/groups/5560533"
+						href="#"
 						target="_blank"
-						name="BluBlox Development"
-						position="Developer"
-						summary="Game development studio"
+						name="Roblox Model Renderer "
+						position="Creator"
+						summary="3D model renderer for Roblox"
+					/>
+					<ProjectItem
+						href="#"
+						target="_blank"
+						name="p"
+						position="Creator"
+						summary="Simple and tasteful project management"
+					/>
+					<ProjectItem
+						href="#"
+						target="_blank"
+						name="Create T3 App"
+						position="Contributor"
+						summary="Popular full-stack project boilerplate"
 					/>
 				</ProjectContainer>
 			</section>

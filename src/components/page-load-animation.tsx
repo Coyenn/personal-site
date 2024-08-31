@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import {
 	Children,
-	cloneElement,
 	type HTMLAttributes,
-	isValidElement,
 	type ReactNode,
+	cloneElement,
+	isValidElement,
 } from "react";
 
 export interface PageLoadAnimationWrapperProps

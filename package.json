@@ -10,12 +10,14 @@
     "biome": "biome check --write"
   },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.1.2",
     "babel-plugin-react-compiler": "^0.0.0-experimental-4e0eccf-20240830",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.31",
     "lucide-react": "^0.436.0",
     "next": "^15.0.0-canary.135",
+    "next-themes": "^0.3.0",
     "react": "^19.0.0-rc-e56f4ae3-20240830",
     "react-dom": "^19.0.0-rc-e56f4ae3-20240830",
     "sharp": "^0.33.5",

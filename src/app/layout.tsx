@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Nav from "@/components/nav";
+import { ThemeProvider } from "@/components/theme-provider";
 import { inter, newsreader } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import Nav from "@/components/nav";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 export const metadata: Metadata = {
 	title: "Tim Ritter. Design Engineer",
@@ -25,9 +27,18 @@ export default function RootLayout({
 			)}
 		>
 			<body className={"container px-6 sm:px-0 bg-background"}>
-				<div className="blur" />
-				{children}
-				<Nav />
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<TooltipProvider delayDuration={100}>
+						<div className="blur" />
+						<Nav />
+						{children}
+					</TooltipProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

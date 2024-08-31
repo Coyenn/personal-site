@@ -1,6 +1,9 @@
 "use client";
 
+import useTabs, { type Tab } from "@/hooks/use-tabs";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
 	type CSSProperties,
 	type FocusEvent,
@@ -9,9 +12,6 @@ import {
 	useRef,
 	useState,
 } from "react";
-import useTabs, { type Tab } from "@/hooks/use-tabs";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 export interface NavLinksProps {
 	selectedTabIndex: number;
@@ -95,8 +95,8 @@ function NavLinks(props: NavLinksProps) {
 					className={cn(
 						"exclude px-2 sm:px-3.5 py-1 text-sm transition-colors",
 						hoveredTabIndex === index || selectedTabIndex === index
-							? "text-background"
-							: "text-muted/40",
+							? "text-background dark:text-foreground"
+							: "text-muted/40 dark:text-muted-foreground/70",
 					)}
 					aria-current={selectedTabIndex === index ? "page" : undefined}
 					onPointerEnter={(e) => onEnterTab(e, index)}
@@ -109,7 +109,7 @@ function NavLinks(props: NavLinksProps) {
 				</Link>
 			))}
 			<div
-				className="pointer-events-none absolute left-0 top-0 rounded-full bg-muted/25"
+				className="pointer-events-none absolute left-0 top-0 rounded-full bg-muted/25 dark:bg-muted-foreground/25"
 				style={hoverStyles}
 				aria-hidden
 			/>
@@ -118,7 +118,7 @@ function NavLinks(props: NavLinksProps) {
 				style={selectStyles}
 				aria-hidden
 			>
-				<div className="h-0.5 w-0.5 rounded-full bg-background" />
+				<div className="h-0.5 w-0.5 rounded-full bg-background dark:bg-foreground" />
 			</div>
 		</nav>
 	);
@@ -150,20 +150,20 @@ function Nav() {
 	}, [pathname]);
 
 	return (
-		<div className="w-full flex justify-center">
-			<div className="animate-intro animation-delay-4 opacity-0 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-sm shadow-xl">
+		<header className="w-full flex justify-center print:hidden">
+			<div className="animate-intro animation-delay-4 opacity-0 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-sm shadow-xl dark:border-muted/50 dark:bg-background/80 dark:text-foreground">
 				<NavLinks {...css.tabProps} selectedTabIndex={selected} />
-				<div className="ml-1 mr-3 sm:ml-3 sm:mr-5 h-0.5 w-0.5 rounded-full bg-muted/40" />
+				<div className="ml-1 mr-3 sm:ml-3 sm:mr-5 h-0.5 w-0.5 rounded-full bg-muted/40 dark:bg-muted-foreground/40" />
 				<a
 					href="mailto:t-ritter-mail@web.de"
 					rel="noreferrer"
 					target="_blank"
-					className="rounded-full bg-muted/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40"
+					className="rounded-full bg-muted/25 dark:bg-muted-foreground/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40 dark:hover:bg-muted-foreground/30 dark:active:bg-muted-foreground/40"
 				>
 					Contact
 				</a>
 			</div>
-		</div>
+		</header>
 	);
 }
 

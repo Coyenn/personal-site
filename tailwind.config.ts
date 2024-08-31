@@ -1,12 +1,12 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
 import tailwindcssAnimate from "tailwindcss-animate";
+import plugin from "tailwindcss/plugin";
 
 const animationDelayPlugin = plugin(({ addUtilities }) => {
 	const animationDelayUtilities: Record<string, Record<string, string>> = {};
 	const baseDelay = 200;
 	const increment = 200;
-	const maxItems = 99;
+	const maxItems = 30;
 
 	for (let i = 1; i <= maxItems; i++) {
 		animationDelayUtilities[`.animation-delay-${i}`] = {

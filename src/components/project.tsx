@@ -20,11 +20,7 @@ export function ProjectItem(props: PropjectItemProps) {
 
 	return (
 		<li className={cn("flex flex-col relative gap-y-1", className)} {...rest}>
-			<Link
-				href={href}
-				target={target}
-				className="before:absolute before:inset-0 before:w-full before:h-full w-fit"
-			>
+			<Link href={href} target={target} className="w-fit">
 				{name}
 			</Link>
 			<div className="flex gap-x-1 text-muted-foreground contrast-more:text-foreground">
@@ -43,7 +39,10 @@ export function ProjectContainer(props: ProjectContainerProps) {
 
 	return (
 		<ul
-			className={cn("grid grid-cols-1 sm:grid-cols-2 gap-4", className)}
+			className={cn(
+				"grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6",
+				className,
+			)}
 			{...rest}
 		>
 			{children}
