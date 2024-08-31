@@ -24,18 +24,17 @@ function NavLinks(props: NavLinksProps) {
 		[],
 	);
 
-	useEffect(() => {
-		setButtonRefs((prev) => prev.slice(0, tabs.length));
-	}, [tabs.length]);
-
 	const [hoveredTabIndex, setHoveredTabIndex] = useState<number | null>(null);
 	const [hoveredRect, setHoveredRect] = useState<DOMRect | null>(null);
 
 	const ref = useRef<HTMLElement>(null);
 	const rect = ref.current?.getBoundingClientRect();
 	const selectedRect = buttonRefs[selectedTabIndex]?.getBoundingClientRect();
-
 	const isInitialRender = useRef(true);
+
+	useEffect(() => {
+		setButtonRefs((prev) => prev.slice(0, tabs.length));
+	}, [tabs.length]);
 
 	const onLeaveTabs = () => {
 		setHoveredTabIndex(null);
@@ -45,7 +44,14 @@ function NavLinks(props: NavLinksProps) {
 		e: PointerEvent<HTMLAnchorElement> | FocusEvent<HTMLAnchorElement>,
 		i: number,
 	) => {
-		if (!e.target || !(e.target instanceof HTMLAnchorElement)) return;
+		if (
+			!e.target ||
+			!buttonRefs[i] ||
+			!ref.current ||
+			!(e.target instanceof HTMLAnchorElement) ||
+			!(e.target instanceof Element)
+		)
+			return;
 
 		setHoveredTabIndex(i);
 		setHoveredRect(e.target.getBoundingClientRect());
@@ -150,6 +156,13 @@ function Nav() {
 			className="w-full flex justify-center print:hidden"
 			aria-label="Site navigation"
 		>
+			<Link
+				href={"#main"}
+				className="absolute opacity-0 pointer-events-none top-0 left-0 focus:opacity-100 z-[51] px-4 py-2 bg-muted"
+				tabIndex={0}
+			>
+				Jump To Content
+			</Link>
 			<div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:border-muted-foreground/5 dark:bg-muted/80 dark:text-foreground">
 				<NavLinks {...css.tabProps} selectedTabIndex={selected} />
 				<span

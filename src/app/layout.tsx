@@ -31,7 +31,7 @@ export default function RootLayout({
 		>
 			<body
 				className={
-					"container px-6 sm:px-0 bg-background contrast-less:opacity-80"
+					"container px-6 sm:px-0 bg-background contrast-less:opacity-80 overflow-x-hidden"
 				}
 			>
 				<ThemeProvider

@@ -17,7 +17,7 @@ export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
 	const { className, children, ...rest } = props;
 
 	return (
-		<main className={className} {...rest}>
+		<main className={className} id="main" {...rest}>
 			{Children.map(children, (child, index) => {
 				if (isValidElement(child)) {
 					return cloneElement(child, {

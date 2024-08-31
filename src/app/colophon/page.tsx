@@ -16,17 +16,32 @@ export default function Colophon() {
 			<section className="flex flex-col gap-y-6">
 				<h2>Tech stack</h2>
 				<p>
-					Built with <Link href="https://nextjs.org">Next.js</Link>,{" "}
-					<Link href="https://ui.shadcn.com">ShadCN/UI</Link>, and{" "}
-					<Link href="https://tailwindcss.com">Tailwind CSS</Link>. Hosted on{" "}
-					<Link href="https://vercel.com">Vercel</Link>. Source code available
-					on <Link href="https://github.com/Kojenia/tim-ritter.de">GitHub</Link>
+					Built with{" "}
+					<Link href="https://nextjs.org" target="_blank">
+						Next.js
+					</Link>
+					,{" "}
+					<Link href="https://ui.shadcn.com" target="_blank">
+						ShadCN/UI
+					</Link>
+					, and{" "}
+					<Link href="https://tailwindcss.com" target="_blank">
+						Tailwind CSS
+					</Link>
+					. Hosted on{" "}
+					<Link href="https://vercel.com" target="_blank">
+						Vercel
+					</Link>
+					. Source code available on{" "}
+					<Link href="https://github.com/Kojenia/tim-ritter.de" target="_blank">
+						GitHub
+					</Link>
 					.
 				</p>
 			</section>
 			<section className="flex flex-col gap-y-6">
 				<h2 id="inspiration">Inspiration</h2>
-				<ul aria-labelledby="fonts" className="grid grid-cols-1 gap-2">
+				<ul aria-labelledby="inspiration" className="grid grid-cols-1 gap-2">
 					<li>
 						<Link href="https://harshsingh.xyz/" target="_blank">
 							harshsingh.xyz
@@ -35,6 +50,11 @@ export default function Colophon() {
 					<li>
 						<Link href="https://paco.me/" target="_blank">
 							paco.me
+						</Link>
+					</li>
+					<li>
+						<Link href="https://stallboerger.com/" target="_blank">
+							stallboerger.com
 						</Link>
 					</li>
 					<li>

@@ -5,7 +5,7 @@ import plugin from "tailwindcss/plugin";
 const animationDelayPlugin = plugin(({ addUtilities }) => {
 	const animationDelayUtilities: Record<string, Record<string, string>> = {};
 	const baseDelay = 200;
-	const increment = 200;
+	const increment = 150;
 	const maxItems = 30;
 
 	for (let i = 1; i <= maxItems; i++) {

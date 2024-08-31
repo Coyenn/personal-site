@@ -17,10 +17,13 @@
 		"framer-motion": "^11.3.31",
 		"lucide-react": "^0.436.0",
 		"next": "^15.0.0-canary.136",
+		"next-mdx-remote": "^5.0.0",
 		"next-themes": "^0.3.0",
 		"react": "^19.0.0-rc-e56f4ae3-20240830",
 		"react-dom": "^19.0.0-rc-e56f4ae3-20240830",
 		"sharp": "^0.33.5",
+		"slugify": "^1.6.6",
+		"sugar-high": "^0.7.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7"
 	},

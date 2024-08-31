@@ -62,12 +62,18 @@
     @apply border-border;
 
     &::selection {
-      @apply bg-rose-600/10 text-red-900 dark:bg-red-900/50 dark:text-rose-600 contrast-more:bg-muted-foreground contrast-more:text-muted;
+      @apply bg-rose-600/10 text-red-900 dark:bg-red-900/50 dark:text-rose-300 contrast-more:bg-muted-foreground contrast-more:text-muted;
     }
   }
+
+  html {
+    scrollbar-gutter: stable both-edges;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
+
   em {
     @apply font-serif italic text-[17px];
   }
