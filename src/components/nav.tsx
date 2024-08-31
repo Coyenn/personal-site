@@ -53,14 +53,10 @@ function NavLinks(props: NavLinksProps) {
 
 	const hoverStyles: CSSProperties = {
 		opacity: 0,
-		transform: "translateY(20px)",
 	};
 
 	if (rect && hoveredRect) {
-		hoverStyles.transform =
-			hoveredTabIndex === null
-				? `translate3d(${hoveredRect.left - rect.left}px,20px,0px)`
-				: `translate3d(${hoveredRect.left - rect.left}px,0px,0px)`;
+		hoverStyles.transform = `translate3d(${hoveredRect.left - rect.left}px,0px,0px)`;
 		hoverStyles.width = hoveredRect.width;
 		hoverStyles.height = hoveredRect.height;
 		hoverStyles.opacity = hoveredTabIndex != null ? 1 : 0;
@@ -93,10 +89,10 @@ function NavLinks(props: NavLinksProps) {
 					key={`nav-item-${encodeURIComponent(item.title)}`}
 					href={item.href}
 					className={cn(
-						"exclude px-2 sm:px-3.5 py-1 text-sm transition-colors",
+						"exclude px-2 sm:px-3.5 py-1 text-sm motion-safe:transition-colors",
 						hoveredTabIndex === index || selectedTabIndex === index
 							? "text-background dark:text-foreground"
-							: "text-muted/40 dark:text-muted-foreground/70",
+							: "text-muted/40 dark:text-muted-foreground/70 contrast-more:text-background contrast-more:dark:text-foreground",
 					)}
 					aria-current={selectedTabIndex === index ? "page" : undefined}
 					onPointerEnter={(e) => onEnterTab(e, index)}
@@ -109,7 +105,7 @@ function NavLinks(props: NavLinksProps) {
 				</Link>
 			))}
 			<div
-				className="pointer-events-none absolute left-0 top-0 rounded-full bg-muted/25 dark:bg-muted-foreground/25"
+				className="pointer-events-none motion-reduce:hidden absolute left-0 top-0 rounded-full bg-muted/25 dark:bg-muted-foreground/25"
 				style={hoverStyles}
 				aria-hidden
 			/>
@@ -132,12 +128,12 @@ function Nav() {
 			href: "/",
 		},
 		{
-			title: "Craft",
-			href: "/craft",
-		},
-		{
 			title: "Writing",
 			href: "/writing",
+		},
+		{
+			title: "Colophon",
+			href: "/colophon",
 		},
 	];
 	const [selected, setSelected] = useState<number>(0);
@@ -150,15 +146,23 @@ function Nav() {
 	}, [pathname]);
 
 	return (
-		<header className="w-full flex justify-center print:hidden">
-			<div className="animate-intro animation-delay-4 opacity-0 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-sm shadow-xl dark:border-muted/50 dark:bg-background/80 dark:text-foreground">
+		<header
+			className="w-full flex justify-center print:hidden"
+			aria-label="Site navigation"
+		>
+			<div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:border-muted-foreground/5 dark:bg-muted/80 dark:text-foreground">
 				<NavLinks {...css.tabProps} selectedTabIndex={selected} />
-				<div className="ml-1 mr-3 sm:ml-3 sm:mr-5 h-0.5 w-0.5 rounded-full bg-muted/40 dark:bg-muted-foreground/40" />
+				<span
+					className="ml-1 mr-3 sm:ml-2 sm:mr-5 text-muted/40 dark:text-muted-foreground/40 font-ovo select-none contrast-more:text-background contrast-more:dark:text-foreground"
+					aria-hidden="true"
+				>
+					&
+				</span>
 				<a
 					href="mailto:t-ritter-mail@web.de"
 					rel="noreferrer"
 					target="_blank"
-					className="rounded-full bg-muted/25 dark:bg-muted-foreground/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40 dark:hover:bg-muted-foreground/30 dark:active:bg-muted-foreground/40"
+					className="rounded-full text-background dark:text-foreground bg-muted/25 dark:bg-muted-foreground/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40 dark:hover:bg-muted-foreground/30 dark:active:bg-muted-foreground/40"
 				>
 					Contact
 				</a>

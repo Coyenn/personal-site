@@ -36,6 +36,8 @@ const config: Config = {
 		fontFamily: {
 			sans: ["var(--font-sans)"],
 			serif: ["var(--font-serif)"],
+			ovo: ["var(--font-ovo)"],
+			"instrument-serif": ["var(--font-instrument-serif)"],
 		},
 		extend: {
 			colors: {
@@ -81,7 +83,7 @@ const config: Config = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
-				intro: "intro 0.5s forwards ease-out",
+				intro: "intro 0.3s forwards ease-out",
 			},
 			keyframes: {
 				"accordion-down": {
@@ -96,7 +98,7 @@ const config: Config = {
 					"0%": {
 						transform: "translateY(10px)",
 						opacity: "0",
-						filter: "blur(5px)",
+						filter: "blur(3px)",
 					},
 					"100%": {
 						transform: "translateY(0px)",

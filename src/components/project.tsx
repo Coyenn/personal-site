@@ -39,10 +39,7 @@ export function ProjectContainer(props: ProjectContainerProps) {
 
 	return (
 		<ul
-			className={cn(
-				"grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6",
-				className,
-			)}
+			className={cn("grid grid-cols-1 sm:grid-cols-2 gap-6", className)}
 			{...rest}
 		>
 			{children}

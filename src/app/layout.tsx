@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
-import { inter, newsreader } from "@/lib/fonts";
+import { instrumentSerif, inter, newsreader, ovo } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
@@ -24,9 +24,16 @@ export default function RootLayout({
 				"antialiased min-h-screen",
 				inter.variable,
 				newsreader.variable,
+				ovo.variable,
+				instrumentSerif.variable,
 			)}
+			suppressHydrationWarning
 		>
-			<body className={"container px-6 sm:px-0 bg-background"}>
+			<body
+				className={
+					"container px-6 sm:px-0 bg-background contrast-less:opacity-80"
+				}
+			>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
