@@ -9,8 +9,8 @@ export default function Colophon() {
 			</section>
 			<section>
 				<p>
-					Paying homage to the <em>creators</em> and <em>tools</em> that made
-					this site possible.
+					Paying homage to the creators <span className="font-ovo">&</span>{" "}
+					tools that made this site possible.
 				</p>
 			</section>
 			<section className="flex flex-col gap-y-6">
