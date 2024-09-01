@@ -122,6 +122,7 @@ export default function LightboxImage(props: LightboxImageProps) {
 				aria-label="Open lightbox"
 				aria-haspopup="dialog"
 				aria-expanded={open}
+				placeholder={typeof props.src === "string" ? undefined : "blur"}
 				onClick={() => setOpen(true)}
 			/>
 		</Fragment>
