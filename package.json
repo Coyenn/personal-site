@@ -25,7 +25,8 @@
 		"slugify": "^1.6.6",
 		"sugar-high": "^0.7.0",
 		"tailwind-merge": "^2.5.2",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"yet-another-react-lightbox": "^3.21.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",

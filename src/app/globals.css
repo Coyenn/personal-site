@@ -106,3 +106,12 @@
     @apply opacity-0;
   }
 }
+
+.yarl__root {
+  --yarl__color_backdrop: rgba(0, 0, 0, 0.75);
+  --yarl__carousel_padding_px: 30;
+}
+
+.yarl__toolbar {
+  @apply md:mr-4;
+}

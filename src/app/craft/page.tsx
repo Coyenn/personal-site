@@ -1,9 +1,9 @@
+import LightboxImage from "@/src/components/lightbox";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import craft from "@/src/data/craft";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 import slugify from "slugify";
 
 export const metadata: Metadata = {
@@ -45,30 +45,26 @@ export default function Craft() {
 			<section>
 				<ul className="flex flex-col list-none group -mt-3">
 					{craft.map((item, index) => (
-						<div
+						<li
 							className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
 							key={slugify(item.title)}
 						>
-							<Link
-								className="block group-hover:opacity-50 group-focus-within:opacity-50 py-6 hover:!opacity-100 focus:!opacity-100 transition-opacity duration-300 ease-in-out contrast-more:!opacity-100"
-								href={item.link ?? "#"}
-							>
+							<div className="block group-hover:opacity-50 group-focus-within:opacity-50 py-6 hover:!opacity-100 focus:!opacity-100 transition-opacity duration-300 ease-in-out contrast-more:!opacity-100">
 								{item.image && (
-									<Image
+									<LightboxImage
 										alt={item.title}
 										className="rounded-lg"
 										height={item.image.height}
-										layout="responsive"
-										src={item.image.src}
+										src={item.image}
 										width={item.image.width}
 									/>
 								)}
 								<h3 className="flex justify-between items-center gap-4 mt-6">
 									<span>{item.title}</span>
 								</h3>
-							</Link>
+							</div>
 							{index < craft.length - 1 && <hr />}
-						</div>
+						</li>
 					))}
 				</ul>
 			</section>

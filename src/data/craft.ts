@@ -15,6 +15,7 @@ import IPhoneMockupWhite2 from "@/public/images/craft/iphone-mockup-white-2.png"
 import IPhoneMockupWhite from "@/public/images/craft/iphone-mockup-white.png";
 import KPIBlackAndWhite from "@/public/images/craft/kpi-black-and-white.png";
 import LockIllustration from "@/public/images/craft/lock-illustration.png";
+import LoremAgency from "@/public/images/craft/lorem-agency.png";
 import Desktop2MockupImage from "@/public/images/craft/mockups/desktop-2.png";
 import DesktopMockupImage from "@/public/images/craft/mockups/desktop.png";
 import MobileMockupImage from "@/public/images/craft/mockups/mobile.png";
@@ -40,16 +41,21 @@ export interface Craft {
 	link?: string;
 	target?: string;
 	image?: StaticImageData;
-	video?: string;
-	showPlaceholderImage?: boolean;
 }
 
 const craft: Craft[] = [
 	{
+		title: "Lorem Agency Website Concept",
+		date: "May 2024",
+		image: LoremAgency,
+		description:
+			"A design exercise to practice my Figma skills. I wanted to create a modern and clean agency website.",
+		tags: ["Figma", "Design", "Mockup"],
+	},
+	{
 		title: "Banking App Concept",
 		date: "April 2024",
 		image: BankingApp,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (21.04.2024)",
 		tags: ["React", "Figma", "Design"],
 	},
@@ -57,7 +63,6 @@ const craft: Craft[] = [
 		title: "Banking App Concept (Full View)",
 		date: "April 2024",
 		image: BankingApp2,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (21.04.2024)",
 		tags: ["React", "Figma", "Design"],
 	},
@@ -65,7 +70,6 @@ const craft: Craft[] = [
 		title: "iPhone Mockup (Rock)",
 		date: "January 2024",
 		image: IPhoneMockupRock,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (26.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -73,7 +77,6 @@ const craft: Craft[] = [
 		title: "iPhone Mockup (Table)",
 		date: "January 2024",
 		image: IPhoneMockupTable,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (26.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -81,7 +84,6 @@ const craft: Craft[] = [
 		title: "iPhone Mockup (White)",
 		date: "January 2024",
 		image: IPhoneMockupWhite,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (25.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -89,7 +91,6 @@ const craft: Craft[] = [
 		title: "iPhone Mockup (White 2)",
 		date: "January 2024",
 		image: IPhoneMockupWhite2,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (25.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -97,7 +98,6 @@ const craft: Craft[] = [
 		title: "KPIs (Black & White)",
 		date: "January 2024",
 		image: KPIBlackAndWhite,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (24.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -105,7 +105,6 @@ const craft: Craft[] = [
 		title: "Charts (Black & White)",
 		date: "January 2024",
 		image: ChartsBlackAndWhite,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (24.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -113,7 +112,6 @@ const craft: Craft[] = [
 		title: "Bar Charts",
 		date: "January 2024",
 		image: BarCharts,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (23.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -121,7 +119,6 @@ const craft: Craft[] = [
 		title: "Admin Toolbar",
 		date: "January 2024",
 		image: AdminToolbar,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (22.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -129,7 +126,6 @@ const craft: Craft[] = [
 		title: "AI Tasks App Concept (3)",
 		date: "January 2024",
 		image: AITasksAppConcept3,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (21.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -137,7 +133,6 @@ const craft: Craft[] = [
 		title: "AI Tasks App Concept (2)",
 		date: "January 2024",
 		image: AITasksAppConcept2,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (20.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -145,7 +140,6 @@ const craft: Craft[] = [
 		title: "AI Tasks App Concept (1)",
 		date: "January 2024",
 		image: AITasksAppConcept1,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (20.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -153,7 +147,6 @@ const craft: Craft[] = [
 		title: "Team Select",
 		date: "January 2024",
 		image: TeamSelect,
-		showPlaceholderImage: true,
 		description:
 			"A concept for a team select dropdown. Design exercise to practice my Figma skills. (19.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
@@ -162,7 +155,6 @@ const craft: Craft[] = [
 		title: "WYSIWYG Concept",
 		date: "January 2024",
 		image: WYSIWYGConcept,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (18.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -170,7 +162,6 @@ const craft: Craft[] = [
 		title: "Create Account Modal",
 		date: "January 2024",
 		image: CreateAccountModal,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (17.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -178,7 +169,6 @@ const craft: Craft[] = [
 		title: "TYPO3 Sidebar Concept",
 		date: "January 2024",
 		image: Typo3Sidebar,
-		showPlaceholderImage: true,
 		description:
 			"A concept for a new sidebar for the TYPO3 CMS backend. Design exercise to practice my Figma skills. (16.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
@@ -187,7 +177,6 @@ const craft: Craft[] = [
 		title: "Feedback Modal",
 		date: "January 2024",
 		image: FeedbackModal,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (15.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -195,7 +184,6 @@ const craft: Craft[] = [
 		title: "Black & White Buttons",
 		date: "January 2024",
 		image: BlackWhiteButtons,
-		showPlaceholderImage: true,
 		description: "Design exercise to practice my Figma skills. (14.01.2024)",
 		tags: ["Figma", "Design", "Mockup"],
 	},
@@ -203,7 +191,6 @@ const craft: Craft[] = [
 		title: "TYPO3 Dashboard Redesign (1)",
 		date: "January 2024",
 		image: Typo3Left,
-		showPlaceholderImage: true,
 		description:
 			"A redesign of the current TYPO3 CMS backend dashboard. I focused on making the dashboard more modern and less cluttered.",
 		tags: ["Figma", "Design", "Mockup"],
@@ -212,7 +199,6 @@ const craft: Craft[] = [
 		title: "TYPO3 Dashboard Redesign (2)",
 		date: "January 2024",
 		image: Typo3Right,
-		showPlaceholderImage: true,
 		description:
 			"A redesign of the current TYPO3 CMS backend dashboard. I focused on making the dashboard more modern and less cluttered.",
 		tags: ["Figma", "Design", "Mockup"],
@@ -221,7 +207,6 @@ const craft: Craft[] = [
 		title: "Lock Illustration",
 		date: "January 2024",
 		image: LockIllustration,
-		showPlaceholderImage: true,
 		description:
 			"I couldn't find a suitable illustration for the password form on my personal site, so I decided to create one myself.",
 		tags: ["Blender"],
@@ -230,34 +215,32 @@ const craft: Craft[] = [
 		title: "Resource Management App Concept",
 		date: "December 2023",
 		image: Shelter,
-		showPlaceholderImage: true,
 		description:
 			"I designed this concept for a resource management app to practice my Figma/Design skills.",
 		tags: ["Figma", "Design", "Mockup"],
 	},
-	{
-		title: "Custom Video Player",
-		date: "September 2023",
-		video: "/videos/craft/video-player.mp4",
-		description:
-			"I built this video player to have something that fits the design of my personal site. It is built with React and Framer Motion.",
-		tags: ["React", "Framer Motion"],
-	},
-	{
-		title: "Dynamic Island Experiment",
-		date: "September 2023",
-		video: "/videos/craft/dynamic-island.mp4",
-		description:
-			"I attempted to implement the famous dynamic island from the iPhone 14 Pro using React and Framer Motion.",
-		tags: ["React", "Framer Motion"],
-	},
+	// {
+	// 	title: "Custom Video Player",
+	// 	date: "September 2023",
+	// 	video: "/videos/craft/video-player.mp4",
+	// 	description:
+	// 		"I built this video player to have something that fits the design of my personal site. It is built with React and Framer Motion.",
+	// 	tags: ["React", "Framer Motion"],
+	// },
+	// {
+	// 	title: "Dynamic Island Experiment",
+	// 	date: "September 2023",
+	// 	video: "/videos/craft/dynamic-island.mp4",
+	// 	description:
+	// 		"I attempted to implement the famous dynamic island from the iPhone 14 Pro using React and Framer Motion.",
+	// 	tags: ["React", "Framer Motion"],
+	// },
 	{
 		title: "Redesign of my Personal Website",
 		date: "August 2023",
 		link: "https://tim-ritter.com",
 		target: "_blank",
 		image: PersonalWebsiteRedesign,
-		showPlaceholderImage: true,
 		description:
 			"In this iteration of my personal site, I focused on simplicity and ease of use. No complex animations. Just simple, clean and fast.",
 		tags: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
@@ -268,25 +251,23 @@ const craft: Craft[] = [
 		link: "https://github.com/coyenn/port-alert",
 		target: "_blank",
 		image: PortAlert,
-		showPlaceholderImage: true,
 		description: "A simple port monitoring tool. Available as a docker image",
 		tags: ["CLI", "Docker", "Monitoring"],
 	},
-	{
-		title: "Developer Review Platform",
-		date: "July 2023",
-		video: "/videos/craft/open-teamup.mp4",
-		link: "https://openteamup.com",
-		target: "_blank",
-		description:
-			"I built this platform to help Roblox developers find the right people for their projects. Think of it as glassdoor for Roblox developers.",
-		tags: ["Roblox", "T3 Stack"],
-	},
+	// {
+	// 	title: "Developer Review Platform",
+	// 	date: "July 2023",
+	// 	video: "/videos/craft/open-teamup.mp4",
+	// 	link: "https://openteamup.com",
+	// 	target: "_blank",
+	// 	description:
+	// 		"I built this platform to help Roblox developers find the right people for their projects. Think of it as glassdoor for Roblox developers.",
+	// 	tags: ["Roblox", "T3 Stack"],
+	// },
 	{
 		title: "Desktop Mockup 2 (3D Render)",
 		date: "June 2023",
 		image: DesktopMockupImage,
-		showPlaceholderImage: true,
 		description: "This scene was rendered entriely in Blender.",
 		tags: ["Blender", "3D", "Mockup"],
 	},
@@ -294,7 +275,6 @@ const craft: Craft[] = [
 		title: "Desktop Mockup 1 (3D Render)",
 		date: "June 2023",
 		image: Desktop2MockupImage,
-		showPlaceholderImage: true,
 		description: "This scene was rendered entriely in Blender.",
 		tags: ["Blender", "3D", "Mockup"],
 	},
@@ -302,7 +282,6 @@ const craft: Craft[] = [
 		title: "Mobile Mockup (3D Render)",
 		date: "June 2023",
 		image: MobileMockupImage,
-		showPlaceholderImage: true,
 		description: "This scene was rendered entriely in Blender.",
 		tags: ["Blender", "3D", "Mockup"],
 	},
@@ -310,7 +289,6 @@ const craft: Craft[] = [
 		title: "My Personal Logo",
 		date: "May 2023",
 		image: MyLogoLight,
-		showPlaceholderImage: true,
 		description:
 			"When reworking my personal site, I felt the need to create a logo for myself. I wanted to create something that is simple, but still has more detail than the average logo.",
 		tags: ["Logo", "Design", "Figma"],
@@ -319,22 +297,20 @@ const craft: Craft[] = [
 		title: "My Personal Logo (dark)",
 		date: "May 2023",
 		image: MyLogoDark,
-		showPlaceholderImage: true,
 		description:
 			"When reworking my personal site, I felt the need to create a logo for myself. I wanted to create something that is simple, but still has more detail than the average logo.",
 		tags: ["Logo", "Design", "Figma"],
 	},
-	{
-		title: "CLI Project Management Tool",
-		description:
-			"To learn Rust I challenged myself to build a CLI project management tool. There is little to no documentation and the code is not very clean. But it works and I learned a lot. :)",
-		tags: ["Rust", "CLI"],
-		date: "May 2023",
-		link: "https://github.com/RevisionOrg/p",
-		target: "_blank",
-		image: PDemoGif,
-		showPlaceholderImage: false,
-	},
+	// {
+	// 	title: "CLI Project Management Tool",
+	// 	description:
+	// 		"To learn Rust I challenged myself to build a CLI project management tool. There is little to no documentation and the code is not very clean. But it works and I learned a lot. :)",
+	// 	tags: ["Rust", "CLI"],
+	// 	date: "May 2023",
+	// 	link: "https://github.com/RevisionOrg/p",
+	// 	target: "_blank",
+	// 	image: PDemoGif,
+	// },
 ];
 
 export default craft;

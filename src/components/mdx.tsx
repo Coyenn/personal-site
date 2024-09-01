@@ -1,3 +1,4 @@
+import LightboxImage from "@/src/components/lightbox";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
@@ -26,15 +27,15 @@ const CustomLink = ((props) => {
 >;
 
 const Img = ((props) => {
-	if (typeof props.src === "string") {
-		return (
-			<Link href={props.src} target="_blank" rel="noopener noreferrer">
-				<Image className="rounded-lg" {...props} />
-			</Link>
-		);
-	}
-
-	return <Image className="rounded-lg" {...props} />;
+	return (
+		<LightboxImage
+			className="rounded-lg"
+			alt={props.alt}
+			src={props.src}
+			width={props.width}
+			height={props.height}
+		/>
+	);
 }) as FC<ImageProps>;
 
 const Code = (({ children, ...props }) => {

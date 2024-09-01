@@ -49,7 +49,9 @@ export default function Writing() {
 						})
 						.map((post, index) => (
 							<Fragment key={post.slug}>
-								<li>
+								<li
+									className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
+								>
 									<Link
 										className="block group-hover:opacity-50 group-focus-within:opacity-50 py-6 hover:!opacity-100 focus:!opacity-100 transition-opacity duration-300 ease-in-out contrast-more:!opacity-100"
 										href={`/writing/${post.slug}`}
