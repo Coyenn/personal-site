@@ -1,4 +1,4 @@
-import { getPosts } from "@/app/writing/posts";
+import { getPosts } from "@/src/app/writing/posts";
 
 export const GET = () => {
 	const posts = getPosts();

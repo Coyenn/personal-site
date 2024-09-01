@@ -1,5 +1,5 @@
-import { getPosts } from "@/app/writing/posts";
-import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
+import { getPosts } from "@/src/app/writing/posts";
+import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";

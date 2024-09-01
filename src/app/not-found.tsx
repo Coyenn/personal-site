@@ -1,4 +1,4 @@
-import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
+import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
 import Link from "next/link";
 

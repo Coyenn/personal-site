@@ -1,11 +1,11 @@
-import { getPosts } from "@/app/writing/posts";
-import { MDX } from "@/components/mdx";
-import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
+import { getPosts } from "@/src/app/writing/posts";
+import { MDX } from "@/src/components/mdx";
+import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { FC } from "react";
 
-import "@/app/writing/[slug]/post.css";
+import "@/src/app/writing/[slug]/post.css";
 
 export const generateStaticParams = async () => {
 	const posts = getPosts();

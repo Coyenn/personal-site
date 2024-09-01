@@ -1,10 +1,10 @@
-import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
-import { ProjectContainer, ProjectItem } from "@/components/project";
+import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
+import { ProjectContainer, ProjectItem } from "@/src/components/project";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/src/components/ui/tooltip";
 import Link from "next/link";
 
 export default function Home() {

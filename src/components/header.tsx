@@ -1,7 +1,7 @@
 "use client";
 
-import useTabs, { type Tab } from "@/hooks/use-tabs";
-import { cn } from "@/lib/utils";
+import useTabs, { type Tab } from "@/src/hooks/use-tabs";
+import { cn } from "@/src/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
