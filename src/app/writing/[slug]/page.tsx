@@ -1,13 +1,15 @@
 import { getPosts } from "@/app/writing/posts";
 import { MDX } from "@/components/mdx";
 import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
-import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { FC } from "react";
 
+import "@/app/writing/[slug]/post.css";
+
 export const generateStaticParams = async () => {
 	const posts = getPosts();
+
 	return posts.map((post) => ({ slug: post.slug }));
 };
 
@@ -21,9 +23,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 		summary: description,
 		image,
 	} = post.metadata;
-	const ogImage = image
-		? image
-		: `https://harshsingh.xyz/og?title=${encodeURIComponent(title)}`;
+	const ogImage = image ? image : "https://tim-ritter.com/og-image.png";
 
 	return {
 		title,
@@ -33,9 +33,9 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 			description,
 			type: "article",
 			publishedTime,
-			url: `https://harshsingh.xyz/writing/${post.slug}`,
+			url: `https://tim-ritter.com/writing/${post.slug}`,
 			images: [{ url: ogImage }],
-			author: "Harsh Singh",
+			author: "Tim Ritter",
 		},
 		twitter: {
 			card: "summary_large_image",
@@ -43,7 +43,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 			description,
 			images: [ogImage],
 		},
-		alternates: { canonical: `https://harshsingh.xyz/writing/${post.slug}` },
+		alternates: { canonical: `https://tim-ritter.com/writing/${post.slug}` },
 	};
 };
 
@@ -66,9 +66,9 @@ export default (({ params }) => {
 						dateModified: post.metadata.publishedAt,
 						description: post.metadata.summary,
 						image: post.metadata.image
-							? `https://harshsingh.xyz${post.metadata.image}`
+							? `https://tim-ritter.com${post.metadata.image}`
 							: `/og?title=${encodeURIComponent(post.metadata.title)}`,
-						url: `https://harshsingh.xyz/writing/${post.slug}`,
+						url: `https://tim-ritter.com/writing/${post.slug}`,
 						author: { "@type": "Person", name: "Harsh Singh" },
 					}),
 				}}
@@ -84,21 +84,22 @@ export default (({ params }) => {
 					</h1>
 					<Link
 						href="/writing"
-						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4"
+						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit"
 					>
 						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
+							width="24"
+							height="24"
 							viewBox="0 0 24 24"
-							strokeWidth={1.5}
-							stroke="currentColor"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
 							className="h-4 w-4 mr-1"
 							aria-hidden="true"
 						>
 							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+								fillRule="evenodd"
+								clipRule="evenodd"
+								d="M16.0001 6C16.0001 5.44772 15.5524 5 15.0001 5L6.00009 5C5.44781 5 5.00009 5.44772 5.00009 6L5.00009 15C5.00009 15.5523 5.44781 16 6.00009 16C6.55238 16 7.00009 15.5523 7.00009 15V8.41421L16.293 17.7071C16.6835 18.0976 17.3167 18.0976 17.7072 17.7071C18.0977 17.3166 18.0977 16.6834 17.7072 16.2929L8.41431 7L15.0001 7C15.5524 7 16.0001 6.55228 16.0001 6Z"
+								fill="currentColor"
 							/>
 						</svg>
 						All Posts

@@ -1,35 +1,233 @@
 ---
 title: "Deploying Eclipse Che on K3s"
-publishedAt: "2024-01-05"
+publishedAt: "2024-03-09"
 summary: "A non-exhaustive guide"
 ---
 
-This past month, I've been cleaning cobwebs off of my old websites, posts, libraries, projects, and all sorts of other content I've put on the internet over the years.
+### Backstory
 
-I've been writing posts and building websites from my bedroom ever since I was 13 years old. Learning one thing at a time, and then sharing my knowledge with the community. Most of those posts, libraries, and code are now outdated and not a reflection of who I am anymore and are effectively junk.
+I recently spent an entire weekend deploying [Eclipse Che](https://www.eclipse.org/che/) on a [K3s](https://k3s.io/) cluster using [Keycloak](https://www.keycloak.org/) as an OIDC provider. Although it was a lot of fun, I was suprised by the lack of documentation and tutorials on this topic.
+So, to save you some time and frustration, I decided to write a guide on how to do it.
 
-When I was younger, I had all the time in the world to over-engineer perfect, stunning web experiences for stuff nobody would use—and I was fine with that. It was not until my first project, [kmenu](https://kmenu.hxrsh.in), gained massive traction that I had an identity on the internet.
+### Prequisites
 
-Throughout my life, I've put out so many different projects on so many different GitHub accounts that I've lost track. As a result, I decided to archive and private all those projects to escape the burdening feeling of bugs, domain renewals, and other issues piling up.
+Before you start, make sure you have the following:
 
-I'm not ashamed of my old work, rather I believe it should remain private—just for me and my eyes to reflect upon. Without the burden of maintaining it.
+- A K3s cluster up and running
+- Traefik installed as your ingress controller (if not already available through K3s)
+- A domain pointing to your K3s cluster's IP address
+- An SSL certificate for your chosen domain (ideally a wildcard subdomain certificate)
+- [chectl](https://github.com/che-incubator/chectl) installed on the machine running the cluster
 
-## New Website
+### Step 1: Deploying Keycloak
 
-I want this new website, my refreshed projects, and these posts to be a reflection of who I am now, and the things I value. Not a cluster of personalities of my teenage self explored while finding his way through the world.
+First things first, we'll create the necessary files to deploy Keycloak:
 
-This website reflects my new value of finding satisfaction in simplicity, and serves as a micro-example of it. I now have a job, and countless other responsibilities. I don't have time to polish buttons to perfection, write new blog posts, or even rice my Arch Linux setup.
+```bash
+touch keycloak-namespace.yaml keycloak-chart.yaml keycloak-ingress.yaml
+```
 
-This new iteration of my site has practically nothing that I have to keep up to date—which is precisely what I wanted to do. I don't have a thousand NPM dependencies that I have to worry about keeping updated, or follow the new design fad.
+Kubernetes namespaces help organize resources. Let's create one for Keycloak:
 
-All I want out of my personal website now is to share my work, some thoughts, and neat lil' interaction experiments that I find time to do every now and then. I want the internet to have absolutely nothing to do with my personal life anymore.
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keycloak
+```
 
-I've redesigned this so many times I stopped counting years ago. But anyway, here's to a better year ahead.
+Run this command to apply the YAML:
 
-## Colophon
+```bash
+kubectl apply -f keycloak-namespace.yaml
+```
 
-Built with [Next.js](https://nextjs.org/), [MDX](https://mdxjs.com/), and [Tailwind CSS](https://tailwindcss.com/). Set in [Inter](https://rsms.me/inter/) and [Fira Code](https://github.com/tonsky/FiraCode). Deployed to [Vercel](https://vercel.com).
+Now we're ready to install Keycloak using Helm. K3s comes with a built-in Helm controller, which we will use for the installation.
+Be sure to configure the credentials for the default admin user in the **valuesContent** section.
 
-As always, this website is [open source](https://github.com/harshhhdev/www).
+```yaml
+apiVersion: Helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: keycloak
+  namespace: kube-system
+spec:
+  repo: https://charts.bitnami.com/bitnami
+  chart: keycloak
+  targetNamespace: keycloak
+  valuesContent: |-
+    auth:
+      adminUser: admin
+      adminPassword: admin
+    ingress:
+      enabled: false
+    proxy: edge
+    production: true
+```
 
-Inspired by [Gavin Nelson](https://nelson.co), [Paco Coursey](https://paco.me/) and [Oğuz Yağız Kara](https://oguzyagiz.com/).
+```bash
+kubectl apply -f keycloak-chart.yaml
+```
+
+Since we disabled ingress in the Helm chart, let's create a Traefik IngressRoute to make Keycloak accessible externally.
+Don't forget to replace **keycloak.example.com** with your domain.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: keycloak
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - keycloak.example.com
+  rules:
+    - host: keycloak.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak
+                port:
+                  number: 80
+```
+
+Apply the Ingress definition:
+
+```bash
+kubectl apply -f keycloak-ingress.yaml
+```
+
+If everything goes smoothly, you should be able to access Keycloak at https://keycloak.example.com.
+Log in using the credentials you set in the **valuesContent** section.
+
+<Image
+  src="/images/writing/eclipse-che-on-k3s-using-keycloak-oidc/keycloak-admin-dashboard.png"
+  width={1920}
+  height={1080}
+  quality={90}
+  alt="Keycloak admin dashboard"
+/>
+
+### Step 2: Configuring Keycloak
+
+To configure Keycloak as an OIDC provider, we'll create a new realm (think of it as an authentication zone) and a client specifically for Eclipse Che.
+
+**Creating a new realm**
+
+1. Log in to the Keycloak admin dashboard.
+2. Click the dropdown menu "master" in the top left corner and select **Add realm**.
+3. Give your realm a name and click **Create**.
+
+**Creating a new client**
+
+1. In the left sidebar, navigate to **Clients**.
+2. Click **Create Client**.
+3. Assign a name to your client and configure the settings as shown in the image (you can zoom in for a closer look).
+
+<Image
+  src="/images/writing/eclipse-che-on-k3s-using-keycloak-oidc/keycloak-config.png"
+  width={1920}
+  height={2543}
+  quality={90}
+  alt="Keycloak client configuration"
+/>
+
+### Step 3: Configuring K3s to use Keycloak as an OIDC provider
+
+Now, we need to tell K3s to leverage Keycloak for OIDC authentication. Edit (or create) the K3s configuration file located at /etc/rancher/k3s/config.yaml and add the following lines, replacing placeholders with your actual values:
+
+```yaml
+kube-apiserver-arg:
+  - "oidc-issuer-url=https://keycloak.example.com/realms/your-realm-name"
+  - "oidc-client-id=eclipse-che"
+  - "oidc-username-claim=email"
+```
+
+Once you've added those lines, apply the changes by restarting the K3s server:
+
+```bash
+systemctl restart k3s
+```
+
+This particular part of the setup has already been documented [here](https://geek-cookbook.funkypenguin.co.nz/kubernetes/oidc-authentication/keycloak/) and [here](https://geek-cookbook.funkypenguin.co.nz/kubernetes/oidc-authentication/k3s-keycloak/).
+I recomment following these guides if you are not familiar with Keycloak.
+
+### Step 4: Deploying Eclipse Che
+
+We're almost there! Now, let's deploy Eclipse Che using **chectl**, a tool specifically designed for this purpose on Kubernetes. It's generally considered simpler than Helm for Che deployments.
+
+We'll need two YAML files to configure and deploy Che:
+
+```bash
+touch che-cluster.yaml che-ingress.yaml
+```
+
+The **che-cluster.yaml** file defines how Che interacts with Keycloak. Here, we specify Keycloak as the OIDC provider and email as the username claim:
+
+```yaml
+kind: CheCluster
+apiVersion: org.eclipse.che/v2
+spec:
+  networking:
+    auth:
+      externalIdentityProvider: true
+      openShiftoAuth: false
+      oAuthClientName: eclipse-che
+      oAuthSecret: eclipse-che
+      identityProviderURL: "https://keycloak.example.com/realms/your-realm"
+  components:
+    cheServer:
+      extraProperties:
+        CHE_OIDC_USERNAME__CLAIM: email
+```
+
+The ingress file is similar to the Keycloak ingress file, defining how to access the Che web interface:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eclipse-che-ingress
+  namespace: eclipse-che
+spec:
+  rules:
+    - host: che.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: che-gateway
+                port:
+                  number: 8080
+```
+
+Run the following command to deploy Che using **chectl**. Remember to replace placeholders with your actual domain and configuration file:
+
+```bash
+chectl server:deploy --domain che.example.com --platform k8s --che-operator-cr-patch-yaml che-cluster.yaml --skip-cert-manager
+```
+
+Once all pods are running, apply the ingress definition to make Che externally accessible:
+
+```bash
+kubectl apply -f che-ingress.yaml
+```
+
+And that's it! You should now be able to access Eclipse Che at [https://che.example.com](https://che.example.com).
+
+<Image
+  src="/images/writing/eclipse-che-on-k3s-using-keycloak-oidc/che-dashboard.png"
+  width={1920}
+  height={1080}
+  quality={90}
+  alt="Eclipse Che Dashboard"
+/>

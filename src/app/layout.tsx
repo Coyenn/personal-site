@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Nav from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -7,9 +7,79 @@ import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 export const metadata: Metadata = {
-	title: "Tim Ritter. Design Engineer",
-	description:
-		"Crafting interfaces. Building polished software and web experiences.",
+	title: {
+		default: "Tim Ritter",
+		template: "%s — Tim Ritter",
+	},
+	creator: "Tim Ritter",
+	publisher: "Tim Ritter",
+	description: "Design Engineer.",
+	keywords: ["Tim Ritter"],
+	authors: [{ name: "Tim Ritter", url: "https://tim-ritter.com" }],
+	openGraph: {
+		title: "Tim Ritter",
+		description: "Design Engineer.",
+		url: "https://tim-ritter.com",
+		siteName: "Tim Ritter",
+		images: [
+			{
+				url: "https://tim-ritter.com/og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "",
+			},
+		],
+		locale: "en-US",
+		type: "website",
+	},
+	robots: {
+		index: true,
+		follow: true,
+		nocache: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
+	icons: {
+		icon: "/favicon.ico",
+		apple: "/favicon.ico",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Tim Ritter",
+		description: "Design Engineer.",
+		siteId: "kojenia",
+		creator: "@kojenia",
+		creatorId: "kojenia",
+		images: {
+			url: "https://tim-ritter.com/og-image.png",
+			alt: "",
+		},
+	},
+	verification: {
+		yahoo: "yahoo",
+		other: { me: ["hello@tim-ritter.com"] },
+	},
+	alternates: {
+		canonical: "https://tim-ritter.com",
+		types: { "application/rss": "https://tim-ritter.com/rss" },
+	},
+	category: "technology",
+};
+
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	maximumScale: 2,
+	userScalable: true,
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
+		{ media: "(prefers-color-scheme: dark)", color: "#1A1A1A" },
+	],
 };
 
 export default function RootLayout({

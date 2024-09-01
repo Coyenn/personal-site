@@ -1,5 +1,32 @@
 import { PageLoadAnimationWrapper } from "@/components/page-load-animation";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+	title: "Colophon",
+	description:
+		"Paying homage to the creators & tools that made this site possible.",
+	openGraph: {
+		title: "Tim Ritter — Colophon",
+		description:
+			"Paying homage to the creators & tools that made this site possible.",
+		url: "https://tim-ritter.com",
+		siteName: "Tim Ritter",
+		images: [
+			{
+				url: "https://tim-ritter.com/og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "",
+			},
+		],
+		locale: "en-US",
+		type: "website",
+	},
+	alternates: {
+		canonical: "https://tim-ritter.com/colophon",
+	},
+};
 
 export default function Colophon() {
 	return (
@@ -104,6 +131,26 @@ export default function Colophon() {
 							target="_blank"
 						>
 							Instrument Serif
+						</Link>
+					</li>
+				</ul>
+			</section>
+			<section className="flex flex-col gap-y-6">
+				<h2 id="icons">Icons</h2>
+				<ul aria-labelledby="icons" className="grid grid-cols-1 gap-2">
+					<li>
+						<Link href="https://icons.saman.design/" target="_blank">
+							Saman Icons
+						</Link>
+					</li>
+					<li>
+						<Link href="https://heroicons.com/" target="_blank">
+							Hero Icons
+						</Link>
+					</li>
+					<li>
+						<Link href="https://lucide.dev/" target="_blank">
+							Lucide Icons
 						</Link>
 					</li>
 				</ul>

@@ -19,13 +19,13 @@ export default function Home() {
 							<span className="text-muted-foreground contrast-more:text-foreground cursor-help">
 								<span className="sr-only">Tim Ritter - </span>Design Engineer
 								<span className="sr-only">
-									. Blurring the boundaries between design and engineering.
+									. Blurring the lines between design and engineering.
 								</span>
 							</span>
 						</TooltipTrigger>
 						<TooltipContent aria-hidden="true">
 							<p className="font-sans">
-								Blurring the boundaries between design{" "}
+								Blurring the lines between design{" "}
 								<span className="font-ovo">&</span> engineering
 							</p>
 						</TooltipContent>
@@ -34,7 +34,7 @@ export default function Home() {
 			</section>
 			<section>
 				<p>
-					<em>Crafting interfaces</em> with meticulous attention to detail.
+					<em>Creating web experiences</em> with meticulous attention to detail.
 					Diving deep into technical intricacies. Currently pushing pixels at{" "}
 					<Link href="https://next-motion.de" target="_blank">
 						next.motion
@@ -45,10 +45,10 @@ export default function Home() {
 				<h2 id="projects">Projects</h2>
 				<ProjectContainer aria-labelledby="projects">
 					<ProjectItem
-						href="https://www.roblox.com/groups/34260095"
+						href="https://www.roblox.com/groups/32385121"
 						target="_blank"
-						name="Pixel Pirates"
-						position="Founder"
+						name="Luminary Games"
+						position="Co-Founder"
 						summary="Game development studio"
 					/>
 					<ProjectItem
@@ -73,10 +73,10 @@ export default function Home() {
 						summary="Tasteful project management"
 					/>
 					<ProjectItem
-						href="https://www.roblox.com/groups/32385121"
+						href="https://www.roblox.com/groups/34260095"
 						target="_blank"
-						name="Luminary Games"
-						position="Co-Founder"
+						name="Pixel Pirates"
+						position="Founder"
 						summary="Game development studio"
 					/>
 					<ProjectItem
@@ -91,28 +91,44 @@ export default function Home() {
 			<section className="flex flex-col gap-y-6">
 				<h2>Now</h2>
 				<p>
-					Developing skill through doing, guiltlessly exploring passion and
-					interests, imbuing quality. Mindful that <em>everything</em> around me
-					is someone’s life work.
+					Spending my time dabbling in all kinds of technologies. Learning about
+					declarative programming with{" "}
+					<Link href={"https://nixos.org/"} target="_blank">
+						Nix
+					</Link>
+					, developing next-gen video games on{" "}
+					<Link href="https://roblox.com" target="_blank">
+						Roblox
+					</Link>
+					, and building my very own homelab using{" "}
+					<Link href="https://k3s.io" target="_blank">
+						K3s
+					</Link>
+					.
 					<span aria-hidden="true" className="select-none">
 						<br />
 						<br />
 					</span>
-					All I want to do is build websites. Typography, motion design,
-					copywriting, performance—the web is an endless medium of opportunity
-					and creativity of which I’ve only scratched the surface.
+					Blurring the lines between design & engineering.
+					<span aria-hidden="true" className="select-none">
+						<br />
+						<br />
+					</span>
+					From typography and motion design to copywriting and illustration, the
+					web offers endless opportunities for creativity, and I've only just
+					begun to explore it.
 				</p>
 			</section>
 			<section className="flex flex-col gap-y-6">
 				<h2>Get in touch</h2>
 				<p>
-					Reach me at{" "}
+					Message me{" "}
 					<Link href="https://x.com/Kojenia" target="_blank">
 						@Kojenia
 					</Link>{" "}
-					or email me at{" "}
-					<Link href="mailto:t-ritter-mail@web.de" target="_blank">
-						t-ritter-mail@web.de
+					or send me an email at{" "}
+					<Link href="mailto:hello@tim-ritter.com" target="_blank">
+						hello@tim-ritter.com
 					</Link>
 				</p>
 			</section>

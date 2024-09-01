@@ -172,7 +172,7 @@ function Nav() {
 					&
 				</span>
 				<a
-					href="mailto:t-ritter-mail@web.de"
+					href="mailto:hello@tim-ritter.com"
 					rel="noreferrer"
 					target="_blank"
 					className="rounded-full text-background dark:text-foreground bg-muted/25 dark:bg-muted-foreground/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40 dark:hover:bg-muted-foreground/30 dark:active:bg-muted-foreground/40"

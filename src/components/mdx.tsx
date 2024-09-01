@@ -26,6 +26,14 @@ const CustomLink = ((props) => {
 >;
 
 const Img = ((props) => {
+	if (typeof props.src === "string") {
+		return (
+			<Link href={props.src} target="_blank" rel="noopener noreferrer">
+				<Image className="rounded-lg" {...props} />
+			</Link>
+		);
+	}
+
 	return <Image className="rounded-lg" {...props} />;
 }) as FC<ImageProps>;
 

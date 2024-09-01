@@ -1,0 +1,104 @@
+:root {
+  --sh-class: rgb(163 163 163);
+  --sh-identifier: rgb(10 10 10);
+  --sh-sign: rgb(163 163 163);
+  --sh-property: rgb(10 10 10);
+  --sh-entity: rgb(10 10 10);
+  --sh-jsxliterals: rgb(163 163 163);
+  --sh-string: rgb(163 163 163);
+  --sh-keyword: rgb(10 10 10);
+  --sh-comment: #a19595;
+}
+
+.dark {
+  --sh-class: rgb(115 115 115);
+  --sh-identifier: rgb(229 229 229);
+  --sh-sign: rgb(115 115 115);
+  --sh-property: rgb(229 229 229);
+  --sh-entity: rgb(229 229 229);
+  --sh-jsxliterals: rgb(115 115 115);
+  --sh-string: rgb(115 115 115);
+  --sh-keyword: rgb(229 229 229);
+  --sh-comment: #a19595;
+}
+
+.prose {
+  @apply text-foreground;
+
+  a,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  pre,
+  code,
+  i,
+  strong,
+  ul,
+  ol,
+  li,
+  em {
+    @apply text-foreground;
+  }
+
+  a {
+    @apply decoration-foreground/30 contrast-more:decoration-foreground;
+  }
+
+  p {
+    @apply mb-6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-6 font-normal text-base;
+  }
+
+  pre {
+    @apply mb-6 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground dark:text-foreground/85;
+    line-height: 1;
+  }
+
+  pre::-webkit-scrollbar {
+    @apply rounded-lg overflow-hidden w-1 h-1;
+  }
+
+  pre::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/50 contrast-more:bg-foreground hover:bg-muted-foreground/70 rounded-lg;
+  }
+
+  code {
+    @apply text-sm;
+
+    font-family: var(--font-mono);
+  }
+
+  em,
+  i,
+  cite,
+  strong {
+    @apply italic font-serif font-normal text-[17px];
+  }
+
+  img {
+    @media (min-width: 768px) {
+      display: block;
+      width: calc(650px + 120px);
+      height: auto;
+      margin-left: calc(-60px);
+      max-width: none;
+      margin-right: calc(-60px);
+    }
+  }
+
+  a:has(img)::after {
+    display: none !important;
+  }
+}
