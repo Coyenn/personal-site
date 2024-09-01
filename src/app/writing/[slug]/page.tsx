@@ -73,7 +73,7 @@ export default (({ params }) => {
 					}),
 				}}
 			/>
-			<PageLoadAnimationWrapper className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12">
+			<PageLoadAnimationWrapper>
 				<section>
 					<h1 className="font-instrument-serif text-3xl md:text-4xl">
 						<span>{post.metadata.title}</span>
@@ -106,7 +106,7 @@ export default (({ params }) => {
 					</Link>
 				</section>
 				<section className="flex flex-col gap-y-6">
-					<article className="prose animate-children">
+					<article className="prose animate-children mt-12 md:mt-16 lg:mt-20">
 						<MDX source={post.content} />
 					</article>
 				</section>

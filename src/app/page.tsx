@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
 	return (
-		<PageLoadAnimationWrapper className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12">
+		<PageLoadAnimationWrapper>
 			<section>
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">
 					<span aria-hidden="true">Tim Ritter</span>

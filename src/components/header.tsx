@@ -126,7 +126,7 @@ function NavLinks(props: NavLinksProps) {
 	);
 }
 
-function Nav() {
+function Header() {
 	const pathname = usePathname();
 	const tabs: Tab[] = [
 		{
@@ -134,12 +134,12 @@ function Nav() {
 			href: "/",
 		},
 		{
-			title: "Writing",
-			href: "/writing",
+			title: "Craft",
+			href: "/craft",
 		},
 		{
-			title: "Colophon",
-			href: "/colophon",
+			title: "Writing",
+			href: "/writing",
 		},
 	];
 	const [selected, setSelected] = useState<number>(0);
@@ -184,4 +184,4 @@ function Nav() {
 	);
 }
 
-export default Nav;
+export default Header;

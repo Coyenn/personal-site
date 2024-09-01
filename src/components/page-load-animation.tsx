@@ -1,23 +1,21 @@
 import { cn } from "@/lib/utils";
 import {
 	Children,
-	type HTMLAttributes,
+	Fragment,
 	type ReactNode,
 	cloneElement,
 	isValidElement,
 } from "react";
 
-export interface PageLoadAnimationWrapperProps
-	extends HTMLAttributes<HTMLDivElement> {
-	className?: string;
+export interface PageLoadAnimationWrapperProps {
 	children?: ReactNode;
 }
 
 export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
-	const { className, children, ...rest } = props;
+	const { children } = props;
 
 	return (
-		<main className={className} id="main" {...rest}>
+		<Fragment>
 			{Children.map(children, (child, index) => {
 				if (isValidElement(child)) {
 					return cloneElement(child, {
@@ -30,6 +28,6 @@ export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
 				}
 				return child;
 			})}
-		</main>
+		</Fragment>
 	);
 }

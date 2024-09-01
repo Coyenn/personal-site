@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Nav from "@/components/nav";
+import Footer from "@/components/footer";
+import Nav from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { instrumentSerif, inter, newsreader, ovo } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -101,7 +102,7 @@ export default function RootLayout({
 		>
 			<body
 				className={
-					"container px-6 sm:px-0 bg-background contrast-less:opacity-80 overflow-x-hidden"
+					"container px-6 sm:px-0 bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col"
 				}
 			>
 				<ThemeProvider
@@ -113,7 +114,13 @@ export default function RootLayout({
 					<TooltipProvider delayDuration={100}>
 						<div className="blur" />
 						<Nav />
-						{children}
+						<main
+							id="main"
+							className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 grow"
+						>
+							{children}
+						</main>
+						<Footer />
 					</TooltipProvider>
 				</ThemeProvider>
 			</body>

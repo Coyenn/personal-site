@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function Colophon() {
 	return (
-		<PageLoadAnimationWrapper className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12">
+		<PageLoadAnimationWrapper>
 			<section>
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">Colophon</h1>
 			</section>

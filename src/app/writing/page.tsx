@@ -32,7 +32,7 @@ export default function Writing() {
 	const posts = getPosts();
 
 	return (
-		<PageLoadAnimationWrapper className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12">
+		<PageLoadAnimationWrapper>
 			<section>
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">Writing</h1>
 			</section>

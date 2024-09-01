@@ -78,22 +78,21 @@
     @apply font-serif italic text-[17px];
   }
 
-  main {
-    a {
-      @apply underline underline-offset-[3px] decoration-foreground/30 contrast-more:decoration-foreground motion-safe:transition-colors hover:decoration-foreground;
+  main a,
+  footer a {
+    @apply underline underline-offset-[3px] decoration-foreground/30 contrast-more:decoration-foreground motion-safe:transition-colors hover:decoration-foreground;
 
-      &[target="_blank"]::after {
-        content: "";
-        -webkit-mask-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' aria-hidden='true' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'%3E%3C/path%3E%3C/svg%3E");
-        mask-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' aria-hidden='true' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'%3E%3C/path%3E%3C/svg%3E");
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
-        background-color: currentColor;
+    &[target="_blank"]::after {
+      content: "";
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' aria-hidden='true' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'%3E%3C/path%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='currentColor' stroke-width='1.5' viewBox='0 0 24 24' aria-hidden='true' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'%3E%3C/path%3E%3C/svg%3E");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      background-color: currentColor;
 
-        @apply ml-1 inline-block h-[0.9rem] w-[0.9rem] align-middle opacity-50 contrast-more:opacity-100;
-      }
+      @apply ml-1 inline-block h-[0.9rem] w-[0.9rem] align-middle opacity-50 contrast-more:opacity-100;
     }
   }
 
