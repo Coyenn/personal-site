@@ -6,10 +6,10 @@ import { Fragment } from "react";
 
 export const metadata: Metadata = {
 	title: "Writing",
-	description: "Posts about design and development.",
+	description: "Deep dives into design and development.",
 	openGraph: {
 		title: "Tim Ritter — Writing",
-		description: "Posts about design and development.",
+		description: "Deep dives into design and development.",
 		url: "https://tim-ritter.com",
 		siteName: "Tim Ritter",
 		images: [
