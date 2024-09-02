@@ -5,7 +5,7 @@ export default function Footer() {
 
 	return (
 		<footer className="flex items-center justify-between text-muted-foreground contrast-more:text-foreground mb-2 text-sm animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-5">
-			<p>© {currentYear}</p>
+			<p>&copy; {currentYear}</p>
 			<Link href="/colophon">
 				<em className="text-sm">Colophon</em>
 			</Link>

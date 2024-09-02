@@ -60,7 +60,7 @@ export default function Colophon() {
 						Vercel
 					</Link>
 					. Source code available on{" "}
-					<Link href="https://github.com/Kojenia/tim-ritter.de" target="_blank">
+					<Link href="https://github.com/Coyenn/personal-site" target="_blank">
 						GitHub
 					</Link>
 					.

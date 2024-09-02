@@ -14,7 +14,7 @@ export default function Colophon() {
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">
 					<span>Page</span>
 					<br />
-					<span className="text-muted-foreground contrast-more:text-foreground cursor-help">
+					<span className="text-muted-foreground contrast-more:text-foreground">
 						Not Found
 					</span>
 				</h1>

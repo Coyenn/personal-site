@@ -66,12 +66,8 @@
     }
   }
 
-  html {
-    scrollbar-gutter: stable both-edges;
-  }
-
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-y-scroll;
   }
 
   em {

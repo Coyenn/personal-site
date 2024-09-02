@@ -119,11 +119,15 @@ export default function LightboxImage(props: LightboxImageProps) {
 			<Image
 				{...props}
 				role="button"
-				aria-label="Open lightbox"
+				tabIndex={0}
+				aria-label={props.alt}
 				aria-haspopup="dialog"
 				aria-expanded={open}
 				placeholder={typeof props.src === "string" ? undefined : "blur"}
 				onClick={() => setOpen(true)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") setOpen(true);
+				}}
 			/>
 		</Fragment>
 	);

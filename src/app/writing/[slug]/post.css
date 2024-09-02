@@ -97,8 +97,4 @@
       margin-right: calc(-60px);
     }
   }
-
-  a:has(img)::after {
-    display: none !important;
-  }
 }

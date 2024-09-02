@@ -37,7 +37,7 @@ export default function Craft() {
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">
 					<span>Craft</span>
 					<br />
-					<span className="text-muted-foreground contrast-more:text-foreground cursor-help">
+					<span className="text-muted-foreground contrast-more:text-foreground">
 						Designs <span className="font-ovo">&</span> Experiments
 					</span>
 				</h1>
@@ -49,11 +49,11 @@ export default function Craft() {
 							className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
 							key={slugify(item.title)}
 						>
-							<div className="block group-hover:opacity-50 group-focus-within:opacity-50 py-6 hover:!opacity-100 focus:!opacity-100 transition-opacity duration-300 ease-in-out contrast-more:!opacity-100">
+							<div className="block group-hover:opacity-50 py-6 hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
 								{item.image && (
 									<LightboxImage
 										alt={item.title}
-										className="rounded-lg"
+										className="rounded-lg border border-muted-foreground/10"
 										height={item.image.height}
 										src={item.image}
 										width={item.image.width}
