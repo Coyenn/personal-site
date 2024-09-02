@@ -2,16 +2,14 @@ import LightboxImage from "@/src/components/lightbox";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import craft from "@/src/data/craft";
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import slugify from "slugify";
 
 export const metadata: Metadata = {
 	title: "Craft",
-	description: "Posts about design and development.",
+	description: "A gallery of my designs and experiments.",
 	openGraph: {
 		title: "Tim Ritter — Craft",
-		description: "Posts about design and development.",
+		description: "A gallery of my designs and experiments.",
 		url: "https://tim-ritter.com",
 		siteName: "Tim Ritter",
 		images: [
