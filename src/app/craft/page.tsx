@@ -46,12 +46,13 @@ export default function Craft() {
 				<ul className="flex flex-col list-none group -mt-3">
 					{craft.map((item, index) => (
 						<li
-							className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
+							className={`${index < 10 ? "animate-intro" : ""} motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
 							key={slugify(item.title)}
 						>
 							<div className="block group-hover:opacity-50 py-6 hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
 								{item.image && (
 									<LightboxImage
+										loading={index < 3 ? "eager" : "lazy"}
 										alt={item.title}
 										className="rounded-lg border border-muted-foreground/10"
 										height={item.image.height}

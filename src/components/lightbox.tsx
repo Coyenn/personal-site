@@ -85,10 +85,12 @@ export interface LightboxImageProps {
 	height?: number | `${number}`;
 	width?: number | `${number}`;
 	className?: string;
+	loading?: "lazy" | "eager";
 }
 
 export default function LightboxImage(props: LightboxImageProps) {
 	const [open, setOpen] = useState(false);
+	const { loading = "lazy" } = props;
 
 	return (
 		<Fragment>
@@ -123,6 +125,8 @@ export default function LightboxImage(props: LightboxImageProps) {
 				aria-label={props.alt}
 				aria-haspopup="dialog"
 				aria-expanded={open}
+				loading={loading}
+				quality={90}
 				placeholder={typeof props.src === "string" ? undefined : "blur"}
 				onClick={() => setOpen(true)}
 				onKeyDown={(e) => {

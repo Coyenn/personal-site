@@ -7,7 +7,7 @@ const animationDelayPlugin = plugin(({ addUtilities }) => {
 	const animationDelayUtilities: Record<string, Record<string, string>> = {};
 	const baseDelay = 300;
 	const increment = 150;
-	const maxItems = 50;
+	const maxItems = 10;
 
 	for (let i = 1; i <= maxItems; i++) {
 		animationDelayUtilities[`.animation-delay-${i}`] = {
