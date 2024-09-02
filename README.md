@@ -23,10 +23,6 @@ This repository contains the source code for my personal website. It's built usi
 - Accessible (Tested with NVDA)
 - Respects user preferences (color scheme, reduced motion, and constrast)
 
-<div align="center">
-  <img src="./websites/www/public/images/preview-payload.webp" />
-</div>
-
 ## Copying
 
 Do whatever you want with the code. If you want to use it for your own website, feel free to do so. Just make sure to replace the content with your own.
@@ -35,7 +31,7 @@ Do whatever you want with the code. If you want to use it for your own website, 
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/)
+- [Git](https://git-scm.com/)
 - [Bun](https://bun.sh/)
 
 ### Installation
