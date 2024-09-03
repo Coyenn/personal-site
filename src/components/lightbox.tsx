@@ -10,6 +10,7 @@ import Lightbox, {
 	useLightboxProps,
 	useLightboxState,
 } from "yet-another-react-lightbox";
+
 import "yet-another-react-lightbox/styles.css";
 
 // biome-ignore lint/suspicious/noExplicitAny: Needed

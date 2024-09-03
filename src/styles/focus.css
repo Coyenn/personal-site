@@ -1,0 +1,11 @@
+.focus {
+  @apply cursor-crosshair;
+
+  .prose :where(button, p, li, h1, h2, h3, h4, h5, h6, pre) {
+    @apply blur-[2px] opacity-60 contrast-more:opacity-20 motion-safe:transition-opacity motion-safe:transition-all !duration-500;
+
+    &:hover {
+      @apply opacity-100 filter-none;
+    }
+  }
+}
