@@ -4,9 +4,17 @@
 
 # Tim Ritter - Personal Website
 
-[Live Website](https://tim-ritter.com) •
-[Overview](#overview) •
-[Getting Started](#getting-started)
+<a href="https://tim-ritter.com" target="_blank">
+  Live Website
+</a>
+<span> &middot; </span>
+<a href="#overview">
+  Overview
+</a>
+<span> &middot; </span>
+<a href="#getting-started">
+  Getting Started
+</a>
 
 </div>
 

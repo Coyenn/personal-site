@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import type { FC } from "react";
 
 import "@/src/app/writing/[slug]/post.css";
+import FocusMode from "@/src/components/focus-mode";
 
 export const generateStaticParams = async () => {
 	const posts = getPosts();
@@ -53,6 +54,7 @@ export default (({ params }) => {
 
 	return (
 		<section>
+			<FocusMode />
 			<script
 				type="application/ld+json"
 				suppressHydrationWarning

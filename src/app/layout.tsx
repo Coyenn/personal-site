@@ -1,11 +1,12 @@
-import type { Metadata, Viewport } from "next";
-import "./globals.css";
 import Footer from "@/src/components/footer";
 import Nav from "@/src/components/header";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { instrumentSerif, inter, newsreader, ovo } from "@/src/lib/fonts";
 import { cn } from "@/src/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import type { Metadata, Viewport } from "next";
+
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
 	title: {
