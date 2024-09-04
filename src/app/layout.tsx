@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 				url: "https://tim-ritter.com/og-image.png",
 				width: 1200,
 				height: 630,
-				alt: "",
+				alt: "Tim Ritter — Design Engineer.",
 			},
 		],
 		locale: "en-US",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 		creatorId: "kojenia",
 		images: {
 			url: "https://tim-ritter.com/og-image.png",
-			alt: "",
+			alt: "Tim Ritter — Design Engineer.",
 		},
 	},
 	verification: {
