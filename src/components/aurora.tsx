@@ -9,7 +9,7 @@ export default function Aurora(props: AuroraProps) {
 	return (
 		<div
 			className={cn(
-				"transition-bg absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden animate-intro duration-1000 animation-delay-3 max-h-[50vh]",
+				"transition-bg absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden hidden sm:block animate-intro duration-1000 animation-delay-3 max-h-[50vh]",
 				className,
 			)}
 			{...rest}
@@ -21,7 +21,8 @@ export default function Aurora(props: AuroraProps) {
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-500)_15%,var(--blue-500)_20%,var(--violet-400)_25%,var(--blue-700)_30%)]
             [background-image:var(--white-gradient),var(--aurora)]
             dark:[background-image:var(--dark-gradient),var(--aurora)]
-            [background-size:100%,_200%]
+            [background-size:300%,_200%]
+            xl:[background-size:100%,_200%]
             [background-position:50%_50%,50%_50%]
             filter blur-[5px] invert dark:invert-0
             after:content-[""] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)]
