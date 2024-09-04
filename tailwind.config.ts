@@ -3,6 +3,9 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import plugin from "tailwindcss/plugin";
 
+/**
+ * Adds utilities for animation delays
+ */
 const animationDelayPlugin = plugin(({ addUtilities }) => {
 	const animationDelayUtilities: Record<string, Record<string, string>> = {};
 	const baseDelay = 300;
@@ -16,6 +19,34 @@ const animationDelayPlugin = plugin(({ addUtilities }) => {
 	}
 
 	addUtilities(animationDelayUtilities);
+});
+
+/**
+ * Adds CSS variables for all colors in the theme
+ */
+const addVariablesForColors = plugin(({ addBase, theme }) => {
+	const allColors = theme("colors");
+	const flattenedColors = Object.fromEntries(
+		Object.entries(
+			allColors as Record<string, string | Record<string, string>>,
+		).flatMap(([key, val]) => {
+			if (typeof val === "string") {
+				return [[key, val]];
+			}
+
+			return Object.entries(val).map(([innerKey, innerVal]) => [
+				`${key}-${innerKey}`,
+				innerVal,
+			]);
+		}),
+	);
+	const newVars = Object.fromEntries(
+		Object.entries(flattenedColors).map(([key, val]) => [`--${key}`, val]),
+	);
+
+	addBase({
+		":root": newVars,
+	});
 });
 
 const config: Config = {
@@ -85,6 +116,7 @@ const config: Config = {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				intro: "intro 0.3s forwards ease-out",
+				aurora: "aurora 60s linear infinite",
 			},
 			keyframes: {
 				"accordion-down": {
@@ -94,6 +126,14 @@ const config: Config = {
 				"accordion-up": {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
+				},
+				aurora: {
+					from: {
+						backgroundPosition: "50% 50%, 50% 50%",
+					},
+					to: {
+						backgroundPosition: "350% 50%, 350% 50%",
+					},
 				},
 				intro: {
 					"0%": {
@@ -110,7 +150,12 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [tailwindcssAnimate, tailwindcssTypography(), animationDelayPlugin],
+	plugins: [
+		tailwindcssAnimate,
+		tailwindcssTypography,
+		animationDelayPlugin,
+		addVariablesForColors,
+	],
 } satisfies Config;
 
 export default config;
