@@ -30,7 +30,7 @@ export default function Aurora(props: AuroraProps) {
             after:[background-size:200%,_100%]
             after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
             pointer-events-none
-            absolute -inset-[10px] opacity-0 dark:opacity-20 will-change-transform
+            absolute -inset-[10px] opacity-0 dark:opacity-30 will-change-transform
 						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]`}
 			/>
 		</div>

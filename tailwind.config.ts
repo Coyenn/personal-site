@@ -117,6 +117,8 @@ const config: Config = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 				intro: "intro 0.3s forwards ease-out",
 				aurora: "aurora 60s linear infinite",
+				flip: "flip 8s infinite steps(2, end)",
+				rotate: "rotate 4s linear infinite both",
 			},
 			keyframes: {
 				"accordion-down": {
@@ -145,6 +147,16 @@ const config: Config = {
 						transform: "translateY(0px)",
 						opacity: "1",
 						filter: "blur(0px)",
+					},
+				},
+				flip: {
+					to: {
+						transform: "rotate(360deg)",
+					},
+				},
+				rotate: {
+					to: {
+						transform: "rotate(90deg)",
 					},
 				},
 			},
