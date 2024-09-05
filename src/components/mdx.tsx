@@ -1,6 +1,6 @@
 import LightboxImage from "@/src/components/lightbox";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
-import Image, { type ImageProps } from "next/image";
+import type { ImageProps } from "next/image";
 import Link from "next/link";
 import {
 	type AnchorHTMLAttributes,

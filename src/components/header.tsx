@@ -175,9 +175,14 @@ function Header() {
 					href="mailto:hello@tim-ritter.com"
 					rel="noreferrer"
 					target="_blank"
-					className="rounded-full text-background dark:text-foreground bg-muted/25 dark:bg-muted-foreground/25 px-3.5 py-1.5 text-sm transition-colors hover:bg-muted/30 active:bg-muted/40 dark:hover:bg-muted-foreground/30 dark:active:bg-muted-foreground/40"
+					className="group relative rounded-full px-3.5 py-1.5 transition-colors border border-black/5"
 				>
-					Contact
+					<span className="group-hover:opacity-70 motion-reduce:!hidden opacity-0 transition-opacity mask-gradient group-hover:animate-flip group-hover:before:animate-rotate absolute inset-0 h-[100%] w-[100%] overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
+					<span className="absolute inset-[1px] bg-neutral-800 rounded-full" />
+					<span className="absolute rounded-full inset-[1px] transition-colors duration-200 shadow-inner shadow-neutral-300/5 bg-muted/25 dark:bg-muted-foreground/25 group-hover:bg-muted/30 group-active:bg-muted/40 dark:group-hover:bg-muted-foreground/30 dark:group-active:bg-muted-foreground/40" />
+					<span className="z-10 relative text-background dark:text-foreground text-sm">
+						Contact
+					</span>
 				</a>
 			</div>
 		</header>

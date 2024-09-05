@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"biome": "biome check --write"
+		"biome": "biome check --write ."
 	},
 	"dependencies": {
 		"@radix-ui/react-tooltip": "^1.1.2",
@@ -16,16 +16,17 @@
 		"clsx": "^2.1.1",
 		"framer-motion": "^11.3.31",
 		"lucide-react": "^0.438.0",
-		"next": "^15.0.0-canary.136",
+		"next": "^15.0.0-canary.141",
 		"next-mdx-remote": "^5.0.0",
 		"next-themes": "^0.3.0",
-		"react": "^19.0.0-rc-e56f4ae3-20240830",
-		"react-dom": "^19.0.0-rc-e56f4ae3-20240830",
+		"react": "^19.0.0-rc-d1afcb43-20240903",
+		"react-dom": "^19.0.0-rc-d1afcb43-20240903",
 		"sharp": "^0.33.5",
 		"slugify": "^1.6.6",
 		"sugar-high": "^0.7.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7",
+		"tailwindcss-inner-border": "^0.2.0",
 		"yet-another-react-lightbox": "^3.21.4"
 	},
 	"devDependencies": {

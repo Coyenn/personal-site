@@ -3,6 +3,8 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import plugin from "tailwindcss/plugin";
 
+const tailwindcssInnerBorder = require("tailwindcss-inner-border");
+
 /**
  * Adds utilities for animation delays
  */
@@ -117,6 +119,8 @@ const config: Config = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 				intro: "intro 0.3s forwards ease-out",
 				aurora: "aurora 60s linear infinite",
+				flip: "flip 8s infinite steps(2, end)",
+				rotate: "rotate 4s linear infinite both",
 			},
 			keyframes: {
 				"accordion-down": {
@@ -147,12 +151,23 @@ const config: Config = {
 						filter: "blur(0px)",
 					},
 				},
+				flip: {
+					to: {
+						transform: "rotate(360deg)",
+					},
+				},
+				rotate: {
+					to: {
+						transform: "rotate(90deg)",
+					},
+				},
 			},
 		},
 	},
 	plugins: [
 		tailwindcssAnimate,
 		tailwindcssTypography,
+		tailwindcssInnerBorder,
 		animationDelayPlugin,
 		addVariablesForColors,
 	],
