@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/src/components/theme-provider";
 import { instrumentSerif, inter, newsreader, ovo } from "@/src/lib/fonts";
 import { cn } from "@/src/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 
 import "../styles/globals.css";
@@ -124,6 +125,7 @@ export default function RootLayout({
 						<Footer />
 					</TooltipProvider>
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
