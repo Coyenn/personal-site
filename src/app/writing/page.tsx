@@ -1,4 +1,5 @@
 import { getPosts } from "@/src/app/writing/posts";
+import BlogPostRow from "@/src/components/blog-post-row";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -37,6 +38,18 @@ export default function Writing() {
 				<h1 className="font-instrument-serif text-3xl md:text-4xl">Writing</h1>
 			</section>
 			<section>
+				{/* <BlogPostRow
+					className="mb-6 sm:mb-8 md:mb-10 lg:mb-12"
+					items={posts.slice(0, 3).map((post) => ({
+						image: {
+							src: post.metadata.image,
+							alt: post.metadata.title,
+							width: 200,
+							height: 100,
+						},
+						href: `/writing/${post.slug}`,
+					}))}
+				/> */}
 				<ul className="flex flex-col list-none group -mt-3">
 					{posts
 						.sort((a, b) => {

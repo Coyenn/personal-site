@@ -26,6 +26,7 @@
 		"sugar-high": "^0.7.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7",
+		"tailwindcss-inner-border": "^0.2.0",
 		"yet-another-react-lightbox": "^3.21.4"
 	},
 	"devDependencies": {

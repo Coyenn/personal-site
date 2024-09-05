@@ -3,6 +3,8 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import plugin from "tailwindcss/plugin";
 
+const tailwindcssInnerBorder = require("tailwindcss-inner-border");
+
 /**
  * Adds utilities for animation delays
  */
@@ -165,6 +167,7 @@ const config: Config = {
 	plugins: [
 		tailwindcssAnimate,
 		tailwindcssTypography,
+		tailwindcssInnerBorder,
 		animationDelayPlugin,
 		addVariablesForColors,
 	],
