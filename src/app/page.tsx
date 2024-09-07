@@ -18,7 +18,7 @@ export default function Home() {
 						<span aria-hidden="true">Tim Ritter</span>
 						<br />
 						<Tooltip>
-							<TooltipTrigger role="presentation">
+							<TooltipTrigger asChild role="presentation">
 								<span className="text-muted-foreground contrast-more:text-foreground cursor-help">
 									<span className="sr-only">Tim Ritter - </span>Design Engineer
 									<span className="sr-only">

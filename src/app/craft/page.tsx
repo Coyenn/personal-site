@@ -1,8 +1,6 @@
-import LightboxImage from "@/src/components/lightbox";
+import CraftList from "@/src/components/craft-list";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
-import craft from "@/src/data/craft";
 import type { Metadata } from "next";
-import slugify from "slugify";
 
 export const metadata: Metadata = {
 	title: "Craft",
@@ -41,31 +39,7 @@ export default function Craft() {
 				</h1>
 			</section>
 			<section>
-				<ul className="flex flex-col list-none group -mt-3">
-					{craft.map((item, index) => (
-						<li
-							className={`${index < 10 ? "animate-intro" : ""} motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
-							key={slugify(item.title)}
-						>
-							<div className="block group-hover:opacity-50 py-6 hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
-								{item.image && (
-									<LightboxImage
-										loading={index < 3 ? "eager" : "lazy"}
-										alt={item.title}
-										className="rounded-lg border border-muted-foreground/10"
-										height={item.image.height}
-										src={item.image}
-										width={item.image.width}
-									/>
-								)}
-								<h3 className="flex justify-between items-center gap-4 mt-6">
-									<span>{item.title}</span>
-								</h3>
-							</div>
-							{index < craft.length - 1 && <hr />}
-						</li>
-					))}
-				</ul>
+				<CraftList />
 			</section>
 		</PageLoadAnimationWrapper>
 	);
