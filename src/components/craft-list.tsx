@@ -27,9 +27,10 @@ export default function CraftList() {
 	return (
 		<ul className="flex flex-col list-none group -mt-3" ref={containerRef}>
 			{craft.map((item, index) => {
-				const { ref, inView } = useInView({
+				const { ref, inView: inViewIntersection } = useInView({
 					threshold: 0,
 				});
+				const inView = index < 3 ? true : inViewIntersection;
 
 				return (
 					<li
