@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/src/lib/utils";
 import type { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image, { type StaticImageData } from "next/image";
 import { Fragment, useState } from "react";
@@ -121,6 +122,7 @@ export default function LightboxImage(props: LightboxImageProps) {
 			/>
 			<Image
 				{...props}
+				className={cn(props.className, "bg-muted-foreground/10")}
 				role="button"
 				tabIndex={0}
 				aria-label={props.alt}

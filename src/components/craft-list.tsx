@@ -38,7 +38,7 @@ export default function CraftList() {
 						key={slugify(item.title)}
 						ref={ref}
 					>
-						<div className="block group-hover:opacity-50 py-6 hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
+						<div className="block md:group-hover:opacity-50 py-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
 							{item.image &&
 								(inView ? (
 									<LightboxImage
