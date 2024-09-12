@@ -118,7 +118,7 @@ export default function RootLayout({
 						<Nav />
 						<main
 							id="main"
-							className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 grow"
+							className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow"
 						>
 							{children}
 						</main>
