@@ -9,7 +9,7 @@ export default function Aurora(props: AuroraProps) {
 	return (
 		<div
 			className={cn(
-				"transition-bg absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden hidden sm:block animate-intro duration-1000 animation-delay-3 max-h-[50vh]",
+				"transition-bg print:hidden absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden hidden sm:block animate-intro duration-1000 animation-delay-3 max-h-[50vh]",
 				className,
 			)}
 			{...rest}

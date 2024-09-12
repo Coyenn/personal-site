@@ -88,7 +88,7 @@
       mask-position: center;
       background-color: currentColor;
 
-      @apply ml-1 inline-block h-[0.9rem] w-[0.9rem] align-middle opacity-50 contrast-more:opacity-100;
+      @apply ml-1 inline-block h-[0.9rem] w-[0.9rem] align-middle opacity-50 contrast-more:opacity-100 print:hidden;
     }
   }
 
