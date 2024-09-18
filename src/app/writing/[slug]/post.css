@@ -62,20 +62,20 @@
   }
 
   pre {
-    @apply mb-6 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground dark:text-foreground/85;
+    @apply mb-6 relative p-0 rounded-lg bg-transparent;
     line-height: 1;
   }
 
-  pre::-webkit-scrollbar {
+  code::-webkit-scrollbar {
     @apply rounded-lg overflow-hidden w-1 h-1;
   }
 
-  pre::-webkit-scrollbar-thumb {
+  code::-webkit-scrollbar-thumb {
     @apply bg-muted-foreground/50 contrast-more:bg-foreground hover:bg-muted-foreground/70 rounded-lg;
   }
 
   code {
-    @apply text-sm;
+    @apply block text-sm scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground dark:text-foreground/85;
 
     font-family: var(--font-mono);
   }
