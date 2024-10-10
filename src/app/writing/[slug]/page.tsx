@@ -14,8 +14,10 @@ export const generateStaticParams = async () => {
 	return posts.map((post) => ({ slug: post.slug }));
 };
 
-export const generateMetadata = ({ params }: { params: { slug: string } }) => {
-	const post = getPosts().find((post) => post.slug === params.slug);
+export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
+	const { slug } = await params;
+	const post = getPosts().find((post) => post.slug === slug);
+
 	if (!post) return;
 
 	const {
@@ -48,8 +50,10 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 	};
 };
 
-export default (({ params }) => {
-	const post = getPosts().find((post) => post.slug === params.slug);
+export default (async ({ params }) => {
+	const { slug } = await params
+	const post = getPosts().find((post) => post.slug === slug);
+
 	if (!post) notFound();
 
 	return (
