@@ -11,6 +11,7 @@ import {
 } from "react";
 import slugify from "slugify";
 import { highlight } from "sugar-high";
+import CopyCode from "./copy-code";
 
 const CustomLink = ((props) => {
 	if (props.href?.startsWith("/"))
@@ -40,8 +41,14 @@ const Img = ((props) => {
 
 const Code = (({ children, ...props }) => {
 	const codeHTML = highlight(children as string);
-	// biome-ignore lint/security/noDangerouslySetInnerHtml: Needed in this case
-	return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+
+	return (
+		<>
+			<CopyCode code={children as string} />
+			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: Needed in this case */}
+			<code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+		</>
+	);
 }) as FC<{ children: ReactNode }>;
 
 const createHeading = (level: number) => {
