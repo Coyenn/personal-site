@@ -1,12 +1,13 @@
+import type { PageProps } from "@/.next/types/app/page";
 import { getPosts } from "@/src/app/writing/posts";
+import FocusMode from "@/src/components/focus-mode";
 import { MDX } from "@/src/components/mdx";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { FC } from "react";
 
 import "@/src/app/writing/[slug]/post.css";
-import FocusMode from "@/src/components/focus-mode";
 
 export const generateStaticParams = async () => {
 	const posts = getPosts();
@@ -14,7 +15,10 @@ export const generateStaticParams = async () => {
 	return posts.map((post) => ({ slug: post.slug }));
 };
 
-export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
+export async function generateMetadata(
+	props: PageProps,
+): Promise<Metadata | undefined> {
+	const { params } = props;
 	const { slug } = await params;
 	const post = getPosts().find((post) => post.slug === slug);
 
@@ -38,7 +42,6 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 			publishedTime,
 			url: `https://tim-ritter.com/writing/${post.slug}`,
 			images: [{ url: ogImage }],
-			author: "Tim Ritter",
 		},
 		twitter: {
 			card: "summary_large_image",
@@ -50,7 +53,8 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 	};
 };
 
-export default (async ({ params }) => {
+export default async function Page(props: PageProps) {
+	const { params } = props;
 	const { slug } = await params
 	const post = getPosts().find((post) => post.slug === slug);
 
@@ -119,4 +123,4 @@ export default (async ({ params }) => {
 			</PageLoadAnimationWrapper>
 		</section>
 	);
-}) as FC<{ params: { slug: string } }>;
+};
