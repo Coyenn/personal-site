@@ -11,19 +11,21 @@ import "../styles/globals.css";
 
 export const metadata: Metadata = {
 	title: {
-		default: "Tim Ritter",
+		default: "Tim Ritter — Design Engineer",
 		template: "%s — Tim Ritter",
 	},
 	creator: "Tim Ritter",
 	publisher: "Tim Ritter",
-	description: "Design Engineer.",
+	description:
+		"Creating web experiences with meticulous attention to detail. Diving deep into technical intricacies.",
 	keywords: ["Tim Ritter"],
 	authors: [{ name: "Tim Ritter", url: "https://tim-ritter.com" }],
 	openGraph: {
-		title: "Tim Ritter",
-		description: "Design Engineer.",
+		title: "Tim Ritter — Design Engineer",
+		description:
+			"Creating web experiences with meticulous attention to detail. Diving deep into technical intricacies.",
 		url: "https://tim-ritter.com",
-		siteName: "Tim Ritter",
+		siteName: "Tim Ritter Personal Site",
 		images: [
 			{
 				url: "https://tim-ritter.com/og-image.png",
@@ -53,8 +55,9 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Tim Ritter",
-		description: "Design Engineer.",
+		title: "Tim Ritter — Design Engineer",
+		description:
+			"Creating web experiences with meticulous attention to detail. Diving deep into technical intricacies.",
 		siteId: "kojenia",
 		creator: "@kojenia",
 		creatorId: "kojenia",

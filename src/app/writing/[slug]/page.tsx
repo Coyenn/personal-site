@@ -51,11 +51,11 @@ export async function generateMetadata(
 		},
 		alternates: { canonical: `https://tim-ritter.com/writing/${post.slug}` },
 	};
-};
+}
 
 export default async function Page(props: PageProps) {
 	const { params } = props;
-	const { slug } = await params
+	const { slug } = await params;
 	const post = getPosts().find((post) => post.slug === slug);
 
 	if (!post) notFound();
@@ -123,4 +123,4 @@ export default async function Page(props: PageProps) {
 			</PageLoadAnimationWrapper>
 		</section>
 	);
-};
+}
