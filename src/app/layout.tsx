@@ -119,10 +119,7 @@ export default function RootLayout({
 					<TooltipProvider delayDuration={100}>
 						<div className="blur" />
 						<Nav />
-						<main
-							id="main"
-							className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow"
-						>
+						<main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
 							{children}
 						</main>
 						<Footer />
