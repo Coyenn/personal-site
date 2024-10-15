@@ -31,6 +31,7 @@ export default function CraftList() {
 					threshold: 0,
 				});
 				const inView = index < 3 ? true : inViewIntersection;
+				const itemRef = useRef<HTMLButtonElement>(null);
 
 				return (
 					<li
@@ -38,7 +39,22 @@ export default function CraftList() {
 						key={slugify(item.title)}
 						ref={ref}
 					>
-						<div className="block md:group-hover:opacity-50 py-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100">
+						<button
+							type="button"
+							className="block w-full outline-none md:group-hover:opacity-50 py-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100"
+							ref={itemRef}
+							aria-label={item.title}
+							tabIndex={inView ? -1 : 0}
+							aria-hidden={inView ? "true" : "false"}
+							onFocus={() => {
+								setTimeout(() => {
+									const image = itemRef.current?.querySelector("img");
+
+									console.log(image);
+									image?.focus();
+								}, 10);
+							}}
+						>
 							{item.image &&
 								(inView ? (
 									<LightboxImage
@@ -67,7 +83,7 @@ export default function CraftList() {
 							<h3 className="flex justify-between items-center gap-4 mt-6">
 								<span>{item.title}</span>
 							</h3>
-						</div>
+						</button>
 						{index < craft.length - 1 && <hr />}
 					</li>
 				);
