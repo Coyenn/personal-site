@@ -73,9 +73,9 @@ export default function CraftList() {
 											height:
 												!inView && item.image
 													? predictRenderedImageHeight(
-															item.image,
-															containerRef.current?.offsetWidth ?? 0,
-														)
+														item.image,
+														containerRef.current?.offsetWidth ?? 0,
+													)
 													: "auto",
 										}}
 									/>
