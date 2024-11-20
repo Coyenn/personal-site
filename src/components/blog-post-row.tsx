@@ -31,7 +31,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 			)}
 		>
 			{items.map((item, index) => {
-				const rotations = [-8, 4, -10];
+				const rotations = [-12, 6, -10];
 				const rotationValue = useMotionValue(0);
 				const rotationSpring = useSpring(0, {
 					stiffness: 600,
@@ -39,7 +39,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 				});
 				const scaleValue = useMotionValue(0.85);
 				const scaleSpring = useSpring(scaleValue, {
-					stiffness: 300,
+					stiffness: 400,
 					damping: 20,
 				});
 				const opacityValue = useMotionValue(0);
@@ -62,7 +62,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 							rotationSpring.set(rotations[index]);
 							opacitySpring.set(1);
 						},
-						400 + index * 100,
+						400 + index * 200,
 					);
 
 					return () => {
@@ -106,10 +106,13 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 							setIsHovering(false);
 						}}
 					>
-						<Link href={item.href}>
+						<Link href={item.href} draggable={false}>
 							<Image
 								{...item.image}
 								src={item.image.src ?? ""}
+								quality={90}
+								priority
+								draggable={false}
 								className="h-full w-full aspect-[16/11] object-cover"
 							/>
 						</Link>

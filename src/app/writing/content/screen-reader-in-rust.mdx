@@ -1,0 +1,43 @@
+---
+title: "Developing a Screen Reader in Rust"
+publishedAt: "2024-11-20"
+summary: "In one weekend"
+image: "/images/writing/screen-reader-in-rust/thumbnail.png"
+---
+
+### Backstory
+
+In June 2025 a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
+And thus, German website owners are currently scrambling to conform to the new regulations.
+
+Recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
+What better way to understand something than to build it yourself?
+
+To keep thing simple, I decided to only support Windows for now because it's by far the most popular OS.
+
+### Choosing the right tools
+
+#### Language
+
+Screen Readers require low-level access to OS APIs for reading text and interacting with applications.
+Rust is pretty much the only low-level programming language I'm somewhat comfortable with. The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
+So it was an easy choice for this project.
+
+#### Libraries
+
+As for libraries, I figured a basic screen reader should be able to:
+
+- Access information about UI elements on the screen
+- Interact with UI applications
+- Read text aloud (text-to-speech)
+- Listen and react to user input
+- Play audio files (for sound effects)
+
+After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs).
+It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
+This is exactly what I need for points 1 and 2 on my list!
+
+Now for text-to-speech, I knew that Windows has a built-in text-to-speech API, I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
+This should cover point 3.
+
+For points 4 and 5, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.

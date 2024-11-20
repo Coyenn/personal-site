@@ -57,5 +57,9 @@ const getMDXData = (dir: string) => {
 export function getPosts() {
 	return getMDXData(
 		path.join(process.cwd(), "src", "app", "writing", "content"),
-	);
+	).sort((a, b) => {
+		if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt))
+			return -1;
+		return 1;
+	});
 }
