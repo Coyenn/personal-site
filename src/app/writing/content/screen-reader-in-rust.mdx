@@ -10,18 +10,21 @@ image: "/images/writing/screen-reader-in-rust/thumbnail.png"
 In June 2025 a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
 And thus, German website owners are currently scrambling to conform to the new regulations.
 
-Recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
+This is also how I first got exposed to the topic of web accessibility. More and more of our clients (@[next.motion](https://next-motion.de)) are asking for audits and improvements in this space.
+
+So recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
 What better way to understand something than to build it yourself?
 
-To keep thing simple, I decided to only support Windows for now because it's by far the most popular OS.
+To keep thing simple, I decided to only focus Windows for now because it's by far the most popular OS.
 
 ### Choosing the right tools
 
 Screen Readers require low-level access to OS APIs for reading text and interacting with applications.
-Rust is pretty much the only low-level programming language I'm somewhat comfortable with. The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
+Rust is pretty much the only low-level programming language I'm somewhat comfortable with.
 So it was an easy choice for this project.
+The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
 
-As for libraries, I figured a basic screen reader should be able to:
+As for functionality, I figured a basic screen reader should be able to:
 
 - Access information about UI elements on the screen
 - Interact with UI applications
@@ -37,3 +40,40 @@ Now for text-to-speech, I knew that Windows has a built-in text-to-speech API, I
 This should cover point 3.
 
 For points 4 and 5, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
+
+### The Implementation
+
+I set up a new Rust project and added the dependencies mentioned above.
+Then I started implementing the basic functionality:
+
+1. Sounds
+
+This is quite simple. Only three sounds are needed:
+a startup sound, a shutdown sound, and a sound for when the user focuses an input field.
+Because there are so little, I skipped any fancy asset management and just included the sound files as byte arrays in the source code.
+
+```rust
+use rodio::{Decoder, OutputStream, Sink};
+use std::io::Cursor;
+
+pub const STARTUP_SOUND: &[u8] = include_bytes!("../assets/sounds/startup.mp3");
+pub const SHUTDOWN_SOUND: &[u8] = include_bytes!("../assets/sounds/shutdown.mp3");
+pub const INPUT_FOCUSSED_SOUND: &[u8] = include_bytes!("../assets/sounds/input-focussed.mp3");
+
+/// Plays the given sound data asynchronously on the default audio output.
+pub fn play_sound(sound_data: &[u8]) {
+    let sound_data_clone = sound_data.to_vec();
+
+    std::thread::spawn(move || {
+        let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+        let sink = Sink::try_new(&stream_handle).unwrap();
+
+        let cursor = Cursor::new(sound_data_clone);
+        let source = Decoder::new(cursor).unwrap();
+
+        sink.append(source);
+
+        sink.sleep_until_end();
+    });
+}
+```

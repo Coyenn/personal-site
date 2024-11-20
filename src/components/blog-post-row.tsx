@@ -57,6 +57,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 					damping: 20,
 				});
 				const [isHovering, setIsHovering] = useState(false);
+				const [isDragging, setIsDragging] = useState(false);
 
 				// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 				useEffect(() => {
@@ -78,7 +79,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 				return (
 					<motion.div
 						key={slugify(item.href)}
-						className="w-[36%] block absolute bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl overflow-hidden"
+						className="w-[36%] z-[1] block absolute bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl overflow-hidden"
 						drag
 						dragConstraints={{ left: 0, right: 0, bottom: 0, top: 0 }}
 						dragElastic={0.5}
@@ -120,15 +121,36 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 							setIsHovering(false);
 							setHighlightIndex(null);
 						}}
+						onDragStart={() => {
+							rotationSpring.set(0);
+							scaleSpring.set(0.95);
+							setIsHovering(true);
+							setHighlightIndex(index);
+							setIsDragging(true);
+						}}
+						onDragEnd={() => {
+							rotationSpring.set(rotations[index]);
+							scaleSpring.set(1);
+							setIsHovering(false);
+							setHighlightIndex(null);
+							setIsDragging(false);
+						}}
 					>
-						<Link href={item.href} draggable={false} className="relative">
+						<Link
+							href={item.href}
+							draggable={false}
+							className="relative"
+							style={{
+								cursor: isDragging ? "grabbing" : "pointer",
+							}}
+						>
 							<Image
 								{...item.image}
 								src={item.image.src ?? ""}
 								quality={90}
 								priority
 								draggable={false}
-								className="h-full w-full aspect-[16/11] object-cover dark:bg-opacity-80"
+								className="h-full w-full aspect-[16/11] object-cover"
 							/>
 						</Link>
 					</motion.div>

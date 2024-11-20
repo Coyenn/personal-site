@@ -53,7 +53,8 @@ export async function generateMetadata(
 }
 
 export interface PageProps {
-	params: { slug: string };
+	// biome-ignore lint/suspicious/noExplicitAny: Next.js internal type
+	params: Promise<any>;
 }
 
 export default async function Page(props: PageProps) {
@@ -97,7 +98,7 @@ export default async function Page(props: PageProps) {
 					</h1>
 					<Link
 						href="/writing"
-						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit"
+						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit hover:text-foreground"
 					>
 						<svg
 							width="24"
