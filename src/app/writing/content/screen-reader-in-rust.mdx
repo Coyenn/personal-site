@@ -1,5 +1,5 @@
 ---
-title: "Developing a Screen Reader in Rust"
+title: "Writing a Screen Reader in Rust"
 publishedAt: "2024-11-20"
 summary: "In one weekend"
 image: "/images/writing/screen-reader-in-rust/thumbnail.png"
@@ -17,13 +17,9 @@ To keep thing simple, I decided to only support Windows for now because it's by 
 
 ### Choosing the right tools
 
-#### Language
-
 Screen Readers require low-level access to OS APIs for reading text and interacting with applications.
 Rust is pretty much the only low-level programming language I'm somewhat comfortable with. The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
 So it was an easy choice for this project.
-
-#### Libraries
 
 As for libraries, I figured a basic screen reader should be able to:
 

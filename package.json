@@ -29,7 +29,8 @@
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7",
 		"tailwindcss-inner-border": "^0.2.0",
-		"yet-another-react-lightbox": "^3.21.4"
+		"yet-another-react-lightbox": "^3.21.4",
+		"zustand": "^5.0.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",

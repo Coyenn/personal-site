@@ -1,5 +1,6 @@
 "use client";
 
+import { useHighlightList } from "@/src/hooks/use-highlight-list";
 import { cn } from "@/src/lib/utils";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
@@ -22,6 +23,9 @@ export interface BlogPostRowProps {
 
 export default function BlogPostRow(props: BlogPostRowProps) {
 	const { items, className } = props;
+	const setHighlightIndex = useHighlightList(
+		(state) => state.setHighlightIndex,
+	);
 
 	return (
 		<div
@@ -74,12 +78,19 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 				return (
 					<motion.div
 						key={slugify(item.href)}
-						className="w-[36%] block absolute shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl overflow-hidden"
+						className="w-[36%] block absolute bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl overflow-hidden"
+						drag
+						dragConstraints={{ left: 0, right: 0, bottom: 0, top: 0 }}
+						dragElastic={0.5}
+						dragTransition={{
+							max: 50,
+							bounceStiffness: 1000,
+							bounceDamping: 50,
+						}}
 						style={{
 							rotate: rotationSpring,
 							scale: scaleSpring,
 							left: `${index * 31}%`,
-							zIndex: isHovering ? 1 : 0,
 							opacity: opacitySpring,
 							transform: `translateX(${translateXSpring}px)`,
 						}}
@@ -88,32 +99,36 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 							scaleSpring.set(1.05);
 							translateXSpring.set(-30);
 							setIsHovering(true);
+							setHighlightIndex(index);
 						}}
 						onHoverEnd={() => {
 							rotationSpring.set(rotations[index]);
 							scaleSpring.set(1);
 							translateXSpring.set(0);
 							setIsHovering(false);
+							setHighlightIndex(null);
 						}}
 						onMouseDown={() => {
 							rotationSpring.set(0);
 							scaleSpring.set(0.95);
 							setIsHovering(true);
+							setHighlightIndex(index);
 						}}
 						onMouseUp={() => {
 							rotationSpring.set(rotations[index]);
 							scaleSpring.set(1);
 							setIsHovering(false);
+							setHighlightIndex(null);
 						}}
 					>
-						<Link href={item.href} draggable={false}>
+						<Link href={item.href} draggable={false} className="relative">
 							<Image
 								{...item.image}
 								src={item.image.src ?? ""}
 								quality={90}
 								priority
 								draggable={false}
-								className="h-full w-full aspect-[16/11] object-cover"
+								className="h-full w-full aspect-[16/11] object-cover dark:bg-opacity-80"
 							/>
 						</Link>
 					</motion.div>

@@ -1,4 +1,3 @@
-import type { PageProps } from "@/.next/types/app/page";
 import { getPosts } from "@/src/app/writing/posts";
 import FocusMode from "@/src/components/focus-mode";
 import { MDX } from "@/src/components/mdx";
@@ -51,6 +50,10 @@ export async function generateMetadata(
 		},
 		alternates: { canonical: `https://tim-ritter.com/writing/${post.slug}` },
 	};
+}
+
+export interface PageProps {
+	params: { slug: string };
 }
 
 export default async function Page(props: PageProps) {

@@ -147,9 +147,18 @@ function Header() {
 	const css = useTabs(tabs);
 
 	useEffect(() => {
-		const activeTab = tabs.findIndex((tab) => tab.href.includes(pathname));
+		let foundIndex = -1;
 
-		setSelected(activeTab);
+		for (const tab of tabs) {
+			if (
+				(pathname.startsWith(tab.href) && tab.href !== "/") ||
+				pathname === tab.href
+			) {
+				foundIndex = tabs.indexOf(tab);
+			}
+		}
+
+		setSelected(foundIndex);
 	}, [pathname]);
 
 	return (

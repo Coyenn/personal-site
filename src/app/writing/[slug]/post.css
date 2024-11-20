@@ -49,7 +49,7 @@
   }
 
   p {
-    @apply mb-6;
+    @apply mb-4;
   }
 
   h1,
@@ -58,11 +58,11 @@
   h4,
   h5,
   h6 {
-    @apply mb-6 font-normal text-base;
+    @apply mb-4 font-medium text-base;
   }
 
   pre {
-    @apply mb-6 relative p-0 rounded-lg bg-transparent;
+    @apply mb-4 relative p-0 rounded-lg bg-transparent;
     line-height: 1;
   }
 

@@ -1,4 +1,5 @@
 import { getPosts } from "@/src/app/writing/posts";
+import BlogPostList from "@/src/components/blog-post-list";
 import BlogPostRow from "@/src/components/blog-post-row";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
@@ -51,28 +52,7 @@ export default function Writing() {
 						href: `/writing/${post.slug}`,
 					}))}
 				/>
-				<ul className="flex flex-col list-none group -mt-3">
-					{posts.map((post, index) => (
-						<Fragment key={post.slug}>
-							<li
-								className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
-							>
-								<Link
-									className="block group-hover:opacity-50 motion-reduce:!opacity-100 py-6 hover:!opacity-100 transition-opacity duration-300 ease-in-out contrast-more:!opacity-100"
-									href={`/writing/${post.slug}`}
-								>
-									<h3 className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
-										<span>{post.metadata.title}</span>
-										<span className="text-muted-foreground contrast-more:text-foreground">
-											{post.metadata.summary}
-										</span>
-									</h3>
-								</Link>
-							</li>
-							{index < posts.length - 1 && <hr />}
-						</Fragment>
-					))}
-				</ul>
+				<BlogPostList posts={posts} />
 			</section>
 		</PageLoadAnimationWrapper>
 	);
