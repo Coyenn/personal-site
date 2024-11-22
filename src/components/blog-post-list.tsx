@@ -20,6 +20,9 @@ export default function BlogPostList(props: BlogPostProps) {
 	const highlightIndex = useHighlightList(
 		(state) => state.currentHighlightIndex,
 	);
+	const setHighlightIndex = useHighlightList(
+		(state) => state.setHighlightIndex,
+	);
 
 	return (
 		<ul className="flex flex-col list-none group -mt-3">
@@ -27,6 +30,8 @@ export default function BlogPostList(props: BlogPostProps) {
 				<Fragment key={post.slug}>
 					<li
 						className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`}
+						onMouseEnter={() => setHighlightIndex(index)}
+						onMouseLeave={() => setHighlightIndex(-1)}
 					>
 						<Link
 							className={cn(

@@ -12,13 +12,13 @@ import "@/src/styles/focus.css";
 export default function FocusMode() {
 	useEffect(() => {
 		const onKeyDown = (event: KeyboardEvent) => {
-			if (event.code === "AltLeft" || event.code === "KeyF") {
+			if (event.code === "KeyF") {
 				document.body.classList.add("focus");
 			}
 		};
 
 		const onKeyUp = (event: KeyboardEvent) => {
-			if (event.code === "AltLeft" || event.code === "KeyF") {
+			if (event.code === "KeyF") {
 				document.body.classList.remove("focus");
 			}
 		};

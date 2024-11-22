@@ -74,10 +74,27 @@
     @apply bg-muted-foreground/50 contrast-more:bg-foreground hover:bg-muted-foreground/70 rounded-lg;
   }
 
-  code {
+  code::before,
+  code::after {
+    content: none;
+  }
+
+  p > code {
+    @apply bg-muted border border-foreground/10 rounded-lg p-1 text-sm;
+  }
+
+  p > code span {
+    @apply !text-foreground font-normal;
+  }
+
+  pre > code {
     @apply block text-sm scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground dark:text-foreground/85;
 
     font-family: var(--font-mono);
+  }
+
+  ol {
+    @apply pl-4;
   }
 
   em,
@@ -85,6 +102,10 @@
   cite,
   strong {
     @apply italic font-serif font-normal text-[17px];
+  }
+
+  img {
+    @apply border border-foreground/10 relative;
   }
 
   img {

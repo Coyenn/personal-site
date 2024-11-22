@@ -46,11 +46,99 @@ For points 4 and 5, I searched for utility crates on [crates.io](https://crates.
 I set up a new Rust project and added the dependencies mentioned above.
 Then I started implementing the basic functionality:
 
-1. Sounds
+#### Reading UI elements
 
-This is quite simple. Only three sounds are needed:
+UIAutomation makes it easy to hook into Windows interface events.
+For example, to get information about the currently focused element, I created a `FocusChangedEventHandler` struct that implements the `UIFocusChangedEventHandler` trait.
+
+```rust
+struct FocusChangedEventHandler {
+    previous_element: Mutex<Option<UIElement>>,
+}
+
+let automation = UIAutomation::new().unwrap();
+let focus_changed_handler = FocusChangedEventHandler {
+    previous_element: Mutex::new(None),
+};
+let focus_changed_handler = UIFocusChangedEventHandler::from(focus_changed_handler);
+```
+
+The implementation of the `UIFocusChangedEventHandler` trait is pretty straightforward.
+A `handle` method is called whenever the focus changes.
+
+```rust
+impl CustomFocusChangedEventHandler for FocusChangedEventHandler {
+    fn handle(&self, sender: &uiautomation::UIElement) -> uiautomation::Result<()> {
+        let mut previous = self.previous_element.lock().unwrap();
+
+        // The handle method sometimes gets called multiple times in quick succession
+        // To prevent multiple announcements of the same element, we check if the new element is the same as the previous one
+        if let Some(prev_elem) = previous.as_ref() {
+            if prev_elem.get_runtime_id()? == sender.get_runtime_id()? {
+                // Same element, do nothing
+                return Ok(());
+            }
+        }
+
+        // Update the previous element
+        *previous = Some(sender.clone());
+
+        // Proceed with handling the new focus
+        let name = sender.get_name().unwrap().trim().to_string();
+        let content = sender.get_help_text().unwrap().trim().to_string();
+        let control_type_name: String = sender
+            .get_localized_control_type()
+            .unwrap()
+            .to_string()
+            .trim()
+            .to_string();
+        let control_type = sender.get_control_type().unwrap();
+        let mut is_focussed_on_input = IS_FOCUSSED_ON_INPUT.lock().unwrap();
+
+        log::info!("Focus changed to: {}", name);
+    }
+}
+```
+
+Using this, I was also able to get information about the control type of the focused element, which is important for playing a sound when the user focuses an input field.
+
+```rust
+if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
+    play_sound(INPUT_FOCUSSED_SOUND);
+}
+```
+
+#### Reading Text
+
+The Windows text-to-speech API is pretty straightforward. You just need to create a `SpeechSynthesizer` object and call the `SynthesizeTextToStreamAsync` method with the text you want to read.
+
+```rust
+let synthesizer = SpeechSynthesizer::new()?;
+
+let stream = synthesizer
+    .SynthesizeTextToStreamAsync(&HSTRING::from("Hello, World!"))?
+    .get()?;
+
+let source = MediaSource::CreateFromStream(
+    &stream,
+    &HSTRING::from(stream.ContentType()?),
+)?;
+
+let player = MediaPlayer::new()?;
+player.SetSource(&source)?;
+
+player.Play()?;
+
+std::thread::sleep(std::time::Duration::from_secs(2));
+
+Ok(())
+```
+
+#### Playing Sounds
+
+This is also quite simple. For my implementation, only three sounds are needed:
 a startup sound, a shutdown sound, and a sound for when the user focuses an input field.
-Because there are so little, I skipped any fancy asset management and just included the sound files as byte arrays in the source code.
+I skipped any fancy asset management and just included the sound files as byte arrays in the source code.
 
 ```rust
 use rodio::{Decoder, OutputStream, Sink};
@@ -60,7 +148,7 @@ pub const STARTUP_SOUND: &[u8] = include_bytes!("../assets/sounds/startup.mp3");
 pub const SHUTDOWN_SOUND: &[u8] = include_bytes!("../assets/sounds/shutdown.mp3");
 pub const INPUT_FOCUSSED_SOUND: &[u8] = include_bytes!("../assets/sounds/input-focussed.mp3");
 
-/// Plays the given sound data asynchronously on the default audio output.
+// Plays the given sound data asynchronously on the default audio output.
 pub fn play_sound(sound_data: &[u8]) {
     let sound_data_clone = sound_data.to_vec();
 
@@ -72,8 +160,26 @@ pub fn play_sound(sound_data: &[u8]) {
         let source = Decoder::new(cursor).unwrap();
 
         sink.append(source);
-
         sink.sleep_until_end();
     });
 }
 ```
+
+#### Listening to Keyboard Input
+
+Similar to how we listened to focus changes, we can listen to keyboard input using the `mki` crate.
+
+```rust
+mki::bind_any_key(Action::handle_kb(|key| {
+    use Keyboard::*;
+
+    match key {
+        // This will stop the screen reader when the escape key is pressed
+        Escape => TTS::stop(true).unwrap(),
+        // This will announce the key that was pressed
+        _ => on_keypress(format!("{:?}", key)),
+    }
+}));
+```
+
+### Putting it all together
