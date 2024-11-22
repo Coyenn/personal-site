@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/src/lib/utils";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import type { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image, { type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -23,15 +23,16 @@ export default function ZoomImage(props: ZoomImageProps) {
 
 	const MAX_DRAG = 150;
 	const x = useMotionValue(0);
+	const springX = useSpring(x, { stiffness: 2000, damping: 320 });
 	const dragButtonSize = useTransform(
-		x,
+		springX,
 		[-MAX_DRAG, 0, MAX_DRAG],
 		[0.5, 1, 1.5],
 	);
 	const backgroundOpacity = useTransform(
-		x,
+		springX,
 		[-MAX_DRAG, 0, MAX_DRAG],
-		[0, 0, 0.5],
+		[0, 0, 0.75],
 	);
 	const imageRef = useRef<HTMLImageElement>(null);
 
@@ -49,7 +50,7 @@ export default function ZoomImage(props: ZoomImageProps) {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Not needed
 	useEffect(() => {
-		x.on("change", (latest) => {
+		springX.on("change", (latest) => {
 			const image = imageRef.current;
 
 			if (image) {
@@ -57,7 +58,6 @@ export default function ZoomImage(props: ZoomImageProps) {
 				image.style.transform = `scale(${newScale})`;
 			}
 
-			x.set(Math.min(Math.max(latest, -MAX_DRAG), MAX_DRAG));
 			setBackdropOpacity(backgroundOpacity.get());
 		});
 
@@ -70,13 +70,17 @@ export default function ZoomImage(props: ZoomImageProps) {
 	return (
 		<>
 			<div
-				className="bg-background fixed inset-0 w-full h-full z-[9] pointer-events-none"
+				className="bg-background fixed inset-0 w-full h-full z-[9] pointer-events-none scale-blur-fix"
 				style={{ opacity: backdropOpacity }}
 			/>
 			<div className="relative z-10">
 				<Image
 					{...props}
-					className={cn(props.className, "bg-muted-foreground/10 z-10")}
+					className={cn(
+						props.className,
+						"bg-muted-foreground/10 z-10",
+						isDragging && "shadow-2xl shadow-muted transition-shadow",
+					)}
 					tabIndex={0}
 					aria-label={props.alt}
 					loading={loading}
@@ -85,29 +89,45 @@ export default function ZoomImage(props: ZoomImageProps) {
 					placeholder={typeof props.src === "string" ? undefined : "blur"}
 					ref={imageRef}
 				/>
-				<div className="hidden group lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">
+				<div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">
 					<motion.button
-						tabIndex={-1}
 						type="button"
-						className="block absolute w-full h-full touch-none cursor-grab"
+						className="block absolute group w-full h-full touch-none cursor-grab focus:outline-none"
 						drag="x"
-						dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
-						dragElastic={{ top: 0, bottom: 0, left: 0.1, right: 0.2 }}
+						dragConstraints={{ left: -MAX_DRAG / 4, right: MAX_DRAG }}
+						dragElastic={0}
+						dragMomentum={false}
 						whileDrag={{ cursor: "grabbing" }}
 						onDragStart={() => {
 							setIsDragging(true);
 						}}
 						onDragEnd={() => {
 							setIsDragging(false);
+							x.set(0);
+							springX.set(0);
 						}}
-						style={{ x, scale: dragButtonSize }}
+						// On Enter key press, set the x value to the max drag value
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								if (x.get() !== MAX_DRAG) {
+									x.set(MAX_DRAG);
+								} else {
+									x.set(0);
+								}
+							}
+						}}
+						aria-expanded={isDragging}
+						style={{ x: springX, scale: dragButtonSize }}
 					>
 						<div
 							className={cn(
-								"w-1 h-11 bg-foreground opacity-50 group-hover:opacity-70 contrast-more:opacity-100 rounded-3xl contrast-more:bg-neutral-900",
+								"w-1 h-11 bg-foreground transition-opacity group-focus-visible:outline group-focus-visible:opacity-100 group-focus-visible:bg-background opacity-50 group-hover:opacity-70 contrast-more:opacity-100 rounded-3xl contrast-more:bg-neutral-900",
 								isDragging && "opacity-70",
 							)}
 						/>
+						<span className="sr-only">
+							Drag or press Enter to zoom in on the image
+						</span>
 					</motion.button>
 				</div>
 			</div>
