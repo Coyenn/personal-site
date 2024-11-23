@@ -23,6 +23,7 @@ export interface BlogPostRowProps {
 
 export default function BlogPostRow(props: BlogPostRowProps) {
 	const { items, className } = props;
+	const [initialised, setInitialised] = useState(false);
 	const highlightIndex = useHighlightList(
 		(state) => state.currentHighlightIndex,
 	);
@@ -68,6 +69,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 							scaleSpring.set(1);
 							rotationSpring.set(rotations[index]);
 							opacitySpring.set(1);
+							setInitialised(true);
 						},
 						400 + index * 200,
 					);
@@ -96,7 +98,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 
 				// biome-ignore lint/correctness/useExhaustiveDependencies: Only run on highlightIndex change
 				useEffect(() => {
-					if (highlightIndex === null) {
+					if (highlightIndex === null || initialised === false) {
 						return;
 					}
 

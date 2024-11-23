@@ -11,6 +11,7 @@ export interface BlogPostProps {
 		metadata: {
 			title: string;
 			summary: string;
+			publishedAt: string;
 		};
 	}[];
 }
@@ -42,9 +43,14 @@ export default function BlogPostList(props: BlogPostProps) {
 						>
 							<h3 className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
 								<span>{post.metadata.title}</span>
-								<span className="text-muted-foreground contrast-more:text-foreground">
-									{post.metadata.summary}
-								</span>
+								<time
+									dateTime={post.metadata.publishedAt}
+									className="text-muted-foreground contrast-more:text-foreground"
+								>
+									{new Date(post.metadata.publishedAt).toLocaleDateString(
+										"en-US",
+									)}
+								</time>
 							</h3>
 						</Link>
 					</li>

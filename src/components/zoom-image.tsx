@@ -79,7 +79,8 @@ export default function ZoomImage(props: ZoomImageProps) {
 					className={cn(
 						props.className,
 						"bg-muted-foreground/10 z-10",
-						isDragging && "shadow-2xl shadow-muted transition-shadow",
+						isDragging &&
+							"shadow-2xl shadow-muted dark:shadow-black transition-shadow",
 					)}
 					tabIndex={0}
 					aria-label={props.alt}
@@ -125,7 +126,7 @@ export default function ZoomImage(props: ZoomImageProps) {
 								isDragging && "opacity-70",
 							)}
 						/>
-						<span className="sr-only">
+						<span className="sr-only" draggable={false}>
 							Drag or press Enter to zoom in on the image
 						</span>
 					</motion.button>
