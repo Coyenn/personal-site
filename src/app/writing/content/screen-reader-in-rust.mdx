@@ -7,7 +7,7 @@ image: "/images/writing/screen-reader-in-rust/thumbnail.png"
 
 ### Backstory
 
-In June 2025 a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
+In June 2025, a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
 And thus, German website owners are currently scrambling to conform to the new regulations.
 
 This is also how I first got exposed to the topic of web accessibility. More and more of our clients (@[next.motion](https://next-motion.de)) are asking for audits and improvements in this space.
@@ -15,11 +15,11 @@ This is also how I first got exposed to the topic of web accessibility. More and
 So recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
 What better way to understand something than to build it yourself?
 
-To keep thing simple, I decided to only focus on Windows for now because it's by far the most popular OS of my target audience.
+To keep things simple, I decided to only focus on Windows for now because it's by far the most popular OS of my target audience.
 
 ### Choosing the right tools
 
-Screen Readers require low-level access to OS APIs for reading text and interacting with applications.
+Screen readers require low-level access to OS APIs for reading text and interacting with applications.
 Rust is pretty much the only low-level programming language I'm somewhat comfortable with.
 So it was an easy choice for this project.
 The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
@@ -35,7 +35,7 @@ After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://g
 It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
 This is exactly what I need for the first point on my list!
 
-Now for text-to-speech, I knew that Windows has a built-in text-to-speech API, I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
+Now for text-to-speech, I knew that Windows has a built-in text-to-speech API; I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
 This should cover point 2.
 
 For points 3 and 4, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
@@ -164,6 +164,12 @@ pub fn play_sound(sound_data: &[u8]) {
 }
 ```
 
+Sounds are then played like this:
+
+```rust
+play_sound(STARTUP_SOUND);
+```
+
 #### Listening to Keyboard Input
 
 Similar to how you can listen to focus changes, you can listen to keyboard input using the `mki` crate.
@@ -183,10 +189,10 @@ mki::bind_any_key(Action::handle_kb(|key| {
 
 ### Putting it all together
 
-I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command line interface, and a configuration file for customizing the screen reader's behavior.
+I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command-line interface, and a configuration file for customizing the screen reader's behavior.
 
-I decided to name this little project 'Aria', after the set of roles and attributes for html elements.
-Aria is licensed under the MIT license.
+I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
+The project is licensed under the MIT license.
 
 A build, as well as the source code, is now available on GitHub:
 

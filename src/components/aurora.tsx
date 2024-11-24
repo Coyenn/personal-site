@@ -1,10 +1,18 @@
 import { cn } from "@/src/lib/utils";
 import type React from "react";
 
-interface AuroraProps extends React.HTMLProps<HTMLDivElement> {}
+interface AuroraProps extends React.HTMLProps<HTMLDivElement> {
+	gradientClassName?: string;
+	gradient?: string;
+}
 
 export default function Aurora(props: AuroraProps) {
-	const { className, ...rest } = props;
+	const {
+		className,
+		gradient = "[--aurora:repeating-linear-gradient(100deg,#002C39_15%,#007A7F_10%,#015061_20%,#00E980_25%,#00FFBB_30%)]",
+		gradientClassName,
+		...rest
+	} = props;
 
 	return (
 		<div
@@ -15,10 +23,10 @@ export default function Aurora(props: AuroraProps) {
 			{...rest}
 		>
 			<div
-				className={`
+				className={cn(
+					`
             [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
             [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
-            [--aurora:repeating-linear-gradient(100deg,#002C39_15%,#007A7F_10%,#015061_20%,#00E980_25%,#00FFBB_30%)]
             [background-image:var(--white-gradient),var(--aurora)]
             dark:[background-image:var(--dark-gradient),var(--aurora)]
             [background-size:300%,_200%]
@@ -31,7 +39,10 @@ export default function Aurora(props: AuroraProps) {
             after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
             pointer-events-none
             absolute -inset-[10px] opacity-0 dark:opacity-30 will-change-transform
-						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]`}
+						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]`,
+					gradient,
+					gradientClassName,
+				)}
 			/>
 		</div>
 	);
