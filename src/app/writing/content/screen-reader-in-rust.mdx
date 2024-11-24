@@ -1,7 +1,7 @@
 ---
 title: "Writing a Screen Reader in Rust"
 publishedAt: "2024-11-20"
-summary: "In one weekend"
+summary: "For Windows"
 image: "/images/writing/screen-reader-in-rust/thumbnail.png"
 ---
 
@@ -15,7 +15,7 @@ This is also how I first got exposed to the topic of web accessibility. More and
 So recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
 What better way to understand something than to build it yourself?
 
-To keep thing simple, I decided to only focus Windows for now because it's by far the most popular OS.
+To keep thing simple, I decided to only focus on Windows for now because it's by far the most popular OS of my target audience.
 
 ### Choosing the right tools
 
@@ -27,19 +27,18 @@ The borrow checker&trade; is the cherry on top, because I don't feel like shooti
 As for functionality, I figured a basic screen reader should be able to:
 
 - Access information about UI elements on the screen
-- Interact with UI applications
 - Read text aloud (text-to-speech)
 - Listen and react to user input
 - Play audio files (for sound effects)
 
 After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs).
 It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
-This is exactly what I need for points 1 and 2 on my list!
+This is exactly what I need for the first point on my list!
 
 Now for text-to-speech, I knew that Windows has a built-in text-to-speech API, I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
-This should cover point 3.
+This should cover point 2.
 
-For points 4 and 5, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
+For points 3 and 4, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
 
 ### The Implementation
 
@@ -167,7 +166,7 @@ pub fn play_sound(sound_data: &[u8]) {
 
 #### Listening to Keyboard Input
 
-Similar to how we listened to focus changes, we can listen to keyboard input using the `mki` crate.
+Similar to how you can listen to focus changes, you can listen to keyboard input using the `mki` crate.
 
 ```rust
 mki::bind_any_key(Action::handle_kb(|key| {
@@ -183,3 +182,17 @@ mki::bind_any_key(Action::handle_kb(|key| {
 ```
 
 ### Putting it all together
+
+I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command line interface, and a configuration file for customizing the screen reader's behavior.
+
+I decided to name this little project 'Aria', after the set of roles and attributes for html elements.
+Aria is licensed under the MIT license.
+
+A build, as well as the source code, is now available on GitHub:
+
+<DownloadButton
+    href="https://github.com/Coyenn/Aria/releases/latest/download/aria.exe"
+    text="Download Aria"
+    icon="download"
+    github="https://github.com/Coyenn/Aria"
+/>

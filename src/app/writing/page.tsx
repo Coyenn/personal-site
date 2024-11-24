@@ -3,8 +3,6 @@ import BlogPostList from "@/src/components/blog-post-list";
 import BlogPostRow from "@/src/components/blog-post-row";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Fragment } from "react";
 
 export const metadata: Metadata = {
 	title: "Writing",

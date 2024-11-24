@@ -1,3 +1,4 @@
+import DownloadButton from "@/src/components/download-button";
 import ZoomImage from "@/src/components/zoom-image";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import type { ImageProps } from "next/image";
@@ -64,6 +65,7 @@ const createHeading = (level: number) => {
 					href: `#${slug}`,
 					key: `link-${slug}`,
 					className: "anchor",
+					tabIndex: -1,
 				}),
 			],
 			children,
@@ -81,6 +83,7 @@ const components = {
 	Image: Img,
 	a: CustomLink,
 	code: Code,
+	DownloadButton: DownloadButton,
 };
 
 export function MDX(props: MDXRemoteProps) {
