@@ -40,6 +40,19 @@ This should cover point 2.
 
 For points 3 and 4, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
 
+### Name and Logo
+
+I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
+Before diving into the implementation, I created a simple logo for the project.
+
+<Image
+  src="/images/writing/screen-reader-in-rust/logo.png"
+  width={1920}
+  height={1080}
+  quality={100}
+  alt="Aria Logo"
+/>
+
 ### The Implementation
 
 I set up a new Rust project and added the dependencies mentioned above.
@@ -191,9 +204,7 @@ mki::bind_any_key(Action::handle_kb(|key| {
 
 I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command-line interface, and a configuration file for customizing the screen reader's behavior.
 
-I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
 The project is licensed under the MIT license.
-
 A build, as well as the source code, is now available on GitHub:
 
 <DownloadButton

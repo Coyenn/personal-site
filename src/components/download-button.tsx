@@ -1,21 +1,16 @@
-import AuroraBgDark from "@/public/images/aurora-bg-dark.png";
-import AuroraBgLight from "@/public/images/aurora-bg-light.png";
 import Aurora from "@/src/components/aurora";
 import { Button } from "@/src/components/ui/button";
-import type { StaticImageData } from "next/image";
-import Image from "next/image";
 import Link from "next/link";
 
 export interface DownloadButtonProps {
 	text: string;
 	href: string;
-	icon: StaticImageData;
 	github?: string;
 	target?: string;
 }
 
 export default function DownloadButton(props: DownloadButtonProps) {
-	const { text, href, icon, github, target } = props;
+	const { text, href, github, target } = props;
 
 	return (
 		<div className="relative overflow-hidden">
