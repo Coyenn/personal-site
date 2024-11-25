@@ -32,7 +32,7 @@ export async function generateMetadata(
 	const ogImage = image ? image : "https://tim-ritter.com/og-image.png";
 
 	return {
-		title: `${title} — Tim Ritter`,
+		title,
 		description,
 		openGraph: {
 			title: `${title} — Tim Ritter`,
