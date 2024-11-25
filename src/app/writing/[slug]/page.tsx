@@ -32,10 +32,10 @@ export async function generateMetadata(
 	const ogImage = image ? image : "https://tim-ritter.com/og-image.png";
 
 	return {
-		title,
+		title: `${title} — Tim Ritter`,
 		description,
 		openGraph: {
-			title,
+			title: `${title} — Tim Ritter`,
 			description,
 			type: "article",
 			publishedTime,
@@ -44,7 +44,7 @@ export async function generateMetadata(
 		},
 		twitter: {
 			card: "summary_large_image",
-			title,
+			title: `${title} — Tim Ritter`,
 			description,
 			images: [ogImage],
 		},
