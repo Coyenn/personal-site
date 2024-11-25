@@ -28,7 +28,14 @@ const parseFrontmatter = (fileContent: string) => {
 			.join(": ")
 			.trim()
 			.replace(/^['"](.*)['"]$/, "$1");
-		metadata[key.trim() as keyof Metadata] = value;
+
+		const typedKey = key.trim() as keyof Metadata;
+
+		if (typedKey === "draft") {
+			metadata[typedKey] = value === "true";
+		} else {
+			metadata[typedKey] = value;
+		}
 	}
 
 	return { metadata: metadata as Metadata, content };
