@@ -1,11 +1,6 @@
 import Aurora from "@/src/components/aurora";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import { ProjectContainer, ProjectItem } from "@/src/components/project";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipTrigger,
-} from "@/src/components/ui/tooltip";
 import Link from "next/link";
 
 export default function Home() {
@@ -17,22 +12,9 @@ export default function Home() {
 					<h1 className="font-instrument-serif text-3xl md:text-4xl">
 						<span aria-hidden="true">Tim Ritter</span>
 						<br />
-						<Tooltip>
-							<TooltipTrigger asChild role="presentation">
-								<span className="text-muted-foreground contrast-more:text-foreground cursor-help">
-									<span className="sr-only">Tim Ritter - </span>Design Engineer
-									<span className="sr-only">
-										. Blurring the lines between design and engineering.
-									</span>
-								</span>
-							</TooltipTrigger>
-							<TooltipContent aria-hidden="true">
-								<p className="font-sans">
-									Blurring the lines between design{" "}
-									<span className="font-ovo">&</span> engineering
-								</p>
-							</TooltipContent>
-						</Tooltip>
+						<span className="text-muted-foreground contrast-more:text-foreground">
+							Design Engineer
+						</span>
 					</h1>
 				</section>
 				<section>

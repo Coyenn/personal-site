@@ -6,6 +6,7 @@ type Metadata = {
 	publishedAt: string;
 	summary: string;
 	image?: string;
+	draft?: boolean;
 };
 
 const parseFrontmatter = (fileContent: string) => {
@@ -27,7 +28,14 @@ const parseFrontmatter = (fileContent: string) => {
 			.join(": ")
 			.trim()
 			.replace(/^['"](.*)['"]$/, "$1");
-		metadata[key.trim() as keyof Metadata] = value;
+
+		const typedKey = key.trim() as keyof Metadata;
+
+		if (typedKey === "draft") {
+			metadata[typedKey] = value === "true";
+		} else {
+			metadata[typedKey] = value;
+		}
 	}
 
 	return { metadata: metadata as Metadata, content };
@@ -57,5 +65,11 @@ const getMDXData = (dir: string) => {
 export function getPosts() {
 	return getMDXData(
 		path.join(process.cwd(), "src", "app", "writing", "content"),
-	);
+	)
+		.sort((a, b) => {
+			if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt))
+				return -1;
+			return 1;
+		})
+		.filter((post) => !post.metadata.draft);
 }

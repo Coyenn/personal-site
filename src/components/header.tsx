@@ -4,14 +4,7 @@ import useTabs, { type Tab } from "@/src/hooks/use-tabs";
 import { cn } from "@/src/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-	type CSSProperties,
-	type FocusEvent,
-	type PointerEvent,
-	useEffect,
-	useRef,
-	useState,
-} from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 export interface NavLinksProps {
 	selectedTabIndex: number;
@@ -40,21 +33,18 @@ function NavLinks(props: NavLinksProps) {
 		setHoveredTabIndex(null);
 	};
 
-	const onEnterTab = (
-		e: PointerEvent<HTMLAnchorElement> | FocusEvent<HTMLAnchorElement>,
-		i: number,
-	) => {
+	const onEnterTab = (index: number, target?: EventTarget) => {
 		if (
-			!e.target ||
-			!buttonRefs[i] ||
+			!target ||
+			!buttonRefs[index] ||
 			!ref.current ||
-			!(e.target instanceof HTMLAnchorElement) ||
-			!(e.target instanceof Element)
+			!(target instanceof HTMLAnchorElement) ||
+			!(target instanceof Element)
 		)
 			return;
 
-		setHoveredTabIndex(i);
-		setHoveredRect(e.target.getBoundingClientRect());
+		setHoveredTabIndex(index);
+		setHoveredRect(target.getBoundingClientRect());
 	};
 
 	const hoverStyles: CSSProperties = {
@@ -102,8 +92,8 @@ function NavLinks(props: NavLinksProps) {
 							: "text-muted/40 dark:text-muted-foreground/70 contrast-more:text-background contrast-more:dark:text-foreground",
 					)}
 					aria-current={selectedTabIndex === index ? "page" : undefined}
-					onPointerEnter={(e) => onEnterTab(e, index)}
-					onFocus={(e) => onEnterTab(e, index)}
+					onPointerEnter={(e) => onEnterTab(index, e.target)}
+					onMouseEnter={(e) => onEnterTab(index, e.target)}
 					ref={(el) => {
 						buttonRefs[index] = el;
 					}}
@@ -147,9 +137,18 @@ function Header() {
 	const css = useTabs(tabs);
 
 	useEffect(() => {
-		const activeTab = tabs.findIndex((tab) => tab.href.includes(pathname));
+		let foundIndex = -1;
 
-		setSelected(activeTab);
+		for (const tab of tabs) {
+			if (
+				(pathname.startsWith(tab.href) && tab.href !== "/") ||
+				pathname === tab.href
+			) {
+				foundIndex = tabs.indexOf(tab);
+			}
+		}
+
+		setSelected(foundIndex);
 	}, [pathname]);
 
 	return (

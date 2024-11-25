@@ -101,6 +101,11 @@
   .animate-intro {
     @apply opacity-0;
   }
+
+  .scale-blur-fix {
+    transform: perspective(1px) translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 .yarl__root {

@@ -1,4 +1,3 @@
-import type { PageProps } from "@/.next/types/app/page";
 import { getPosts } from "@/src/app/writing/posts";
 import FocusMode from "@/src/components/focus-mode";
 import { MDX } from "@/src/components/mdx";
@@ -33,10 +32,10 @@ export async function generateMetadata(
 	const ogImage = image ? image : "https://tim-ritter.com/og-image.png";
 
 	return {
-		title,
+		title: `${title} — Tim Ritter`,
 		description,
 		openGraph: {
-			title,
+			title: `${title} — Tim Ritter`,
 			description,
 			type: "article",
 			publishedTime,
@@ -45,12 +44,17 @@ export async function generateMetadata(
 		},
 		twitter: {
 			card: "summary_large_image",
-			title,
+			title: `${title} — Tim Ritter`,
 			description,
 			images: [ogImage],
 		},
 		alternates: { canonical: `https://tim-ritter.com/writing/${post.slug}` },
 	};
+}
+
+export interface PageProps {
+	// biome-ignore lint/suspicious/noExplicitAny: Next.js internal type
+	params: Promise<any>;
 }
 
 export default async function Page(props: PageProps) {
@@ -94,7 +98,7 @@ export default async function Page(props: PageProps) {
 					</h1>
 					<Link
 						href="/writing"
-						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit"
+						className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit hover:text-foreground"
 					>
 						<svg
 							width="24"
