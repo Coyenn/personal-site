@@ -31,6 +31,10 @@ As for functionality, I figured a basic screen reader should be able to:
 - Listen and react to user input
 - Play audio files (for sound effects)
 
+But there are also several key features that I won't implement at this stage, namely:
+- A GUI
+- Support for reading anything but the focused element (this would require a significant of work because browsers restrict access to web content by default)
+
 After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs).
 It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
 This is exactly what I need for the first point on my list!
@@ -43,7 +47,7 @@ For points 3 and 4, I searched for utility crates on [crates.io](https://crates.
 ### Name and Logo
 
 I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
-Before diving into the implementation, I also created a simple logo.
+Before diving into the code, I also created a simple logo.
 
 <Image
   src="/images/writing/screen-reader-in-rust/logo.png"
@@ -56,7 +60,7 @@ Before diving into the implementation, I also created a simple logo.
 ### The Implementation
 
 I set up a new Rust project and added the dependencies mentioned above.
-Then I started implementing the basic functionality:
+Then I started implementing the basic functionality.
 
 #### Reading UI elements
 
