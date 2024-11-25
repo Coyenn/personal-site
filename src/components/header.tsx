@@ -63,9 +63,8 @@ function NavLinks(props: NavLinksProps) {
 	const selectStyles: CSSProperties = { opacity: 0 };
 	if (rect && selectedRect) {
 		selectStyles.width = selectedRect.width * 0.8;
-		selectStyles.transform = `translateX(calc(${
-			selectedRect.left - rect.left
-		}px + 10%))`;
+		selectStyles.transform = `translateX(calc(${selectedRect.left - rect.left
+			}px + 10%))`;
 		selectStyles.opacity = 1;
 		selectStyles.transition = isInitialRender.current
 			? "opacity 150ms 150ms"
@@ -165,7 +164,7 @@ function Header() {
 					&
 				</span>
 				<a
-					href="mailto:hello@tim-ritter.com"
+					href="mailto:hi@tim.cv"
 					rel="noreferrer"
 					target="_blank"
 					className="group relative rounded-full px-3.5 py-1.5 transition-colors border border-black/5"

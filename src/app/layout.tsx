@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 	},
 	verification: {
 		yahoo: "yahoo",
-		other: { me: ["hello@tim-ritter.com"] },
+		other: { me: ["hi@tim.cv"] },
 	},
 	alternates: {
 		canonical: "https://tim-ritter.com",

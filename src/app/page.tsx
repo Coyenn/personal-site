@@ -113,8 +113,8 @@ export default function Home() {
 							@Kojenia
 						</Link>{" "}
 						or send me an email at{" "}
-						<Link href="mailto:hello@tim-ritter.com" target="_blank">
-							hello@tim-ritter.com
+						<Link href="mailto:hi@tim.cv" target="_blank">
+							hi@tim.cv
 						</Link>
 					</p>
 				</section>
