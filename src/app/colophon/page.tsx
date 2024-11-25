@@ -85,6 +85,11 @@ export default function Colophon() {
 						</Link>
 					</li>
 					<li>
+						<Link href="https://rauno.me/" target="_blank">
+							rauno.me
+						</Link>
+					</li>
+					<li>
 						<Link href="https://glenn.me/" target="_blank">
 							glenn.me
 						</Link>

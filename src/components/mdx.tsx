@@ -1,4 +1,5 @@
-import LightboxImage from "@/src/components/lightbox";
+import DownloadButton from "@/src/components/download-button";
+import ZoomImage from "@/src/components/zoom-image";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import type { ImageProps } from "next/image";
 import Link from "next/link";
@@ -29,7 +30,7 @@ const CustomLink = ((props) => {
 
 const Img = ((props) => {
 	return (
-		<LightboxImage
+		<ZoomImage
 			className="rounded-lg"
 			alt={props.alt}
 			src={props.src}
@@ -41,10 +42,11 @@ const Img = ((props) => {
 
 const Code = (({ children, ...props }) => {
 	const codeHTML = highlight(children as string);
+	const isMultiLine = (children as string).includes("\n");
 
 	return (
 		<>
-			<CopyCode code={children as string} />
+			{isMultiLine && <CopyCode code={children as string} />}
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: Needed in this case */}
 			<code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 		</>
@@ -63,6 +65,7 @@ const createHeading = (level: number) => {
 					href: `#${slug}`,
 					key: `link-${slug}`,
 					className: "anchor",
+					tabIndex: -1,
 				}),
 			],
 			children,
@@ -80,6 +83,7 @@ const components = {
 	Image: Img,
 	a: CustomLink,
 	code: Code,
+	DownloadButton: DownloadButton,
 };
 
 export function MDX(props: MDXRemoteProps) {

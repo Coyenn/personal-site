@@ -1,0 +1,214 @@
+---
+title: "Writing a Screen Reader in Rust"
+publishedAt: "2024-11-20"
+summary: "For Windows"
+image: "/images/writing/screen-reader-in-rust/thumbnail.png"
+---
+
+### Backstory
+
+In June 2025, a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
+And thus, German website owners are currently scrambling to conform to the new regulations.
+
+This is also how I first got exposed to the topic of web accessibility. More and more of our clients (@[next.motion](https://next-motion.de)) are asking for audits and improvements in this space.
+
+So recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
+What better way to understand something than to build it yourself?
+
+To keep things simple, I decided to only focus on Windows for now because it's by far the most popular OS of my target audience.
+
+### Choosing the right tools
+
+Screen readers require low-level access to OS APIs for reading text and interacting with applications.
+Rust is pretty much the only low-level programming language I'm somewhat comfortable with.
+So it was an easy choice for this project.
+The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
+
+As for functionality, I figured a basic screen reader should be able to:
+
+- Access information about UI elements on the screen
+- Read text aloud (text-to-speech)
+- Listen and react to user input
+- Play audio files (for sound effects)
+
+After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs).
+It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
+This is exactly what I need for the first point on my list!
+
+Now for text-to-speech, I knew that Windows has a built-in text-to-speech API; I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
+This should cover point 2.
+
+For points 3 and 4, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
+
+### Name and Logo
+
+I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
+Before diving into the implementation, I also created a simple logo.
+
+<Image
+  src="/images/writing/screen-reader-in-rust/logo.png"
+  width={1920}
+  height={1080}
+  quality={100}
+  alt="Aria Logo"
+/>
+
+### The Implementation
+
+I set up a new Rust project and added the dependencies mentioned above.
+Then I started implementing the basic functionality:
+
+#### Reading UI elements
+
+UIAutomation makes it easy to hook into Windows interface events.
+For example, to get information about the currently focused element, I created a `FocusChangedEventHandler` struct that implements the `UIFocusChangedEventHandler` trait.
+
+```rust
+struct FocusChangedEventHandler {
+    previous_element: Mutex<Option<UIElement>>,
+}
+
+let automation = UIAutomation::new().unwrap();
+let focus_changed_handler = FocusChangedEventHandler {
+    previous_element: Mutex::new(None),
+};
+let focus_changed_handler = UIFocusChangedEventHandler::from(focus_changed_handler);
+```
+
+The implementation of the `UIFocusChangedEventHandler` trait is pretty straightforward.
+A `handle` method is called whenever the focus changes.
+
+```rust
+impl CustomFocusChangedEventHandler for FocusChangedEventHandler {
+    fn handle(&self, sender: &uiautomation::UIElement) -> uiautomation::Result<()> {
+        let mut previous = self.previous_element.lock().unwrap();
+
+        // The handle method sometimes gets called multiple times in quick succession
+        // To prevent multiple announcements of the same element, we check if the new element is the same as the previous one
+        if let Some(prev_elem) = previous.as_ref() {
+            if prev_elem.get_runtime_id()? == sender.get_runtime_id()? {
+                // Same element, do nothing
+                return Ok(());
+            }
+        }
+
+        // Update the previous element
+        *previous = Some(sender.clone());
+
+        // Proceed with handling the new focus
+        let name = sender.get_name().unwrap().trim().to_string();
+        let content = sender.get_help_text().unwrap().trim().to_string();
+        let control_type_name: String = sender
+            .get_localized_control_type()
+            .unwrap()
+            .to_string()
+            .trim()
+            .to_string();
+        let control_type = sender.get_control_type().unwrap();
+        let mut is_focussed_on_input = IS_FOCUSSED_ON_INPUT.lock().unwrap();
+
+        log::info!("Focus changed to: {}", name);
+    }
+}
+```
+
+Using this, I was also able to get information about the control type of the focused element, which is important for playing a sound when the user focuses an input field.
+
+```rust
+if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
+    play_sound(INPUT_FOCUSSED_SOUND);
+}
+```
+
+#### Reading Text
+
+The Windows text-to-speech API is pretty straightforward. You just need to create a `SpeechSynthesizer` object and call the `SynthesizeTextToStreamAsync` method with the text you want to read.
+
+```rust
+let synthesizer = SpeechSynthesizer::new()?;
+
+let stream = synthesizer
+    .SynthesizeTextToStreamAsync(&HSTRING::from("Hello, World!"))?
+    .get()?;
+
+let source = MediaSource::CreateFromStream(
+    &stream,
+    &HSTRING::from(stream.ContentType()?),
+)?;
+
+let player = MediaPlayer::new()?;
+player.SetSource(&source)?;
+
+player.Play()?;
+
+std::thread::sleep(std::time::Duration::from_secs(2));
+
+Ok(())
+```
+
+#### Playing Sounds
+
+This is also quite simple. For my implementation, only three sounds are needed:
+a startup sound, a shutdown sound, and a sound for when the user focuses an input field.
+I skipped any fancy asset management and just included the sound files as byte arrays in the source code.
+
+```rust
+use rodio::{Decoder, OutputStream, Sink};
+use std::io::Cursor;
+
+pub const STARTUP_SOUND: &[u8] = include_bytes!("../assets/sounds/startup.mp3");
+pub const SHUTDOWN_SOUND: &[u8] = include_bytes!("../assets/sounds/shutdown.mp3");
+pub const INPUT_FOCUSSED_SOUND: &[u8] = include_bytes!("../assets/sounds/input-focussed.mp3");
+
+// Plays the given sound data asynchronously on the default audio output.
+pub fn play_sound(sound_data: &[u8]) {
+    let sound_data_clone = sound_data.to_vec();
+
+    std::thread::spawn(move || {
+        let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+        let sink = Sink::try_new(&stream_handle).unwrap();
+
+        let cursor = Cursor::new(sound_data_clone);
+        let source = Decoder::new(cursor).unwrap();
+
+        sink.append(source);
+        sink.sleep_until_end();
+    });
+}
+```
+
+Sounds are then played like this:
+
+```rust
+play_sound(STARTUP_SOUND);
+```
+
+#### Listening to Keyboard Input
+
+Similar to how you can listen to focus changes, you can listen to keyboard input using the `mki` crate.
+
+```rust
+mki::bind_any_key(Action::handle_kb(|key| {
+    use Keyboard::*;
+
+    match key {
+        // This will stop the screen reader when the escape key is pressed
+        Escape => TTS::stop(true).unwrap(),
+        // This will announce the key that was pressed
+        _ => on_keypress(format!("{:?}", key)),
+    }
+}));
+```
+
+### Putting it all together
+
+I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command-line interface, and a configuration file for customizing the screen reader's behavior.
+
+A build, as well as the source code (MIT), is now available on GitHub:
+
+<DownloadButton
+    href="https://github.com/Coyenn/Aria/releases/latest/download/aria.exe"
+    text="Download Aria"
+    icon="download"
+    github="https://github.com/Coyenn/Aria"
+/>

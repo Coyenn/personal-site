@@ -3,7 +3,6 @@ import Nav from "@/src/components/header";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { instrumentSerif, inter, newsreader, ovo } from "@/src/lib/fonts";
 import { cn } from "@/src/lib/utils";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 
@@ -68,7 +67,7 @@ export const metadata: Metadata = {
 	},
 	verification: {
 		yahoo: "yahoo",
-		other: { me: ["hello@tim-ritter.com"] },
+		other: { me: ["hi@tim.cv"] },
 	},
 	alternates: {
 		canonical: "https://tim-ritter.com",
@@ -116,14 +115,12 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<TooltipProvider delayDuration={100}>
-						<div className="blur" />
-						<Nav />
-						<main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
-							{children}
-						</main>
-						<Footer />
-					</TooltipProvider>
+					<div className="blur" />
+					<Nav />
+					<main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
+						{children}
+					</main>
+					<Footer />
 				</ThemeProvider>
 				<Analytics />
 			</body>
