@@ -31,11 +31,11 @@
 }
 
 .dark {
-  --background: 0 0% 5%;
+  --background: 0 0% 9%;
   --foreground: 0 0% 95%;
-  --card: 0 0% 5%;
+  --card: 0 0% 9%;
   --card-foreground: 0 0% 95%;
-  --popover: 0 0% 5%;
+  --popover: 0 0% 9%;
   --popover-foreground: 0 0% 95%;
   --primary: 0 0% 98%;
   --primary-foreground: 0 0% 9%;

@@ -63,8 +63,9 @@ function NavLinks(props: NavLinksProps) {
 	const selectStyles: CSSProperties = { opacity: 0 };
 	if (rect && selectedRect) {
 		selectStyles.width = selectedRect.width * 0.8;
-		selectStyles.transform = `translateX(calc(${selectedRect.left - rect.left
-			}px + 10%))`;
+		selectStyles.transform = `translateX(calc(${
+			selectedRect.left - rect.left
+		}px + 10%))`;
 		selectStyles.opacity = 1;
 		selectStyles.transition = isInitialRender.current
 			? "opacity 150ms 150ms"
@@ -85,7 +86,7 @@ function NavLinks(props: NavLinksProps) {
 					key={`nav-item-${encodeURIComponent(item.title)}`}
 					href={item.href}
 					className={cn(
-						"exclude px-2 sm:px-3.5 py-1 text-sm motion-safe:transition-colors",
+						"exclude px-3 sm:px-3.5 py-1 text-sm motion-safe:transition-colors",
 						hoveredTabIndex === index || selectedTabIndex === index
 							? "text-background dark:text-foreground"
 							: "text-muted/40 dark:text-muted-foreground/70 contrast-more:text-background contrast-more:dark:text-foreground",
@@ -158,7 +159,7 @@ function Header() {
 			<div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:border-muted-foreground/5 dark:bg-muted/80 dark:text-foreground">
 				<NavLinks {...css.tabProps} selectedTabIndex={selected} />
 				<span
-					className="ml-1 mr-3 sm:ml-2 sm:mr-5 text-muted/40 dark:text-muted-foreground/40 font-ovo select-none contrast-more:text-background contrast-more:dark:text-foreground"
+					className="hidden sm:block ml-1 mr-3 sm:ml-2 sm:mr-5 text-muted/40 dark:text-muted-foreground/40 font-ovo select-none contrast-more:text-background contrast-more:dark:text-foreground"
 					aria-hidden="true"
 				>
 					&
