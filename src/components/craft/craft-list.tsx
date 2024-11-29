@@ -37,9 +37,7 @@ function groupItemsByDate() {
 
 export default function CraftList() {
 	const containerRef = useRef<HTMLUListElement>(null);
-	const craftGroups = useMemo(() => {
-		return groupItemsByDate();
-	}, []);
+	const craftGroups = useMemo(() => groupItemsByDate(), []);
 	const [hovering, setHovering] = useState<string | null>(null);
 
 	return (
@@ -64,7 +62,6 @@ export default function CraftList() {
 								threshold: 0,
 							});
 							const inView = index < 3 ? true : inViewIntersection;
-							const itemRef = useRef<HTMLButtonElement>(null);
 
 							return (
 								<li
@@ -83,23 +80,16 @@ export default function CraftList() {
 													`${slugify(item.date)}-${slugify(item.title)}` &&
 												"md:opacity-50",
 										)}
-										ref={itemRef}
 										aria-label={item.title}
 										tabIndex={inView ? -1 : 0}
 										aria-hidden={inView ? "true" : "false"}
-										onFocus={() => {
-											setTimeout(() => {
-												const image = itemRef.current?.querySelector("img");
-
-												image?.focus();
-											}, 10);
-										}}
 										onMouseEnter={() =>
 											setHovering(
 												`${slugify(item.date)}-${slugify(item.title)}`,
 											)
 										}
 										onMouseLeave={() => setHovering(null)}
+										onClick={() => setHovering(null)}
 									>
 										{item.image &&
 											(inView ? (
