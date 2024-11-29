@@ -58,10 +58,9 @@ export default function CraftList() {
 					</div>
 					<ul className="flex flex-col list-none -mt-3">
 						{group.map((item, index) => {
-							const { ref, inView: inViewIntersection } = useInView({
+							const { ref, inView } = useInView({
 								threshold: 0,
 							});
-							const inView = index < 3 ? true : inViewIntersection;
 
 							return (
 								<li
@@ -76,9 +75,9 @@ export default function CraftList() {
 										className={cn(
 											"block w-full outline-none pb-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100",
 											hovering !== null &&
-												hovering !==
-													`${slugify(item.date)}-${slugify(item.title)}` &&
-												"md:opacity-50",
+											hovering !==
+											`${slugify(item.date)}-${slugify(item.title)}` &&
+											"md:opacity-50",
 										)}
 										aria-label={item.title}
 										tabIndex={inView ? -1 : 0}
@@ -109,9 +108,9 @@ export default function CraftList() {
 														height:
 															!inView && item.image
 																? predictRenderedImageHeight(
-																		item.image,
-																		containerRef.current?.offsetWidth ?? 0,
-																	)
+																	item.image,
+																	containerRef.current?.offsetWidth ?? 0,
+																)
 																: "auto",
 													}}
 												/>
