@@ -19,6 +19,7 @@ import LoremAgency from "@/public/images/craft/lorem-agency.png";
 import Desktop2MockupImage from "@/public/images/craft/mockups/desktop-2.png";
 import DesktopMockupImage from "@/public/images/craft/mockups/desktop.png";
 import MobileMockupImage from "@/public/images/craft/mockups/mobile.png";
+import MusicAppMockup from "@/public/images/craft/music-app-mockup.png";
 import MyLogoDark from "@/public/images/craft/my-logo-dark.png";
 import MyLogoLight from "@/public/images/craft/my-logo-light.png";
 import PDemoGif from "@/public/images/craft/p-demo.gif";
@@ -44,6 +45,12 @@ export interface Craft {
 }
 
 const craft: Craft[] = [
+	{
+		title: "Music App — Design Practice",
+		date: "November 2024",
+		tags: ["Figma", "Design"],
+		image: MusicAppMockup,
+	},
 	{
 		title: "Lorem Agency Website Concept",
 		date: "May 2024",
