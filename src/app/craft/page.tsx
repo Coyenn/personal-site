@@ -1,4 +1,4 @@
-import CraftList from "@/src/components/craft-list";
+import CraftList from "@/src/components/craft/craft-list";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
 

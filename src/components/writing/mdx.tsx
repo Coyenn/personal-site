@@ -1,4 +1,4 @@
-import DownloadButton from "@/src/components/download-button";
+import DownloadButton from "@/src/components/writing/download-button";
 import ZoomImage from "@/src/components/zoom-image";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import type { ImageProps } from "next/image";

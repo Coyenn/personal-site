@@ -1,7 +1,7 @@
 import { getPosts } from "@/src/app/writing/posts";
-import FocusMode from "@/src/components/focus-mode";
-import { MDX } from "@/src/components/mdx";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
+import FocusMode from "@/src/components/writing/focus-mode";
+import { MDX } from "@/src/components/writing/mdx";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";

@@ -1,5 +1,5 @@
-import Footer from "@/src/components/footer";
-import Nav from "@/src/components/header";
+import Footer from "@/src/components/layout/footer";
+import Nav from "@/src/components/layout/header";
 import { ThemeProvider } from "@/src/components/theme-provider";
 import { instrumentSerif, inter, newsreader, ovo } from "@/src/lib/fonts";
 import { cn } from "@/src/lib/utils";
