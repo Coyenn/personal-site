@@ -18,9 +18,7 @@ export interface BlogPostProps {
 
 export default function BlogPostList(props: BlogPostProps) {
 	const { posts } = props;
-	const highlightIndex = useHighlightList(
-		(state) => state.currentHighlightIndex,
-	);
+	const highlightIndex = useHighlightList((state) => state.highlightIndex);
 	const setHighlightIndex = useHighlightList(
 		(state) => state.setHighlightIndex,
 	);

@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
 		optimizeCss: true,
 		turbo: {
 			useSwcCss: true,
-			treeShaking: true,
 		},
 	},
 };

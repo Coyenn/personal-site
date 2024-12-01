@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 
 import "../styles/globals.css";
+import { TooltipProvider } from "@/src/components/ui/tooltip";
 
 export const metadata: Metadata = {
 	title: {
@@ -115,12 +116,14 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<div className="blur" />
-					<Nav />
-					<main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
-						{children}
-					</main>
-					<Footer />
+					<TooltipProvider>
+						<div className="blur" />
+						<Nav />
+						<main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
+							{children}
+						</main>
+						<Footer />
+					</TooltipProvider>
 				</ThemeProvider>
 				<Analytics />
 			</body>
