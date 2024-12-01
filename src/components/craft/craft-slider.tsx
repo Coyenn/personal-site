@@ -106,6 +106,7 @@ export default function CraftSlider() {
 						<Image
 							src={craft[imageIndex].image ?? ""}
 							alt={craft[imageIndex].title}
+							placeholder="blur"
 							className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full"
 							draggable={false}
 						/>
