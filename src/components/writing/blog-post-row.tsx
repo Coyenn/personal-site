@@ -24,9 +24,7 @@ export interface BlogPostRowProps {
 export default function BlogPostRow(props: BlogPostRowProps) {
 	const { items, className } = props;
 	const [initialised, setInitialised] = useState(false);
-	const highlightIndex = useHighlightList(
-		(state) => state.currentHighlightIndex,
-	);
+	const highlightIndex = useHighlightList((state) => state.highlightIndex);
 	const setHighlightIndex = useHighlightList(
 		(state) => state.setHighlightIndex,
 	);

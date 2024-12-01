@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export interface UseHighlightListState {
-	currentHighlightIndex: number | null;
+	highlightIndex: number | null;
 }
 
 export interface UseHighlightListActions {
@@ -11,6 +11,6 @@ export interface UseHighlightListActions {
 export const useHighlightList = create<
 	UseHighlightListState & UseHighlightListActions
 >((set) => ({
-	currentHighlightIndex: null,
-	setHighlightIndex: (index) => set({ currentHighlightIndex: index }),
+	highlightIndex: null,
+	setHighlightIndex: (index) => set({ highlightIndex: index }),
 }));

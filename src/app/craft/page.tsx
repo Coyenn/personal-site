@@ -1,4 +1,4 @@
-import CraftList from "@/src/components/craft/craft-list";
+import CraftItems from "@/src/components/craft/craft-items";
 import { PageLoadAnimationWrapper } from "@/src/components/page-load-animation";
 import type { Metadata } from "next";
 
@@ -38,9 +38,7 @@ export default function Craft() {
 					</span>
 				</h1>
 			</section>
-			<section>
-				<CraftList />
-			</section>
+			<CraftItems />
 		</PageLoadAnimationWrapper>
 	);
 }

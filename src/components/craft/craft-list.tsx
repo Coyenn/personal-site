@@ -2,25 +2,11 @@
 
 import LightboxImage from "@/src/components/lightbox";
 import craft from "@/src/data/craft";
+import { predictRenderedImageHeight } from "@/src/lib/predict-rendered-image-height";
 import { cn } from "@/src/lib/utils";
-import type { StaticImageData } from "next/image";
 import { useMemo, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import slugify from "slugify";
-
-function predictRenderedImageHeight(
-	image: StaticImageData,
-	containerWidth: number,
-): number {
-	const imageWidth = image.width;
-	const imageHeight = image.height;
-	const aspectRatio = imageWidth / imageHeight;
-
-	const renderedWidth = Math.min(containerWidth, imageWidth);
-	const renderedHeight = renderedWidth / aspectRatio;
-
-	return Math.round(renderedHeight);
-}
 
 function groupItemsByDate() {
 	const groups: Record<string, typeof craft> = {};
@@ -41,22 +27,22 @@ export default function CraftList() {
 	const [hovering, setHovering] = useState<string | null>(null);
 
 	return (
-		<ul className="flex flex-col list-none -mt-3" ref={containerRef}>
+		<ul className="flex flex-col list-none" ref={containerRef}>
 			{craftGroups.map((group, groupIndex) => (
 				<li
 					key={`group-${slugify(group[0].date)}`}
 					className={cn(
-						"relative flex flex-col gap-y-1",
+						"relative flex flex-col",
 						`${groupIndex < 3 ? "animate-intro" : ""}`,
 						`animation-delay-${groupIndex + 1}`,
 					)}
 				>
-					<div className="z-10 sticky top-12 mb-6 border border-foreground/20 rounded-full bg-white dark:bg-background transform -translate-x-1/2 left-1/2 w-max">
-						<p className="text-muted-foreground rounded-full px-4 py-1 bg-white dark:bg-foreground/10">
+					<div className="z-10 sticky top-12 mb-3  rounded-full transform -translate-x-1/2 left-1/2 w-max">
+						<p className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full">
 							{group[0].date}
 						</p>
 					</div>
-					<ul className="flex flex-col list-none -mt-3">
+					<ul className="flex flex-col list-none">
 						{group.map((item, index) => {
 							const { ref, inView } = useInView({
 								threshold: 0,
@@ -75,9 +61,9 @@ export default function CraftList() {
 										className={cn(
 											"block w-full outline-none pb-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100",
 											hovering !== null &&
-											hovering !==
-											`${slugify(item.date)}-${slugify(item.title)}` &&
-											"md:opacity-50",
+												hovering !==
+													`${slugify(item.date)}-${slugify(item.title)}` &&
+												"md:opacity-50",
 										)}
 										aria-label={item.title}
 										tabIndex={inView ? -1 : 0}
@@ -108,9 +94,9 @@ export default function CraftList() {
 														height:
 															!inView && item.image
 																? predictRenderedImageHeight(
-																	item.image,
-																	containerRef.current?.offsetWidth ?? 0,
-																)
+																		item.image,
+																		containerRef.current?.offsetWidth ?? 0,
+																	)
 																: "auto",
 													}}
 												/>
