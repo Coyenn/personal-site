@@ -23,7 +23,6 @@ import MobileMockupImage from '@/public/images/craft/mockups/mobile.png';
 import MusicAppMockup from '@/public/images/craft/music-app-mockup.png';
 import MyLogoDark from '@/public/images/craft/my-logo-dark.png';
 import MyLogoLight from '@/public/images/craft/my-logo-light.png';
-import PDemoGif from '@/public/images/craft/p-demo.gif';
 import PersonalWebsiteRedesign from '@/public/images/craft/personal-website-redesign.png';
 import PortAlert from '@/public/images/craft/port-alert.png';
 import Shelter from '@/public/images/craft/shelter.png';

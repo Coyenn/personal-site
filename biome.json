@@ -32,7 +32,9 @@
         "noChildrenProp": "error",
         "useExhaustiveDependencies": "warn",
         "useHookAtTopLevel": "off",
-        "useJsxKeyInIterable": "error"
+        "useJsxKeyInIterable": "error",
+        "noUnusedImports": "warn",
+        "noUnusedVariables": "warn"
       },
       "security": {
         "noDangerouslySetInnerHtmlWithChildren": "error"

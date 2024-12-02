@@ -81,7 +81,8 @@ export function NextJsImage({ slide, offset, rect }: NextJsImageProps) {
   );
 }
 
-export interface LightboxImageProps {
+export interface LightboxImageProps
+  extends Omit<JSX.IntrinsicElements['img'], 'src'> {
   src: StaticImageData | StaticImport | string;
   alt: string;
   height?: number | `${number}`;
