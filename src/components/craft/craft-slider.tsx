@@ -5,8 +5,7 @@ import craft from '@/src/data/craft';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { wrap } from 'popmotion';
-import * as React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const variants = {
   enter: (direction: number) => {
@@ -93,7 +92,7 @@ export default function CraftSlider() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
+            onDragEnd={(_e, { offset, velocity }) => {
               const swipe = swipePower(offset.x, velocity.x);
 
               if (swipe < -swipeConfidenceThreshold) {
@@ -119,7 +118,7 @@ export default function CraftSlider() {
         variant="primary"
         size="icon"
         onClick={() => paginate(-1)}
-        className="hidden md:flex absolute top-[50%] -left-12 z-10 transform -translate-y-1/2"
+        className="hidden md:flex absolute top-[50%] -left-12 z-10 transform"
       >
         <svg
           width="24"
@@ -141,7 +140,7 @@ export default function CraftSlider() {
         variant="primary"
         size="icon"
         onClick={() => paginate(1)}
-        className="hidden md:flex absolute top-[50%] -right-12 z-10 transform -translate-y-1/2"
+        className="hidden md:flex absolute top-[50%] -right-12 z-10 transform"
       >
         <svg
           width="24"
