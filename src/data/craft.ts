@@ -31,6 +31,7 @@ import Typo3Left from '@/public/images/craft/typo3-left.png';
 import Typo3Right from '@/public/images/craft/typo3-right.png';
 import Typo3Sidebar from '@/public/images/craft/typo3-sidebar.png';
 import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
+import SQLClient from '@/public/images/craft/sql-client.png';
 
 import type { StaticImageData } from 'next/image';
 
@@ -45,6 +46,12 @@ export interface Craft {
 }
 
 const craft: Craft[] = [
+  {
+    title: 'SQL Client',
+    date: 'December 2024',
+    tags: ['Figma', 'Design'],
+    image: SQLClient,
+  },
   {
     title: 'Folder Peek',
     date: 'December 2024',
