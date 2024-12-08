@@ -2,10 +2,8 @@
 
 import LightboxImage from '@/src/components/lightbox';
 import craft from '@/src/data/craft';
-import { predictRenderedImageHeight } from '@/src/lib/predict-rendered-image-height';
 import { cn } from '@/src/lib/utils';
 import { useMemo, useRef, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import slugify from 'slugify';
 
 function groupItemsByDate() {
@@ -43,9 +41,6 @@ export default function CraftList() {
               const overallItemIndex = craft.findIndex(
                 (craftItem) => craftItem.title === item.title,
               );
-              const { ref, inView } = useInView({
-                threshold: 0,
-              });
 
               return (
                 <li
@@ -55,10 +50,8 @@ export default function CraftList() {
                     `animation-delay-${overallItemIndex + 2}`,
                   )}
                   key={`${item.date}-${slugify(item.title)}`}
-                  ref={ref}
                 >
-                  <button
-                    type="button"
+                  <div
                     className={cn(
                       'block w-full outline-none pb-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100',
                       hovering !== null &&
@@ -66,42 +59,23 @@ export default function CraftList() {
                           `${slugify(item.date)}-${slugify(item.title)}` &&
                         'md:opacity-50',
                     )}
-                    aria-label={item.title}
-                    tabIndex={inView ? -1 : 0}
-                    aria-hidden={inView ? 'true' : 'false'}
                     onMouseEnter={() =>
                       setHovering(
                         `${slugify(item.date)}-${slugify(item.title)}`,
                       )
                     }
                     onMouseLeave={() => setHovering(null)}
-                    onClick={() => setHovering(null)}
                   >
-                    {item.image &&
-                      (inView ? (
-                        <LightboxImage
-                          loading={index < 3 ? 'eager' : 'lazy'}
-                          alt={item.title}
-                          className="rounded-lg border border-muted-foreground/10"
-                          height={item.image.height}
-                          src={item.image}
-                          width={item.image.width}
-                        />
-                      ) : (
-                        <div
-                          aria-label={item.title}
-                          className="rounded-lg border bg-muted-foreground/10 w-full"
-                          style={{
-                            height:
-                              !inView && item.image
-                                ? predictRenderedImageHeight(
-                                    item.image,
-                                    containerRef.current?.offsetWidth ?? 0,
-                                  )
-                                : 'auto',
-                          }}
-                        />
-                      ))}
+                    {item.image && (
+                      <LightboxImage
+                        loading={index < 3 ? 'eager' : 'lazy'}
+                        alt={item.title}
+                        className="rounded-lg border border-muted-foreground/10"
+                        height={item.image.height}
+                        src={item.image}
+                        width={item.image.width}
+                      />
+                    )}
                     <div
                       className={cn(
                         'animate-intro',
@@ -112,7 +86,7 @@ export default function CraftList() {
                         <span>{item.title}</span>
                       </h3>
                     </div>
-                  </button>
+                  </div>
                 </li>
               );
             })}

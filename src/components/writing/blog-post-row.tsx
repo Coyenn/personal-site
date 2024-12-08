@@ -116,7 +116,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
             <Link
               href={item.href}
               draggable={false}
-              className="relative rounded-xl sm:rounded-3xl"
+              className="relative rounded-xl sm:rounded-3xl block"
               style={{
                 cursor: isDragging ? 'grabbing' : 'pointer',
               }}
