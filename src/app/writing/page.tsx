@@ -37,7 +37,7 @@ export default function Writing() {
       <section>
         <h1 className="font-instrument-serif text-3xl md:text-4xl">Writing</h1>
       </section>
-      <section>
+      <section className="animate-intro animation-delay-2">
         <BlogPostRow
           className="hidden lg:block mb-6 sm:mb-8 md:mb-10 lg:mb-12"
           items={topPosts.map((post) => ({
