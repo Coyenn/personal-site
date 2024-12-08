@@ -28,31 +28,32 @@ export default function CraftList() {
 
   return (
     <ul className="flex flex-col list-none" ref={containerRef}>
-      {craftGroups.map((group, groupIndex) => (
+      {craftGroups.map((group) => (
         <li
           key={`group-${slugify(group[0].date)}`}
-          className={cn(
-            'relative flex flex-col',
-            `${groupIndex < 3 ? 'animate-intro' : ''}`,
-            `animation-delay-${groupIndex + 1}`,
-          )}
+          className={cn('relative flex flex-col')}
         >
           <div className="z-10 sticky top-12 mb-3  rounded-full transform -translate-x-1/2 left-1/2 w-max">
-            <p className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full">
+            <p className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full animate-intro animation-delay-1">
               {group[0].date}
             </p>
           </div>
           <ul className="flex flex-col list-none">
             {group.map((item, index) => {
+              const overallItemIndex = craft.findIndex(
+                (craftItem) => craftItem.title === item.title,
+              );
               const { ref, inView } = useInView({
                 threshold: 0,
               });
 
               return (
                 <li
-                  className={
-                    'motion-reduce:duration-0 motion-reduce:opacity-100'
-                  }
+                  className={cn(
+                    'motion-reduce:duration-0 motion-reduce:opacity-100',
+                    'animate-intro',
+                    `animation-delay-${overallItemIndex + 2}`,
+                  )}
                   key={`${item.date}-${slugify(item.title)}`}
                   ref={ref}
                 >
@@ -101,9 +102,16 @@ export default function CraftList() {
                           }}
                         />
                       ))}
-                    <h3 className="flex justify-between items-center gap-4 mb-4 mt-2 md:mb-6 sm:mt-3">
-                      <span>{item.title}</span>
-                    </h3>
+                    <div
+                      className={cn(
+                        'animate-intro',
+                        `animation-delay-${overallItemIndex + 2}`,
+                      )}
+                    >
+                      <h3 className="flex justify-between items-center gap-4 mb-4 mt-2 md:mb-6 sm:mt-3">
+                        <span>{item.title}</span>
+                      </h3>
+                    </div>
                   </button>
                 </li>
               );
