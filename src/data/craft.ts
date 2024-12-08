@@ -1,3 +1,4 @@
+import ThreeDIcon from '@/public/images/craft/3d-icon.png';
 import AdminToolbar from '@/public/images/craft/admin-toolbar.png';
 import AITasksAppConcept1 from '@/public/images/craft/ai-tasks-app-concept-1.png';
 import AITasksAppConcept2 from '@/public/images/craft/ai-tasks-app-concept-2.png';
@@ -26,13 +27,12 @@ import MyLogoLight from '@/public/images/craft/my-logo-light.png';
 import PersonalWebsiteRedesign from '@/public/images/craft/personal-website-redesign.png';
 import PortAlert from '@/public/images/craft/port-alert.png';
 import Shelter from '@/public/images/craft/shelter.png';
+import SQLClient from '@/public/images/craft/sql-client.png';
 import TeamSelect from '@/public/images/craft/team-select.png';
 import Typo3Left from '@/public/images/craft/typo3-left.png';
 import Typo3Right from '@/public/images/craft/typo3-right.png';
 import Typo3Sidebar from '@/public/images/craft/typo3-sidebar.png';
 import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
-import SQLClient from '@/public/images/craft/sql-client.png';
-import ThreeDIcon from '@/public/images/craft/3d-icon.png';
 
 import type { StaticImageData } from 'next/image';
 

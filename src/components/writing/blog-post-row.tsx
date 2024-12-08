@@ -23,7 +23,6 @@ export interface BlogPostRowProps {
 
 export default function BlogPostRow(props: BlogPostRowProps) {
   const { items, className } = props;
-  const [initialised, setInitialised] = useState(false);
   const highlightIndex = useHighlightList((state) => state.highlightIndex);
   const setHighlightIndex = useHighlightList(
     (state) => state.setHighlightIndex,
@@ -38,45 +37,12 @@ export default function BlogPostRow(props: BlogPostRowProps) {
     >
       {items.map((item, index) => {
         const rotations = [-12, 6, -10];
-        const rotationValue = useMotionValue(0);
-        const rotationSpring = useSpring(0, {
-          stiffness: 600,
-          damping: 40,
-        });
         const scaleValue = useMotionValue(0.85);
         const scaleSpring = useSpring(scaleValue, {
-          stiffness: 400,
-          damping: 20,
-        });
-        const opacityValue = useMotionValue(0);
-        const opacitySpring = useSpring(opacityValue, {
-          stiffness: 300,
-          damping: 20,
-        });
-        const translateXValue = useMotionValue(0);
-        const translateXSpring = useSpring(translateXValue, {
-          stiffness: 300,
-          damping: 20,
+          stiffness: 700,
+          damping: 40,
         });
         const [isDragging, setIsDragging] = useState(false);
-
-        // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-        useEffect(() => {
-          setTimeout(
-            () => {
-              scaleSpring.set(1);
-              rotationSpring.set(rotations[index]);
-              opacitySpring.set(1);
-              setInitialised(true);
-            },
-            400 + index * 200,
-          );
-
-          return () => {
-            rotationValue.destroy();
-            scaleValue.destroy();
-          };
-        }, []);
 
         useEffect(() => {
           if (isDragging) {
@@ -96,18 +62,10 @@ export default function BlogPostRow(props: BlogPostRowProps) {
 
         // biome-ignore lint/correctness/useExhaustiveDependencies: Only run on highlightIndex change
         useEffect(() => {
-          if (highlightIndex === null || initialised === false) {
-            return;
-          }
-
           if (highlightIndex === index) {
-            rotationSpring.set(0);
             scaleSpring.set(1.05);
-            translateXSpring.set(-30);
           } else {
-            rotationSpring.set(rotations[index]);
             scaleSpring.set(1);
-            translateXSpring.set(0);
           }
         }, [highlightIndex]);
 
@@ -124,42 +82,32 @@ export default function BlogPostRow(props: BlogPostRowProps) {
               bounceDamping: 50,
             }}
             style={{
-              rotate: rotationSpring,
+              rotate: rotations[index % 3],
               scale: scaleSpring,
               left: `${index * 31}%`,
-              opacity: opacitySpring,
-              transform: `translateX(${translateXSpring}px)`,
             }}
             onHoverStart={() => {
-              rotationSpring.set(0);
               scaleSpring.set(1.05);
-              translateXSpring.set(-30);
               setHighlightIndex(index);
             }}
             onHoverEnd={() => {
-              rotationSpring.set(rotations[index]);
               scaleSpring.set(1);
-              translateXSpring.set(0);
               setHighlightIndex(null);
             }}
             onMouseDown={() => {
-              rotationSpring.set(0);
               scaleSpring.set(0.95);
               setHighlightIndex(index);
             }}
             onMouseUp={() => {
-              rotationSpring.set(rotations[index]);
               scaleSpring.set(1);
               setHighlightIndex(null);
             }}
             onDragStart={() => {
-              rotationSpring.set(0);
               scaleSpring.set(0.95);
               setHighlightIndex(index);
               setIsDragging(true);
             }}
             onDragEnd={() => {
-              rotationSpring.set(rotations[index]);
               scaleSpring.set(1);
               setHighlightIndex(null);
               setIsDragging(false);
