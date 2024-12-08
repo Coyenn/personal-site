@@ -64,6 +64,10 @@
     &::selection {
       @apply bg-rose-600/10 text-red-900 dark:bg-red-900/50 dark:text-rose-300 contrast-more:bg-muted-foreground contrast-more:text-muted;
     }
+
+    &:focus-visible {
+      @apply outline outline-foreground outline-offset-[3px] ring ring-background;
+    }
   }
 
   body {
