@@ -32,6 +32,7 @@ import Typo3Right from '@/public/images/craft/typo3-right.png';
 import Typo3Sidebar from '@/public/images/craft/typo3-sidebar.png';
 import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
 import SQLClient from '@/public/images/craft/sql-client.png';
+import ThreeDIcon from '@/public/images/craft/3d-icon.png';
 
 import type { StaticImageData } from 'next/image';
 
@@ -46,6 +47,12 @@ export interface Craft {
 }
 
 const craft: Craft[] = [
+  {
+    title: '3D Icon',
+    date: 'December 2024',
+    tags: ['Figma', '3D', 'Design'],
+    image: ThreeDIcon,
+  },
   {
     title: 'SQL Client',
     date: 'December 2024',
