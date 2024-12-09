@@ -51,6 +51,7 @@ export default function CraftList() {
                   )}
                   key={`${item.date}-${slugify(item.title)}`}
                 >
+                  {/* biome-ignore lint/a11y/useKeyWithClickEvents: onClick is needed */}
                   <div
                     className={cn(
                       'block w-full outline-none pb-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100',
@@ -65,6 +66,7 @@ export default function CraftList() {
                       )
                     }
                     onMouseLeave={() => setHovering(null)}
+                    onClick={() => setHovering(null)}
                   >
                     {item.image && (
                       <LightboxImage
