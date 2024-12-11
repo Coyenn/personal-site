@@ -7,6 +7,7 @@ import BankingApp2 from '@/public/images/craft/banking-app-2.png';
 import BankingApp from '@/public/images/craft/banking-app.png';
 import BarCharts from '@/public/images/craft/bar-charts.png';
 import BlackWhiteButtons from '@/public/images/craft/black-white-buttons.png';
+import Breadman from '@/public/images/craft/breadman.png';
 import ChartsBlackAndWhite from '@/public/images/craft/charts-black-and-white.png';
 import CreateAccountModal from '@/public/images/craft/create-account-modal.png';
 import FeedbackModal from '@/public/images/craft/feedback-modal.png';
@@ -47,6 +48,12 @@ export interface Craft {
 }
 
 const craft: Craft[] = [
+  {
+    title: 'Breadman',
+    date: 'December 2024',
+    tags: ['Figma', 'Design'],
+    image: Breadman,
+  },
   {
     title: '3D Icon',
     date: 'December 2024',
