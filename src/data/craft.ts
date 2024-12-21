@@ -56,7 +56,7 @@ const craft: Craft[] = [
     image: PromptUI,
   },
   {
-    title: 'Breadman',
+    title: 'Gingerbread Man Icon',
     date: 'December 2024',
     tags: ['Figma', 'Design'],
     image: Breadman,
