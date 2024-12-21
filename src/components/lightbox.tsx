@@ -67,6 +67,7 @@ export function NextJsImage({ slide, offset, rect }: NextJsImageProps) {
         src={slide as StaticImageData}
         loading="eager"
         draggable={true}
+        quality={100}
         placeholder={'blurDataURL' in slide ? 'blur' : undefined}
         style={{
           objectFit: cover ? 'cover' : 'contain',
@@ -130,7 +131,8 @@ export default function LightboxImage(props: LightboxImageProps) {
         aria-haspopup="dialog"
         aria-expanded={open}
         loading={loading}
-        quality={90}
+        quality={100}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         placeholder={typeof props.src === 'string' ? undefined : 'blur'}
         onClick={() => setOpen(true)}
         onKeyDown={(e) => {
