@@ -27,6 +27,7 @@ import MyLogoDark from '@/public/images/craft/my-logo-dark.png';
 import MyLogoLight from '@/public/images/craft/my-logo-light.png';
 import PersonalWebsiteRedesign from '@/public/images/craft/personal-website-redesign.png';
 import PortAlert from '@/public/images/craft/port-alert.png';
+import PromptUI from '@/public/images/craft/prompt-ui.png';
 import Shelter from '@/public/images/craft/shelter.png';
 import SQLClient from '@/public/images/craft/sql-client.png';
 import TeamSelect from '@/public/images/craft/team-select.png';
@@ -48,6 +49,12 @@ export interface Craft {
 }
 
 const craft: Craft[] = [
+  {
+    title: 'AI Prompt UI',
+    date: 'December 2024',
+    tags: ['Figma', 'Design'],
+    image: PromptUI,
+  },
   {
     title: 'Breadman',
     date: 'December 2024',
