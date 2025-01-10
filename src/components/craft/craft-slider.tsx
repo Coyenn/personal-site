@@ -102,15 +102,29 @@ export default function CraftSlider() {
               }
             }}
           >
-            <Image
-              src={craft[imageIndex].image ?? ''}
-              alt={craft[imageIndex].title}
-              height={craft[imageIndex].image?.height}
-              width={craft[imageIndex].image?.width}
-              placeholder="blur"
-              className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full"
-              draggable={false}
-            />
+            {craft[imageIndex].image && (
+              <Image
+                src={craft[imageIndex].image ?? ''}
+                alt={craft[imageIndex].title}
+                height={craft[imageIndex].image?.height}
+                width={craft[imageIndex].image?.width}
+                placeholder="blur"
+                className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full"
+                draggable={false}
+              />
+            )}
+            {craft[imageIndex].video && (
+              <video
+                className="rounded-lg border border-muted-foreground/10 w-full"
+                preload="none"
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                <source src={craft[imageIndex].video} type="video/mp4" />
+              </video>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
