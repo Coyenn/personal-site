@@ -38,7 +38,7 @@ import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
 
 import type { StaticImageData } from 'next/image';
 
-export interface Craft {
+export interface CraftItem {
   title: string;
   description?: string;
   tags?: string[];
@@ -46,9 +46,16 @@ export interface Craft {
   link?: string;
   target?: string;
   image?: StaticImageData;
+  video?: string;
 }
 
-const craft: Craft[] = [
+const craft: CraftItem[] = [
+  {
+    title: 'Graph Slider',
+    date: 'January 2025',
+    tags: ['React', 'Motion'],
+    video: '/videos/craft/graph-slider.mp4',
+  },
   {
     title: 'AI Prompt UI',
     date: 'December 2024',

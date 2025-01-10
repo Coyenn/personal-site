@@ -78,6 +78,18 @@ export default function CraftList() {
                         width={item.image.width}
                       />
                     )}
+                    {item.video && (
+                      <video
+                        className="rounded-lg border border-muted-foreground/10 w-full"
+                        preload="none"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={item.video} type="video/mp4" />
+                      </video>
+                    )}
                     <div
                       className={cn(
                         'animate-intro',
