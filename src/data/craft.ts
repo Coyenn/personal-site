@@ -51,6 +51,12 @@ export interface CraftItem {
 
 const craft: CraftItem[] = [
   {
+    title: 'Notification Bell',
+    date: 'January 2025',
+    tags: ['React', 'Motion'],
+    video: '/videos/craft/notification-bell.mp4',
+  },
+  {
     title: 'Graph Slider',
     date: 'January 2025',
     tags: ['React', 'Motion'],
