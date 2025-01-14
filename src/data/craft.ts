@@ -51,6 +51,12 @@ export interface CraftItem {
 
 const craft: CraftItem[] = [
   {
+    title: 'Isometric Depth Illustration & Animation',
+    date: 'January 2025',
+    tags: ['React', 'Illustration', 'Motion'],
+    video: '/videos/craft/z-index-stack.mp4',
+  },
+  {
     title: 'Notification Bell',
     date: 'January 2025',
     tags: ['React', 'Motion'],
