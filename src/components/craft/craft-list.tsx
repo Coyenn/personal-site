@@ -1,6 +1,7 @@
 'use client';
 
-import LightboxImage from '@/src/components/lightbox';
+import LightboxImage from '@/src/components/lightbox-image';
+import LightboxVideo from '@/src/components/lightbox-video';
 import craft from '@/src/data/craft';
 import { cn } from '@/src/lib/utils';
 import { useMemo, useRef, useState } from 'react';
@@ -79,16 +80,11 @@ export default function CraftList() {
                       />
                     )}
                     {item.video && (
-                      <video
+                      <LightboxVideo
                         className="rounded-lg border border-muted-foreground/10 w-full"
-                        preload="none"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                      >
-                        <source src={item.video} type="video/mp4" />
-                      </video>
+                        src={item.video}
+                        type="video/mp4"
+                      />
                     )}
                     <div
                       className={cn(
