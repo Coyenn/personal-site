@@ -1,9 +1,10 @@
 'use client';
 
+import LightboxImage from '@/src/components/lightbox-image';
+import LightboxVideo from '@/src/components/lightbox-video';
 import { Button } from '@/src/components/ui/button';
 import craft from '@/src/data/craft';
 import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
 import { wrap } from 'popmotion';
 import { useEffect, useState } from 'react';
 
@@ -78,7 +79,7 @@ export default function CraftSlider() {
       <div className="inset-0 w-100 h-[50vh] rounded-lg relative overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="absolute w-full h-full inset-0 flex justify-center items-center max-h-[80vh] lg:max-h-[60vh] "
+            className="absolute w-full h-full inset-0 flex justify-center items-center max-h-[80vh] lg:max-h-[60vh]"
             key={page}
             custom={direction}
             variants={variants}
@@ -86,8 +87,8 @@ export default function CraftSlider() {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
+              x: { type: 'spring', stiffness: 500, damping: 50 },
+              opacity: { duration: 0.4 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -103,27 +104,21 @@ export default function CraftSlider() {
             }}
           >
             {craft[imageIndex].image && (
-              <Image
+              <LightboxImage
                 src={craft[imageIndex].image ?? ''}
                 alt={craft[imageIndex].title}
                 height={craft[imageIndex].image?.height}
                 width={craft[imageIndex].image?.width}
-                placeholder="blur"
-                className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full"
+                className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full border-muted-foreground/10"
                 draggable={false}
               />
             )}
             {craft[imageIndex].video && (
-              <video
-                className="rounded-lg border border-muted-foreground/10 w-full"
-                preload="none"
-                autoPlay
-                loop
-                muted
-                playsInline
-              >
-                <source src={craft[imageIndex].video} type="video/mp4" />
-              </video>
+              <LightboxVideo
+                className="rounded-lg border border-muted-foreground/10 w-full h-auto"
+                src={craft[imageIndex].video}
+                type="video/mp4"
+              />
             )}
           </motion.div>
         </AnimatePresence>
