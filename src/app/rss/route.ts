@@ -14,7 +14,7 @@ export const GET = () => {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>https://tim-ritter.com/writing/${post.slug}</link>
+          <link>https://tim.cv/writing/${post.slug}</link>
           <description>${post.metadata.summary}</description>
           <pubDate>${new Date(post.metadata.publishedAt).toUTCString()}</pubDate>
         </item>`,
@@ -25,7 +25,7 @@ export const GET = () => {
   <rss version="2.0">
     <channel>
         <title>Tim Ritter | Writing</title>
-        <link>https://tim-ritter.com</link>
+        <link>https://tim.cv</link>
         ${itemsXml}
     </channel>
   </rss>`;

@@ -1,5 +1,7 @@
 'use client';
 
+import ArrowLeftIcon from '@/src/components/icons/arrow-left-icon';
+import ArrowRightIcon from '@/src/components/icons/arrow-right-icon';
 import LightboxImage from '@/src/components/lightbox-image';
 import LightboxVideo from '@/src/components/lightbox-video';
 import { Button } from '@/src/components/ui/button';
@@ -129,21 +131,7 @@ export default function CraftSlider() {
         onClick={() => paginate(-1)}
         className="hidden md:flex absolute top-[50%] -left-12 z-10 transform"
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Previous</title>
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M16.2071 4.79289C16.5976 5.18342 16.5976 5.81658 16.2071 6.20711L9.91421 12.5L16.2071 18.7929C16.5976 19.1834 16.5976 19.8166 16.2071 20.2071C15.8166 20.5976 15.1834 20.5976 14.7929 20.2071L7.79289 13.2071C7.40237 12.8166 7.40237 12.1834 7.79289 11.7929L14.7929 4.79289C15.1834 4.40237 15.8166 4.40237 16.2071 4.79289Z"
-            fill="currentColor"
-          />
-        </svg>
+        <ArrowLeftIcon />
       </Button>
       <Button
         variant="primary"
@@ -151,21 +139,7 @@ export default function CraftSlider() {
         onClick={() => paginate(1)}
         className="hidden md:flex absolute top-[50%] -right-12 z-10 transform"
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Next</title>
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M7.79289 4.79289C8.18342 4.40237 8.81658 4.40237 9.20711 4.79289L16.2071 11.7929C16.5976 12.1834 16.5976 12.8166 16.2071 13.2071L9.20711 20.2071C8.81658 20.5976 8.18342 20.5976 7.79289 20.2071C7.40237 19.8166 7.40237 19.1834 7.79289 18.7929L14.0858 12.5L7.79289 6.20711C7.40237 5.81658 7.40237 5.18342 7.79289 4.79289Z"
-            fill="currentColor"
-          />
-        </svg>
+        <ArrowRightIcon />
       </Button>
     </div>
   );

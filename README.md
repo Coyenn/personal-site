@@ -4,7 +4,7 @@
 
 # Tim Ritter - Personal Website
 
-<a href="https://tim-ritter.com" target="_blank">
+<a href="https://tim.cv" target="_blank">
   Live Website
 </a>
 <span> &middot; </span>

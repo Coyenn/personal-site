@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tim Ritter — Craft',
     description: 'A gallery of my designs and experiments.',
-    url: 'https://tim-ritter.com',
+    url: 'https://tim.cv',
     siteName: 'Tim Ritter',
     images: [
       {
-        url: 'https://tim-ritter.com/og-image.png',
+        url: 'https://tim.cv/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Craft, Tim Ritter — Design Engineer.',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   alternates: {
-    canonical: 'https://tim-ritter.com/craft',
+    canonical: 'https://tim.cv/craft',
   },
 };
 

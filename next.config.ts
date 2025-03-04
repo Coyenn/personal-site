@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
     reactCompiler: true,
     scrollRestoration: true,
     optimizeCss: true,
-    turbo: {
-      useSwcCss: true,
-    },
   },
 };
 
