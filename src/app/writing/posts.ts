@@ -1,21 +1,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-type Metadata = {
+export interface BlogPost {
+  metadata: BlogPostMetadata;
+  slug: string;
+  content: string;
+}
+
+export interface BlogPostMetadata {
   title: string;
   publishedAt: string;
   summary: string;
   image?: string;
   draft?: boolean;
-};
+}
 
-const parseFrontmatter = (fileContent: string) => {
+function parseFrontmatter(fileContent: string) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
   const match = frontmatterRegex.exec(fileContent);
   const frontMatterBlock = match?.[1];
   const content = fileContent.replace(frontmatterRegex, '').trim();
   const frontMatterLines = frontMatterBlock?.trim().split('\n');
-  const metadata: Partial<Metadata> = {};
+  const metadata: Partial<BlogPostMetadata> = {};
 
   if (!frontMatterLines) {
     throw new Error('Front matter not found');
@@ -29,7 +35,7 @@ const parseFrontmatter = (fileContent: string) => {
       .trim()
       .replace(/^['"](.*)['"]$/, '$1');
 
-    const typedKey = key.trim() as keyof Metadata;
+    const typedKey = key.trim() as keyof BlogPostMetadata;
 
     if (typedKey === 'draft') {
       metadata[typedKey] = value === 'true';
@@ -38,16 +44,18 @@ const parseFrontmatter = (fileContent: string) => {
     }
   }
 
-  return { metadata: metadata as Metadata, content };
-};
+  return { metadata: metadata as BlogPostMetadata, content };
+}
 
-const getMDXFiles = (dir: string) =>
-  fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+function getMDXFiles(dir: string) {
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+}
 
-const readMDXFile = (filePath: string) =>
-  parseFrontmatter(fs.readFileSync(filePath, 'utf-8'));
+function readMDXFile(filePath: string) {
+  return parseFrontmatter(fs.readFileSync(filePath, 'utf-8'));
+}
 
-const getMDXData = (dir: string) => {
+function getMDXData(dir: string): BlogPost[] {
   const mdxFiles = getMDXFiles(dir);
 
   return mdxFiles.map((file) => {
@@ -60,9 +68,9 @@ const getMDXData = (dir: string) => {
       content,
     };
   });
-};
+}
 
-export function getPosts() {
+export function getPosts(): BlogPost[] {
   return getMDXData(
     path.join(process.cwd(), 'src', 'app', 'writing', 'content'),
   )
