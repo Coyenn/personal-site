@@ -298,7 +298,7 @@ const craft: CraftItem[] = [
   {
     title: 'Redesign of my Personal Website',
     date: 'August 2023',
-    link: 'https://tim-ritter.com',
+    link: 'https://tim.cv',
     target: '_blank',
     image: PersonalWebsiteRedesign,
     description:

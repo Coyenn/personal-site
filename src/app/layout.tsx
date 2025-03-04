@@ -19,16 +19,16 @@ export const metadata: Metadata = {
   description:
     'Creating web experiences with meticulous attention to detail. Diving deep into technical intricacies.',
   keywords: ['Tim Ritter'],
-  authors: [{ name: 'Tim Ritter', url: 'https://tim-ritter.com' }],
+  authors: [{ name: 'Tim Ritter', url: 'https://tim.cv' }],
   openGraph: {
     title: 'Tim Ritter — Design Engineer',
     description:
       'Creating web experiences with meticulous attention to detail. Diving deep into technical intricacies.',
-    url: 'https://tim-ritter.com',
+    url: 'https://tim.cv',
     siteName: 'Tim Ritter Personal Site',
     images: [
       {
-        url: 'https://tim-ritter.com/og-image.png',
+        url: 'https://tim.cv/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Tim Ritter — Design Engineer.',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     creator: '@kojenia',
     creatorId: 'kojenia',
     images: {
-      url: 'https://tim-ritter.com/og-image.png',
+      url: 'https://tim.cv/og-image.png',
       alt: 'Tim Ritter — Design Engineer.',
     },
   },
@@ -71,8 +71,8 @@ export const metadata: Metadata = {
     other: { me: ['hi@tim.cv'] },
   },
   alternates: {
-    canonical: 'https://tim-ritter.com',
-    types: { 'application/rss': 'https://tim-ritter.com/rss' },
+    canonical: 'https://tim.cv',
+    types: { 'application/rss': 'https://tim.cv/rss' },
   },
   category: 'technology',
 };

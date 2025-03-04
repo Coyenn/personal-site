@@ -29,9 +29,10 @@ export async function generateMetadata(
     summary: description,
     image,
   } = post.metadata;
-  const ogImage = image ? image : 'https://tim-ritter.com/og-image.png';
+  const ogImage = image ? image : 'https://tim.cv/og-image.png';
 
   return {
+    metadataBase: new URL('https://tim.cv/'),
     title,
     description,
     openGraph: {
@@ -39,7 +40,7 @@ export async function generateMetadata(
       description,
       type: 'article',
       publishedTime,
-      url: `https://tim-ritter.com/writing/${post.slug}`,
+      url: `https://tim.cv/writing/${post.slug}`,
       images: [{ url: ogImage }],
     },
     twitter: {
@@ -48,13 +49,12 @@ export async function generateMetadata(
       description,
       images: [ogImage],
     },
-    alternates: { canonical: `https://tim-ritter.com/writing/${post.slug}` },
+    alternates: { canonical: `https://tim.cv/writing/${post.slug}` },
   };
 }
 
 export interface PageProps {
-  // biome-ignore lint/suspicious/noExplicitAny: Next.js internal type
-  params: Promise<any>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function Page(props: PageProps) {
@@ -80,10 +80,10 @@ export default async function Page(props: PageProps) {
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
-              ? `https://tim-ritter.com${post.metadata.image}`
+              ? `https://tim.cv${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `https://tim-ritter.com/writing/${post.slug}`,
-            author: { '@type': 'Person', name: 'Harsh Singh' },
+            url: `https://tim.cv/writing/${post.slug}`,
+            author: { '@type': 'Person', name: 'Tim Ritter' },
           }),
         }}
       />

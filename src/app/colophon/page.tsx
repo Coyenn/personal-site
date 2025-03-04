@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     title: 'Tim Ritter — Colophon',
     description:
       'Paying homage to the creators & tools that made this site possible.',
-    url: 'https://tim-ritter.com',
+    url: 'https://tim.cv',
     siteName: 'Tim Ritter',
     images: [
       {
-        url: 'https://tim-ritter.com/og-image.png',
+        url: 'https://tim.cv/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Colophon, Tim Ritter — Design Engineer.',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   alternates: {
-    canonical: 'https://tim-ritter.com/colophon',
+    canonical: 'https://tim.cv/colophon',
   },
 };
 
