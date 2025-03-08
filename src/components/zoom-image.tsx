@@ -87,7 +87,8 @@ export default function ZoomImage(props: ZoomImageProps) {
           loading={loading}
           draggable={false}
           sizes="(min-width: 1024px) 50vw, 100vw"
-          placeholder={typeof props.src === 'string' ? undefined : 'blur'}
+          placeholder={'blur'}
+          blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
           ref={imageRef}
         />
         <div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">

@@ -63,12 +63,13 @@ export function NextJsImage({ slide, offset, rect }: NextJsImageProps) {
     <div style={{ position: 'relative', width, height }}>
       <Image
         fill
-        alt=""
+        alt={slide.alt ?? ''}
         src={slide as StaticImageData}
         loading="eager"
         draggable={true}
         quality={100}
-        placeholder={'blurDataURL' in slide ? 'blur' : undefined}
+        placeholder={'blur'}
+        blurDataURL={`/_next/image?url=${slide}&w=16&q=1`}
         style={{
           objectFit: cover ? 'cover' : 'contain',
           cursor: click ? 'pointer' : undefined,
@@ -133,7 +134,8 @@ export default function LightboxImage(props: LightboxImageProps) {
         loading={loading}
         quality={100}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        placeholder={typeof props.src === 'string' ? undefined : 'blur'}
+        placeholder={'blur'}
+        blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
         onClick={() => setOpen(true)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') setOpen(true);

@@ -125,6 +125,8 @@ export default function BlogPostRow(props: BlogPostRowProps) {
                 {...item.image}
                 src={item.image.src ?? ''}
                 quality={90}
+                placeholder="blur"
+                blurDataURL={`/_next/image?url=${item.image.src}&w=16&q=1`}
                 priority
                 draggable={false}
                 className="h-full w-full aspect-[16/11] object-cover rounded-xl sm:rounded-3xl"
