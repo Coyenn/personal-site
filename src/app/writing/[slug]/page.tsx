@@ -70,29 +70,31 @@ export default async function Page(props: PageProps) {
     <>
       <FocusMode />
       <BlogPostLD post={post} />
-      <PageLoadAnimationWrapper>
-        <section>
-          <h1 className="font-instrument-serif text-3xl md:text-4xl">
-            <span>{post.metadata.title}</span>
-            <br />
-            <span className="text-muted-foreground contrast-more:text-foreground">
-              {post.metadata.summary}
-            </span>
-          </h1>
-          <Link
-            href="/writing"
-            className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit hover:text-foreground"
-          >
-            <ArrowUpLeftIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-            All Posts
-          </Link>
-        </section>
-        <section className="flex flex-col gap-y-6">
-          <article className="prose animate-children mt-6 md:mt-8">
-            <MDX source={post.content} />
-          </article>
-        </section>
-      </PageLoadAnimationWrapper>
+      <article>
+        <PageLoadAnimationWrapper>
+          <section>
+            <h1 className="font-instrument-serif text-3xl md:text-4xl">
+              <span>{post.metadata.title}</span>
+              <br />
+              <span className="text-muted-foreground contrast-more:text-foreground">
+                {post.metadata.summary}
+              </span>
+            </h1>
+            <Link
+              href="/writing"
+              className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit hover:text-foreground"
+            >
+              <ArrowUpLeftIcon className="h-4 w-4 mr-1" aria-hidden="true" />
+              All Posts
+            </Link>
+          </section>
+          <section className="flex flex-col gap-y-6">
+            <div className="prose animate-children mt-6 md:mt-8">
+              <MDX source={post.content} />
+            </div>
+          </section>
+        </PageLoadAnimationWrapper>
+      </article>
     </>
   );
 }
