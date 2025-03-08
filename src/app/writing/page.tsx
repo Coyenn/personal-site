@@ -42,7 +42,7 @@ export default function Writing() {
           className="hidden lg:block mb-6 sm:mb-8 md:mb-10 lg:mb-12"
           items={topPosts.map((post) => ({
             image: {
-              src: post.metadata.image,
+              src: post.metadata.image ?? '',
               alt: post.metadata.title,
               width: 400,
               height: 200,

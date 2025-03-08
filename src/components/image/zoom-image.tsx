@@ -20,6 +20,7 @@ export default function ZoomImage(props: ZoomImageProps) {
 
   const [backdropOpacity, setBackdropOpacity] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [shadowSize, setShadowSize] = useState(0);
 
   const MAX_DRAG = 150;
   const x = useMotionValue(0);
@@ -56,6 +57,9 @@ export default function ZoomImage(props: ZoomImageProps) {
       if (image) {
         const newScale = 1 + latest / 400;
         image.style.transform = `scale(${newScale})`;
+
+        setShadowSize((newScale - 1) * 15);
+        console.log((newScale - 1) * 15);
       }
 
       setBackdropOpacity(backgroundOpacity.get());
@@ -64,6 +68,7 @@ export default function ZoomImage(props: ZoomImageProps) {
     return () => {
       x.set(0);
       setBackdropOpacity(0);
+      setShadowSize(0);
     };
   }, []);
 
@@ -79,15 +84,18 @@ export default function ZoomImage(props: ZoomImageProps) {
           className={cn(
             props.className,
             'bg-muted-foreground/10 z-10',
-            isDragging &&
-              'shadow-2xl shadow-muted dark:shadow-black transition-shadow',
+            isDragging && 'shadow-muted dark:shadow-black',
           )}
+          style={{
+            boxShadow: `0 ${shadowSize * 3}px ${shadowSize * 10}px ${shadowSize}px rgba(0, 0, 0, 0.25)`,
+          }}
           tabIndex={0}
           aria-label={props.alt}
           loading={loading}
           draggable={false}
           sizes="(min-width: 1024px) 50vw, 100vw"
-          placeholder={typeof props.src === 'string' ? undefined : 'blur'}
+          placeholder={'blur'}
+          blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
           ref={imageRef}
         />
         <div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">

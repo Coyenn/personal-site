@@ -1,0 +1,9 @@
+---
+description: Best practices for animations with Framer Motion
+globs: **/*.{ts,tsx,js,jsx}
+alwaysApply: false
+---
+- Use `animate` and `initial` props for simple animations without additional hooks.
+- Implement `variants` for complex animations to keep your component code clean.
+- Utilize `useAnimation` for more control over animation triggers and sequences.
+- Optimize performance by using `layout` prop for smooth transitions during DOM changes.

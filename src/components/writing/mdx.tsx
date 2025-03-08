@@ -1,5 +1,5 @@
+import { Image } from '@/src/components/image/image';
 import DownloadButton from '@/src/components/writing/download-button';
-import ZoomImage from '@/src/components/zoom-image';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import type { ImageProps } from 'next/image';
 import Link from 'next/link';
@@ -28,17 +28,9 @@ const CustomLink = ((props) => {
   DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
 >;
 
-const Img = ((props) => {
-  return (
-    <ZoomImage
-      className="rounded-lg"
-      alt={props.alt}
-      src={props.src}
-      width={props.width}
-      height={props.height}
-    />
-  );
-}) as FC<ImageProps>;
+const Img = (props: ImageProps) => {
+  return <Image variant="zoom" className="rounded-lg" {...props} />;
+};
 
 const Code = (({ children, ...props }) => {
   const codeHTML = highlight(children as string);
