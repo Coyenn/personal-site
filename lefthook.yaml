@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    check-code:
+      run: npm run biome:check
+    run-tests:
+      run: bun run test:e2e
+    update-index:
+      run: git update-index --again
