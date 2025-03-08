@@ -1,6 +1,7 @@
 'use client';
 
 import { useHighlightList } from '@/src/hooks/use-highlight-list';
+import { getPlaceholderImage } from '@/src/actions/get-placeholder-image';
 import { cn } from '@/src/lib/utils';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Image from 'next/image';
@@ -27,6 +28,33 @@ export default function BlogPostRow(props: BlogPostRowProps) {
   const setHighlightIndex = useHighlightList(
     (state) => state.setHighlightIndex,
   );
+  const [imagePlaceholders, setImagePlaceholders] = useState<
+    Record<string, React.CSSProperties | null>
+  >({});
+
+  useEffect(() => {
+    const fetchPlaceholders = async () => {
+      const placeholders: Record<string, React.CSSProperties | null> = {};
+
+      for (const item of items) {
+        if (item.image?.src) {
+          try {
+            const css = await getPlaceholderImage(item.image.src as string);
+            if (typeof css === 'object') {
+              placeholders[item.image.src as string] =
+                css as React.CSSProperties;
+            }
+          } catch (error) {
+            console.error('Error fetching placeholder:', error);
+          }
+        }
+      }
+
+      setImagePlaceholders(placeholders);
+    };
+
+    fetchPlaceholders();
+  }, [items]);
 
   return (
     <div
@@ -121,16 +149,22 @@ export default function BlogPostRow(props: BlogPostRowProps) {
                 cursor: isDragging ? 'grabbing' : 'pointer',
               }}
             >
-              <Image
-                {...item.image}
-                src={item.image.src ?? ''}
-                quality={90}
-                placeholder="blur"
-                blurDataURL={`/_next/image?url=${item.image.src}&w=16&q=1`}
-                priority
-                draggable={false}
-                className="h-full w-full aspect-[16/11] object-cover rounded-xl sm:rounded-3xl"
-              />
+              <div className="relative rounded-xl sm:rounded-3xl overflow-hidden">
+                {imagePlaceholders[item.image.src as string] && (
+                  <div
+                    className="absolute inset-0 w-full h-full transform scale-110 filter blur-lg z-[-1]"
+                    style={imagePlaceholders[item.image.src as string] || {}}
+                  />
+                )}
+                <Image
+                  {...item.image}
+                  src={item.image.src ?? ''}
+                  quality={90}
+                  priority
+                  draggable={false}
+                  className="h-full w-full aspect-[16/11] object-cover rounded-xl sm:rounded-3xl"
+                />
+              </div>
             </Link>
           </motion.div>
         );

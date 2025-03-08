@@ -1,5 +1,6 @@
 'use client';
 
+import { getPlaceholderImage } from '@/src/actions/get-placeholder-image';
 import { cn } from '@/src/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
@@ -17,7 +18,7 @@ export interface ZoomImageProps {
 
 export default function ZoomImage(props: ZoomImageProps) {
   const { loading = 'lazy' } = props;
-
+  const [css, setCss] = useState<React.CSSProperties | null>(null);
   const [backdropOpacity, setBackdropOpacity] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -35,6 +36,24 @@ export default function ZoomImage(props: ZoomImageProps) {
     [0, 0, 0.75],
   );
   const imageRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const fetchPlaceholder = async () => {
+      try {
+        if (typeof props.src === 'string') {
+          const placeholderCss = await getPlaceholderImage(props.src);
+          // Ensure we're setting a valid CSS object
+          if (typeof placeholderCss === 'object') {
+            setCss(placeholderCss as React.CSSProperties);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching placeholder:', error);
+      }
+    };
+
+    fetchPlaceholder();
+  }, [props.src]);
 
   useEffect(() => {
     if (isDragging) {
@@ -74,23 +93,29 @@ export default function ZoomImage(props: ZoomImageProps) {
         style={{ opacity: backdropOpacity }}
       />
       <div className="relative z-10">
-        <Image
-          {...props}
-          className={cn(
-            props.className,
-            'bg-muted-foreground/10 z-10',
-            isDragging &&
-              'shadow-2xl shadow-muted dark:shadow-black transition-shadow',
+        <div className="relative" style={{ overflow: 'hidden' }}>
+          {css && (
+            <div
+              className="absolute inset-0 w-full h-full transform scale-110 filter blur-lg z-[-1]"
+              style={css}
+            />
           )}
-          tabIndex={0}
-          aria-label={props.alt}
-          loading={loading}
-          draggable={false}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          placeholder={'blur'}
-          blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
-          ref={imageRef}
-        />
+          <Image
+            {...props}
+            className={cn(
+              props.className,
+              'bg-muted-foreground/10 z-10',
+              isDragging &&
+                'shadow-2xl shadow-muted dark:shadow-black transition-shadow',
+            )}
+            tabIndex={0}
+            aria-label={props.alt}
+            loading={loading}
+            draggable={false}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            ref={imageRef}
+          />
+        </div>
         <div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">
           <motion.button
             type="button"
