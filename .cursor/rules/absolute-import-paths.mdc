@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- The projects uses absolute import paths starting with "@/" followed by the wanted directory
+- The root of all import paths is also the root of the project (@/ is / relative to the project root)

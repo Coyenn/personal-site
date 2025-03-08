@@ -1,0 +1,9 @@
+---
+description: Best practices for state management with Zustand
+globs: **/*.{ts,tsx,js,jsx}
+alwaysApply: false
+---
+- Create separate stores for different domains to keep state management organized.
+- Use middleware like `devtools` for debugging and `persist` for state persistence.
+- Implement selectors to optimize re-renders by only subscribing to necessary state slices.
+- Use TypeScript with Zustand to ensure type safety in your state management.

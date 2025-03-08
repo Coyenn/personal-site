@@ -2,7 +2,7 @@
 
 import ArrowLeftIcon from '@/src/components/icons/arrow-left-icon';
 import ArrowRightIcon from '@/src/components/icons/arrow-right-icon';
-import LightboxImage from '@/src/components/lightbox-image';
+import { Image } from '@/src/components/image/image';
 import LightboxVideo from '@/src/components/lightbox-video';
 import { Button } from '@/src/components/ui/button';
 import craft from '@/src/data/craft';
@@ -106,13 +106,13 @@ export default function CraftSlider() {
             }}
           >
             {craft[imageIndex].image && (
-              <LightboxImage
-                src={craft[imageIndex].image ?? ''}
+              <Image
+                variant="lightbox"
+                src={craft[imageIndex].image}
                 alt={craft[imageIndex].title}
-                height={craft[imageIndex].image?.height}
-                width={craft[imageIndex].image?.width}
+                height={craft[imageIndex].image.height}
+                width={craft[imageIndex].image.width}
                 className="object-contain rounded-lg w-auto h-auto max-w-full max-h-full border-muted-foreground/10"
-                draggable={false}
               />
             )}
             {craft[imageIndex].video && (

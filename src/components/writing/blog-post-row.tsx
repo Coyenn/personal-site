@@ -1,9 +1,9 @@
 'use client';
 
+import { Image } from '@/src/components/image/image';
 import { useHighlightList } from '@/src/hooks/use-highlight-list';
 import { cn } from '@/src/lib/utils';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import slugify from 'slugify';
@@ -12,7 +12,7 @@ export interface BlogPostRowProps {
   className?: string;
   items: {
     image: {
-      src?: string;
+      src: string;
       alt: string;
       width: number;
       height: number;
@@ -123,12 +123,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
             >
               <Image
                 {...item.image}
-                src={item.image.src ?? ''}
-                quality={90}
-                placeholder="blur"
-                blurDataURL={`/_next/image?url=${item.image.src}&w=16&q=1`}
-                priority
-                draggable={false}
+                src={item.image.src}
                 className="h-full w-full aspect-[16/11] object-cover rounded-xl sm:rounded-3xl"
               />
             </Link>

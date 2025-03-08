@@ -1,6 +1,6 @@
 'use client';
 
-import LightboxImage from '@/src/components/lightbox-image';
+import { Image } from '@/src/components/image/image';
 import LightboxVideo from '@/src/components/lightbox-video';
 import craft from '@/src/data/craft';
 import { cn } from '@/src/lib/utils';
@@ -70,7 +70,8 @@ export default function CraftList() {
                     onClick={() => setHovering(null)}
                   >
                     {item.image && (
-                      <LightboxImage
+                      <Image
+                        variant="lightbox"
                         loading={index < 3 ? 'eager' : 'lazy'}
                         alt={item.title}
                         className="rounded-lg border border-muted-foreground/10"
