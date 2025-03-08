@@ -88,7 +88,7 @@ export default async function Page(props: PageProps) {
           </Link>
         </section>
         <section className="flex flex-col gap-y-6">
-          <article className="prose animate-children mt-12 md:mt-16 lg:mt-20">
+          <article className="prose animate-children mt-6 md:mt-8">
             <MDX source={post.content} />
           </article>
         </section>

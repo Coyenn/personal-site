@@ -27,7 +27,7 @@ export default function CraftModeToggle(props: CraftModeToggleProps) {
       <TooltipTrigger asChild>
         <Button
           className={cn(className, 'h-8 w-8')}
-          variant={'primary'}
+          variant={'secondary'}
           size={'icon'}
           onClick={() => setMode(mode === 'slider' ? 'list' : 'slider')}
         >

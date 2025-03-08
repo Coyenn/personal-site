@@ -126,7 +126,7 @@ export default function CraftSlider() {
         </AnimatePresence>
       </div>
       <Button
-        variant="primary"
+        variant="secondary"
         size="icon"
         onClick={() => paginate(-1)}
         className="hidden md:flex absolute top-[50%] -left-12 z-10 transform"
@@ -134,7 +134,7 @@ export default function CraftSlider() {
         <ArrowLeftIcon />
       </Button>
       <Button
-        variant="primary"
+        variant="secondary"
         size="icon"
         onClick={() => paginate(1)}
         className="hidden md:flex absolute top-[50%] -right-12 z-10 transform"

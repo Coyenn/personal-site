@@ -20,7 +20,7 @@ export default function DownloadButton(props: DownloadButtonProps) {
         className="!absolute !w-[150%] !h-[150%] !inset-0 !left-[-25%] !object-cover !m-0 !border-0 z-0 !block"
         gradientClassName="!opacity-30"
       />
-      <div className="flex flex-col sm:flex-row gap-2 border border-input dark:border-muted rounded-lg p-4 sm:p-6 lg:p-8 justify-center z-[1] relative">
+      <div className="flex flex-col sm:flex-row gap-4 border border-input dark:border-muted rounded-lg p-4 sm:p-6 lg:p-8 justify-center z-[1] relative">
         <Button asChild variant={'default'}>
           <Link href={href} target={target}>
             <DownloadIcon />
