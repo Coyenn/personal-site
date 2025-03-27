@@ -31,13 +31,6 @@ export default function Home() {
           <h2 id="projects">Projects</h2>
           <ProjectContainer aria-labelledby="projects">
             <ProjectItem
-              href="https://www.roblox.com/groups/32385121"
-              target="_blank"
-              name="Luminary Games"
-              position="Co-Founder"
-              summary="Game development studio"
-            />
-            <ProjectItem
               href="https://create.t3.gg"
               target="_blank"
               name="Create T3 App"
@@ -45,11 +38,18 @@ export default function Home() {
               summary="Popular full-stack project boilerplate"
             />
             <ProjectItem
-              href="https://github.com/Coyenn/roblox-model-renderer"
+              href="https://www.roblox.com/groups/32385121"
               target="_blank"
-              name="Roblox Model Renderer "
-              position="Creator"
-              summary="3D model renderer for Roblox"
+              name="Luminary Games"
+              position="Co-Founder"
+              summary="Game development studio"
+            />
+            <ProjectItem
+              href="https://www.roblox.com/groups/5560533"
+              target="_blank"
+              name="BluBlox Development"
+              position="Developer"
+              summary="Game development studio"
             />
             <ProjectItem
               href="https://github.com/RevisionOrg/p"
@@ -66,11 +66,11 @@ export default function Home() {
               summary="Game development studio"
             />
             <ProjectItem
-              href="https://www.roblox.com/groups/5560533"
+              href="https://github.com/Coyenn/roblox-model-renderer"
               target="_blank"
-              name="BluBlox Development"
-              position="Developer"
-              summary="Game development studio"
+              name="Roblox Model Renderer "
+              position="Creator"
+              summary="3D model renderer for Roblox"
             />
           </ProjectContainer>
         </section>
