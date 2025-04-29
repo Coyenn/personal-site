@@ -12,6 +12,7 @@ export interface BlogPostMetadata {
   publishedAt: string;
   summary: string;
   image?: string;
+  placeholderImage?: string;
   draft?: boolean;
 }
 
