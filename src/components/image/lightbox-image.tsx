@@ -125,7 +125,7 @@ export default function LightboxImage(props: LightboxImageProps) {
       />
       <Image
         {...props}
-        className={cn(props.className, 'bg-background')}
+        className={cn('bg-background', props.className)}
         role="button"
         tabIndex={0}
         aria-label={props.alt}

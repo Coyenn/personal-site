@@ -17,7 +17,7 @@ export default function Aurora(props: AuroraProps) {
   return (
     <div
       className={cn(
-        'transition-bg print:hidden absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden hidden sm:block animate-intro duration-1000 animation-delay-3 max-h-[50vh]',
+        'transition-bg print:hidden absolute left-0 right-0 bottom-0 -top-[20vh] overflow-hidden motion-reduce:!hidden animate-intro duration-1000 animation-delay-3 max-h-[50vh]',
         className,
       )}
       {...rest}
@@ -39,7 +39,8 @@ export default function Aurora(props: AuroraProps) {
             after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
             pointer-events-none
             absolute -inset-[10px] opacity-0 dark:opacity-30 will-change-transform
-						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]`,
+						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]
+            mb-5 min-w-[400px] w-full left-1/2 -translate-x-1/2`,
           gradient,
           gradientClassName,
         )}

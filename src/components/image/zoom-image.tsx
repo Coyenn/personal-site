@@ -82,9 +82,9 @@ export default function ZoomImage(props: ZoomImageProps) {
         <Image
           {...props}
           className={cn(
-            props.className,
             'bg-muted-foreground/10 z-10',
             isDragging && 'shadow-muted dark:shadow-black',
+            props.className,
           )}
           style={{
             boxShadow: `0 ${shadowSize * 3}px ${shadowSize * 10}px ${shadowSize}px rgba(0, 0, 0, 0.25)`,

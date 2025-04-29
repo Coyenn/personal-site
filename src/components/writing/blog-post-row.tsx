@@ -14,6 +14,7 @@ export interface BlogPostRowProps {
     image: {
       src: string;
       alt: string;
+      placeholder: string;
       width: number;
       height: number;
     };
@@ -124,6 +125,8 @@ export default function BlogPostRow(props: BlogPostRowProps) {
               <Image
                 {...item.image}
                 src={item.image.src}
+                placeholder="blur"
+                blurDataURL={item.image.placeholder}
                 className="h-full w-full aspect-[16/11] object-cover rounded-xl sm:rounded-3xl"
               />
             </Link>

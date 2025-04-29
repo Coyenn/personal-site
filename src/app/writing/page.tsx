@@ -44,6 +44,7 @@ export default function Writing() {
             image: {
               src: post.metadata.image ?? '',
               alt: post.metadata.title,
+              placeholder: post.metadata.placeholderImage ?? '',
               width: 400,
               height: 200,
             },
