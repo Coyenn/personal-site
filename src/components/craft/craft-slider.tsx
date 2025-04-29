@@ -117,7 +117,7 @@ export default function CraftSlider() {
             )}
             {craft[imageIndex].video && (
               <LightboxVideo
-                className="rounded-lg border border-muted-foreground/10 w-full h-auto"
+                className="rounded-lg border border-muted-foreground/10 w-auto h-auto"
                 src={craft[imageIndex].video}
                 type="video/mp4"
               />
