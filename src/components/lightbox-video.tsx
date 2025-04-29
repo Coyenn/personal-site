@@ -100,8 +100,8 @@ export default function LightboxVideo(props: LightboxVideoProps) {
       />
       <video
         className={cn(
-          props.className,
           'bg-background w-auto h-auto max-w-full max-h-full',
+          props.className,
         )}
         role="button"
         tabIndex={0}
