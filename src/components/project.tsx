@@ -1,6 +1,6 @@
-import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
 import type { HTMLAttributes } from 'react';
+import { cn } from '@/src/lib/utils';
 
 export interface PropjectItemProps extends HTMLAttributes<HTMLLIElement> {
   href: string;

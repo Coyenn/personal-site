@@ -32,5 +32,5 @@ export default function FocusMode() {
     };
   }, []);
 
-  return <></>;
+  return null;
 }

@@ -1,8 +1,8 @@
+import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import type { StaticImageData } from 'next/image';
 import DefaultImage, {
   type DefaultImageProps,
 } from '@/src/components/image/default-image';
-import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import type { StaticImageData } from 'next/image';
 import LightboxImage, { type LightboxImageProps } from './lightbox-image';
 import ZoomImage, { type ZoomImageProps } from './zoom-image';
 

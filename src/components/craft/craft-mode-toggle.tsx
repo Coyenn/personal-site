@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence } from 'framer-motion';
 import ListIcon from '@/src/components/icons/list-icon';
 import SliderIcon from '@/src/components/icons/slider-icon';
 import { Button } from '@/src/components/ui/button';
@@ -10,7 +11,6 @@ import {
 } from '@/src/components/ui/tooltip';
 import { useCraftMode } from '@/src/hooks/use-craft-mode';
 import { cn } from '@/src/lib/utils';
-import { AnimatePresence } from 'framer-motion';
 
 export type CraftMode = 'slider' | 'list';
 

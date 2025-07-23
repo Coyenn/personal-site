@@ -1,5 +1,5 @@
-import type { CraftMode } from '@/src/components/craft/craft-mode-toggle';
 import { create } from 'zustand';
+import type { CraftMode } from '@/src/components/craft/craft-mode-toggle';
 
 export interface UseCraftModeState {
   mode: CraftMode;

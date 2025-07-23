@@ -1,11 +1,11 @@
 'use client';
 
+import { useMemo, useRef, useState } from 'react';
+import slugify from 'slugify';
 import { Image } from '@/src/components/image/image';
 import LightboxVideo from '@/src/components/lightbox-video';
 import craft from '@/src/data/craft';
 import { cn } from '@/src/lib/utils';
-import { useMemo, useRef, useState } from 'react';
-import slugify from 'slugify';
 
 function groupItemsByDate() {
   const groups: Record<string, typeof craft> = {};
@@ -53,7 +53,10 @@ export default function CraftList() {
                   key={`${item.date}-${slugify(item.title)}`}
                 >
                   {/* biome-ignore lint/a11y/useKeyWithClickEvents: onClick is needed */}
+                  {/** biome-ignore lint/a11y/useFocusableInteractive: Needs to be a div tag */}
+                  {/** biome-ignore lint/a11y/useSemanticElements: Needs to be a div tag */}
                   <div
+                    role="button"
                     className={cn(
                       'block w-full outline-none pb-6 md:hover:!opacity-100 transition-opacity duration-300 motion-reduce:!opacity-100 ease-in-out contrast-more:!opacity-100',
                       hovering !== null &&

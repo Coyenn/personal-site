@@ -1,7 +1,7 @@
 import tailwindcssTypography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
-import tailwindcssAnimate from 'tailwindcss-animate';
 import plugin from 'tailwindcss/plugin';
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const tailwindcssInnerBorder = require('tailwindcss-inner-border');
 

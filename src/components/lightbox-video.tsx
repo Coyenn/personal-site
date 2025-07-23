@@ -1,11 +1,11 @@
 'use client';
 
-import { cn } from '@/src/lib/utils';
 import { Fragment, useState } from 'react';
 import Lightbox, {
   useLightboxProps,
   useLightboxState,
 } from 'yet-another-react-lightbox';
+import { cn } from '@/src/lib/utils';
 
 import 'yet-another-react-lightbox/styles.css';
 
@@ -64,7 +64,7 @@ function NextJsVideo({ slide, offset, rect }: NextJsVideoProps) {
 }
 
 export interface LightboxVideoProps
-  extends Omit<JSX.IntrinsicElements['video'], 'src'> {
+  extends Omit<React.VideoHTMLAttributes<HTMLVideoElement>, 'src'> {
   src: string;
   type: string;
   className?: string;
@@ -98,6 +98,7 @@ export default function LightboxVideo(props: LightboxVideoProps) {
           slide: NextJsVideo,
         }}
       />
+      {/** biome-ignore lint/a11y/useSemanticElements: Needs to be a video tag */}
       <video
         className={cn(
           'bg-background w-auto h-auto max-w-full max-h-full',

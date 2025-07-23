@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import Aurora from '@/src/components/aurora';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import { ProjectContainer, ProjectItem } from '@/src/components/project';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -38,6 +38,13 @@ export default function Home() {
               summary="Popular full-stack project boilerplate"
             />
             <ProjectItem
+              href="https://github.com/Coyenn/iso"
+              target="_blank"
+              name="Iso"
+              position="Creator"
+              summary="Simple self-hosted service dashboard"
+            />
+            <ProjectItem
               href="https://www.roblox.com/groups/32385121"
               target="_blank"
               name="Luminary Games"
@@ -52,11 +59,11 @@ export default function Home() {
               summary="Game development studio"
             />
             <ProjectItem
-              href="https://github.com/RevisionOrg/p"
+              href="https://www.roblox.com/communities/16976426/Blu-Cat-Studios"
               target="_blank"
-              name="p"
-              position="Creator"
-              summary="Tasteful project management"
+              name="Blu-Cat Studios"
+              position="Lead Developer"
+              summary="Game development studio"
             />
             <ProjectItem
               href="https://www.roblox.com/groups/34260095"
@@ -64,13 +71,6 @@ export default function Home() {
               name="Pixel Pirates"
               position="Founder"
               summary="Game development studio"
-            />
-            <ProjectItem
-              href="https://github.com/Coyenn/roblox-model-renderer"
-              target="_blank"
-              name="Roblox Model Renderer "
-              position="Creator"
-              summary="3D model renderer for Roblox"
             />
           </ProjectContainer>
         </section>

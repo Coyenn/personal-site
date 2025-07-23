@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from '@/src/lib/utils';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image, { type StaticImageData } from 'next/image';
 import { Fragment, useState } from 'react';
@@ -11,6 +10,7 @@ import Lightbox, {
   useLightboxProps,
   useLightboxState,
 } from 'yet-another-react-lightbox';
+import { cn } from '@/src/lib/utils';
 
 import 'yet-another-react-lightbox/styles.css';
 

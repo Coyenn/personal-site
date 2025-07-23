@@ -1,5 +1,5 @@
-import { cn } from '@/src/lib/utils';
 import type React from 'react';
+import { cn } from '@/src/lib/utils';
 
 interface AuroraProps extends React.HTMLProps<HTMLDivElement> {
   gradientClassName?: string;

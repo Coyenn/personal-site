@@ -1,17 +1,17 @@
-import { Image } from '@/src/components/image/image';
-import DownloadButton from '@/src/components/writing/download-button';
-import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import type { ImageProps } from 'next/image';
 import Link from 'next/link';
+import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import {
   type AnchorHTMLAttributes,
+  createElement,
   type DetailedHTMLProps,
   type FC,
   type ReactNode,
-  createElement,
 } from 'react';
 import slugify from 'slugify';
 import { highlight } from 'sugar-high';
+import { Image } from '@/src/components/image/image';
+import DownloadButton from '@/src/components/writing/download-button';
 import CopyCode from './copy-code';
 
 const CustomLink = ((props) => {

@@ -1,6 +1,6 @@
-import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 
 export const metadata: Metadata = {
   title: '404',

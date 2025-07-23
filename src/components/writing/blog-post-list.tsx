@@ -1,9 +1,9 @@
 'use client';
 
-import { useHighlightList } from '@/src/hooks/use-highlight-list';
-import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
 import { Fragment } from 'react';
+import { useHighlightList } from '@/src/hooks/use-highlight-list';
+import { cn } from '@/src/lib/utils';
 
 export interface BlogPostProps {
   posts: {
