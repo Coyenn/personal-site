@@ -22,7 +22,8 @@ export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
             // @ts-expect-error className should always be there
             className: cn(
               `animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`,
-              child.props.className,
+              // biome-ignore lint/suspicious/noExplicitAny: We just need to pass the className
+              (child.props as any)?.className,
             ),
           });
         }
