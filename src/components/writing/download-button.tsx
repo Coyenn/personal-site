@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import Aurora from '@/src/components/aurora';
 import DownloadIcon from '@/src/components/icons/download-icon';
 import { Button } from '@/src/components/ui/button';
-import Link from 'next/link';
 
 export interface DownloadButtonProps {
   text: string;

@@ -1,8 +1,8 @@
+import type { Metadata } from 'next';
 import { getPosts } from '@/src/app/writing/posts';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import BlogPostList from '@/src/components/writing/blog-post-list';
 import BlogPostRow from '@/src/components/writing/blog-post-row';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Writing',

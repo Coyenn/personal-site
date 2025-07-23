@@ -1,6 +1,6 @@
+import type { Metadata } from 'next';
 import CraftItems from '@/src/components/craft/craft-items';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Craft',

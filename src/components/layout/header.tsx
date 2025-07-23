@@ -1,10 +1,10 @@
 'use client';
 
-import useTabs, { type Tab } from '@/src/hooks/use-tabs';
-import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import useTabs, { type Tab } from '@/src/hooks/use-tabs';
+import { cn } from '@/src/lib/utils';
 
 export interface NavLinksProps {
   selectedTabIndex: number;
@@ -152,11 +152,12 @@ function Header() {
   }, [pathname]);
 
   return (
+    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: Needs to be a header tag
     <header
       className="w-full flex justify-center print:hidden"
       aria-label="Site Header"
     >
-      <div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/50 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:border-muted-foreground/5 dark:bg-muted/80 dark:text-foreground">
+      <div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/5 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:bg-muted/80 dark:text-foreground">
         <NavLinks {...css.tabProps} selectedTabIndex={selected} />
         <span
           className="hidden sm:block ml-1 mr-3 sm:ml-2 sm:mr-5 text-muted/40 dark:text-muted-foreground/40 font-ovo select-none contrast-more:text-background contrast-more:dark:text-foreground"

@@ -1,9 +1,9 @@
 'use client';
 
-import ArrowIcon from '@/src/components/icons/arrow-icon';
-import CopyIcon from '@/src/components/icons/copy-icon';
 import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import ArrowIcon from '@/src/components/icons/arrow-icon';
+import CopyIcon from '@/src/components/icons/copy-icon';
 
 export interface CopyCodeProps {
   code: string;

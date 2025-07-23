@@ -1,10 +1,11 @@
+import type { StaticImageData } from 'next/image';
 import ThreeDIcon from '@/public/images/craft/3d-icon.png';
 import AdminToolbar from '@/public/images/craft/admin-toolbar.png';
 import AITasksAppConcept1 from '@/public/images/craft/ai-tasks-app-concept-1.png';
 import AITasksAppConcept2 from '@/public/images/craft/ai-tasks-app-concept-2.png';
 import AITasksAppConcept3 from '@/public/images/craft/ai-tasks-app-concept-3.png';
-import BankingApp2 from '@/public/images/craft/banking-app-2.png';
 import BankingApp from '@/public/images/craft/banking-app.png';
+import BankingApp2 from '@/public/images/craft/banking-app-2.png';
 import BarCharts from '@/public/images/craft/bar-charts.png';
 import BlackWhiteButtons from '@/public/images/craft/black-white-buttons.png';
 import Breadman from '@/public/images/craft/breadman.png';
@@ -14,13 +15,13 @@ import FeedbackModal from '@/public/images/craft/feedback-modal.png';
 import FolderPeek from '@/public/images/craft/folder-peek.png';
 import IPhoneMockupRock from '@/public/images/craft/iphone-mockup-rock.png';
 import IPhoneMockupTable from '@/public/images/craft/iphone-mockup-table.png';
-import IPhoneMockupWhite2 from '@/public/images/craft/iphone-mockup-white-2.png';
 import IPhoneMockupWhite from '@/public/images/craft/iphone-mockup-white.png';
+import IPhoneMockupWhite2 from '@/public/images/craft/iphone-mockup-white-2.png';
 import KPIBlackAndWhite from '@/public/images/craft/kpi-black-and-white.png';
 import LockIllustration from '@/public/images/craft/lock-illustration.png';
 import LoremAgency from '@/public/images/craft/lorem-agency.png';
-import Desktop2MockupImage from '@/public/images/craft/mockups/desktop-2.png';
 import DesktopMockupImage from '@/public/images/craft/mockups/desktop.png';
+import Desktop2MockupImage from '@/public/images/craft/mockups/desktop-2.png';
 import MobileMockupImage from '@/public/images/craft/mockups/mobile.png';
 import MusicAppMockup from '@/public/images/craft/music-app-mockup.png';
 import MyLogoDark from '@/public/images/craft/my-logo-dark.png';
@@ -35,8 +36,6 @@ import Typo3Left from '@/public/images/craft/typo3-left.png';
 import Typo3Right from '@/public/images/craft/typo3-right.png';
 import Typo3Sidebar from '@/public/images/craft/typo3-sidebar.png';
 import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
-
-import type { StaticImageData } from 'next/image';
 
 export interface CraftItem {
   title: string;

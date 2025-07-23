@@ -1,10 +1,10 @@
 'use client';
 
-import { cn } from '@/src/lib/utils';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image, { type StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { cn } from '@/src/lib/utils';
 
 export interface ZoomImageProps {
   src: StaticImageData | StaticImport | string;

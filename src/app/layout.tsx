@@ -1,11 +1,11 @@
+import { Analytics } from '@vercel/analytics/react';
+import type { Metadata, Viewport } from 'next';
 import Footer from '@/src/components/layout/footer';
 import Nav from '@/src/components/layout/header';
 import { ThemeProvider } from '@/src/components/theme-provider';
 import { TooltipProvider } from '@/src/components/ui/tooltip';
 import { instrumentSerif, inter, newsreader, ovo } from '@/src/lib/fonts';
 import { cn } from '@/src/lib/utils';
-import { Analytics } from '@vercel/analytics/react';
-import type { Metadata, Viewport } from 'next';
 
 import '../styles/globals.css';
 

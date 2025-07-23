@@ -1,11 +1,11 @@
-import { cn } from '@/src/lib/utils';
 import {
   Children,
-  Fragment,
-  type ReactNode,
   cloneElement,
+  Fragment,
   isValidElement,
+  type ReactNode,
 } from 'react';
+import { cn } from '@/src/lib/utils';
 
 export interface PageLoadAnimationWrapperProps {
   children?: ReactNode;

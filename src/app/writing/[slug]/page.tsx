@@ -1,12 +1,12 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { getPosts } from '@/src/app/writing/posts';
 import ArrowUpLeftIcon from '@/src/components/icons/arrow-up-left-icon';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import BlogPostLD from '@/src/components/writing/blog-post-ld';
 import FocusMode from '@/src/components/writing/focus-mode';
 import { MDX } from '@/src/components/writing/mdx';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
 import '@/src/app/writing/[slug]/post.css';
 

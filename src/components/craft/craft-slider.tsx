@@ -1,14 +1,14 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
+import { wrap } from 'popmotion';
+import { useEffect, useState } from 'react';
 import ArrowLeftIcon from '@/src/components/icons/arrow-left-icon';
 import ArrowRightIcon from '@/src/components/icons/arrow-right-icon';
 import { Image } from '@/src/components/image/image';
 import LightboxVideo from '@/src/components/lightbox-video';
 import { Button } from '@/src/components/ui/button';
 import craft from '@/src/data/craft';
-import { AnimatePresence, motion } from 'framer-motion';
-import { wrap } from 'popmotion';
-import { useEffect, useState } from 'react';
 
 const variants = {
   enter: (direction: number) => {
