@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "../../../styles/globals.css";
+
 :root {
   --sh-class: rgb(163 163 163);
   --sh-identifier: rgb(10 10 10);
@@ -23,26 +26,15 @@
 }
 
 .prose {
-  @apply text-foreground;
+  color: hsl(var(--foreground));
 
-  a,
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  pre,
-  code,
-  i,
-  strong,
-  ul,
-  ol,
-  li,
-  em {
-    @apply text-foreground;
-  }
+  --tw-prose-body: hsl(var(--foreground));
+  --tw-prose-headings: hsl(var(--foreground));
+  --tw-prose-lead: hsl(var(--foreground));
+  --tw-prose-links: hsl(var(--foreground));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-counters: hsl(var(--foreground));
+  --tw-prose-hr: hsl(var(--foreground));
 
   a {
     @apply decoration-foreground/30 contrast-more:decoration-foreground;
@@ -88,7 +80,7 @@
   }
 
   pre > code {
-    @apply block text-sm scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground dark:text-foreground/85;
+    @apply block text-sm scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground;
 
     font-family: var(--font-mono);
   }

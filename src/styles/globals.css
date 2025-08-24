@@ -1,10 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@reference "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
+
+/* Use class-based dark mode to integrate with next-themes */
+@variant dark (&:where(.dark &));
+
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-ovo: var(--font-ovo);
+  --font-instrument-serif: var(--font-instrument-serif);
+
+  --color-white: hsl(var(--white));
+  --color-black: hsl(var(--black));
+  --color-transparent: hsl(var(--transparent));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Radii */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
 
 :root {
   --background: 0 0% 98%;
   --foreground: 0 0% 10%;
+  --white: 0 0% 100%;
+  --black: 0 0% 0%;
+  --transparent: 0 0% 0% / 0%;
   --card: 0 0% 95%;
   --card-foreground: 0 0% 3.9%;
   --popover: 0 0% 98%;
@@ -33,6 +85,9 @@
 .dark {
   --background: 0 0% 9%;
   --foreground: 0 0% 95%;
+  --white: 0 0% 0%;
+  --black: 0 0% 100%;
+  --transparent: 0 0% 100% / 0%;
   --card: 0 0% 9%;
   --card-foreground: 0 0% 95%;
   --popover: 0 0% 9%;
@@ -57,6 +112,63 @@
   --chart-5: 340 75% 55%;
 }
 
+@utility animation-delay-1 {
+  animation-delay: 300ms;
+}
+@utility animation-delay-2 {
+  animation-delay: 450ms;
+}
+@utility animation-delay-3 {
+  animation-delay: 600ms;
+}
+@utility animation-delay-4 {
+  animation-delay: 750ms;
+}
+@utility animation-delay-5 {
+  animation-delay: 900ms;
+}
+@utility animation-delay-6 {
+  animation-delay: 1050ms;
+}
+@utility animation-delay-7 {
+  animation-delay: 1200ms;
+}
+@utility animation-delay-8 {
+  animation-delay: 1350ms;
+}
+@utility animation-delay-9 {
+  animation-delay: 1500ms;
+}
+@utility animation-delay-10 {
+  animation-delay: 1650ms;
+}
+
+@utility animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+@utility animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+@utility animate-intro {
+  animation: intro 0.3s forwards ease-out;
+}
+@utility animate-aurora {
+  animation: aurora 60s linear infinite;
+}
+@utility animate-flip {
+  animation: flip 8s infinite steps(2, end);
+}
+@utility animate-rotate {
+  animation: rotate 4s linear infinite both;
+}
+
+@utility container {
+  width: 100%;
+  max-width: 640px; /* DEFAULT: '640px' */
+  margin-inline: auto; /* center: true */
+  padding-inline: 0; /* padding: '0' */
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -70,8 +182,16 @@
     }
   }
 
+  a:hover,
+  button:hover,
+  *[role="button"] {
+    @apply cursor-pointer;
+  }
+
   body {
-    @apply bg-background text-foreground overflow-y-scroll;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    @apply overflow-y-scroll;
   }
 
   em {
@@ -119,4 +239,60 @@
 
 .yarl__toolbar {
   @apply md:mr-4;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes aurora {
+  from {
+    background-position:
+      50% 50%,
+      50% 50%;
+  }
+  to {
+    background-position:
+      350% 50%,
+      350% 50%;
+  }
+}
+
+@keyframes intro {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+    filter: blur(3px);
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes flip {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(90deg);
+  }
 }

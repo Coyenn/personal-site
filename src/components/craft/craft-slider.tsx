@@ -72,13 +72,13 @@ export default function CraftSlider() {
   }, [page]);
 
   return (
-    <div className="animate-intro animation-delay-1">
+    <div className="animate-intro animation-delay-1 flex flex-col">
       <div className="mb-3 rounded-full bg-white dark:bg-background w-max mx-auto">
         <p className="border bg-white border-muted-foreground/10 dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full">
           {craft[imageIndex].date}
         </p>
       </div>
-      <div className="inset-0 w-100 h-[50vh] rounded-lg relative overflow-hidden">
+      <div className="inset-0 h-[50vh] rounded-lg relative overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             className="absolute w-full h-full inset-0 flex justify-center items-center max-h-[80vh] lg:max-h-[60vh]"

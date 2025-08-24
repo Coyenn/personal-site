@@ -123,6 +123,7 @@ export default function LightboxImage(props: LightboxImageProps) {
           slide: NextJsImage,
         }}
       />
+      {/* biome-ignore lint/a11y/useSemanticElements: Image cannot be a button */}
       <Image
         {...props}
         className={cn('bg-background', props.className)}
