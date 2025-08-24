@@ -50,6 +50,12 @@ export interface CraftItem {
 
 const craft: CraftItem[] = [
   {
+    title: 'Icon Reordering Animation',
+    date: 'July 2025',
+    tags: ['React', 'Motion'],
+    video: '/videos/craft/iso-reodering-demo.mp4',
+  },
+  {
     title: 'Isometric Depth Illustration & Animation',
     date: 'January 2025',
     tags: ['React', 'Illustration', 'Motion'],
