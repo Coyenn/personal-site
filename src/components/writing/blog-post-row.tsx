@@ -73,7 +73,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
         return (
           <motion.div
             key={slugify(item.href)}
-            className="w-[36%] z-[1] block absolute bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl"
+            className="w-[36%] z-[1] block absolute bg-background shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl sm:rounded-3xl"
             drag
             dragConstraints={{ left: 0, right: 0, bottom: 0, top: 0 }}
             dragElastic={0.5}

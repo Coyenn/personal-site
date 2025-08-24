@@ -25,21 +25,18 @@ export default function Aurora(props: AuroraProps) {
       <div
         className={cn(
           `
-            [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
-            [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
-            [background-image:var(--white-gradient),var(--aurora)]
-            dark:[background-image:var(--dark-gradient),var(--aurora)]
+            [--gradient:repeating-linear-gradient(100deg,var(--color-white)_0%,var(--color-white)_7%,var(--color-transparent)_10%,var(--color-transparent)_12%,var(--color-white)_16%)]
+            [background-image:var(--gradient),var(--aurora)]
             [background-size:300%,_200%]
             xl:[background-size:100%,_200%]
             [background-position:50%_50%,50%_50%]
-            filter blur-[5px] invert dark:invert-0
-            after:content-[""] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)]
-            after:dark:[background-image:var(--dark-gradient),var(--aurora)]
+            filter blur-[5px] invert-0
+            after:content-[""] after:absolute after:inset-0 after:[background-image:var(--gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
             pointer-events-none
             absolute -inset-[10px] opacity-0 dark:opacity-30 will-change-transform
-						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--transparent)_70%)]
+						[mask-image:radial-gradient(ellipse_at_50%_0%,black_5%,var(--color-transparent)_70%)]
             mb-5 min-w-[400px] w-full left-1/2 -translate-x-1/2`,
           gradient,
           gradientClassName,
