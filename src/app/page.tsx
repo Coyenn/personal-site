@@ -20,11 +20,7 @@ export default function Home() {
         <section>
           <p>
             <em>Creating web experiences</em> with meticulous attention to
-            detail. Diving deep into technical intricacies. Currently pushing
-            pixels at{' '}
-            <Link href="https://next-motion.de" target="_blank">
-              next.motion
-            </Link>{' '}
+            detail. Diving deep into technical intricacies.
           </p>
         </section>
         <section className="flex flex-col gap-y-6">
