@@ -1,4 +1,3 @@
-import type { ImageProps } from 'next/image';
 import Link from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import {
@@ -10,8 +9,9 @@ import {
 } from 'react';
 import slugify from 'slugify';
 import { highlight } from 'sugar-high';
-import { Image } from '@/src/components/image/image';
+import { Image, type ImageZoomProps } from '@/src/components/image/image';
 import DownloadButton from '@/src/components/writing/download-button';
+import { cn } from '@/src/lib/utils';
 import CopyCode from './copy-code';
 
 const CustomLink = ((props) => {
@@ -28,8 +28,28 @@ const CustomLink = ((props) => {
   DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
 >;
 
-const Img = (props: ImageProps) => {
-  return <Image variant="zoom" className="rounded-lg" {...props} />;
+const Img = ({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  loading,
+}: Pick<
+  ImageZoomProps,
+  'src' | 'alt' | 'width' | 'height' | 'className' | 'loading'
+>) => {
+  return (
+    <Image
+      variant="zoom"
+      className={cn('rounded-lg', className)}
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+    />
+  );
 };
 
 const Code = (({ children, ...props }) => {

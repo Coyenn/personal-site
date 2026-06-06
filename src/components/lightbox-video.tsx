@@ -5,7 +5,8 @@ import Lightbox, {
   useLightboxProps,
   useLightboxState,
 } from 'yet-another-react-lightbox';
-import { cn } from '@/src/lib/utils';
+import { MediaFrame } from '@/src/components/media-frame';
+import { fitMediaInRect } from '@/src/lib/fit-media-in-rect';
 
 import 'yet-another-react-lightbox/styles.css';
 
@@ -26,28 +27,31 @@ function NextJsVideo({ slide, offset, rect }: NextJsVideoProps) {
   } = useLightboxProps();
   const { currentIndex } = useLightboxState();
 
+  if (!slide.width || !slide.height) return undefined;
+
+  const fitted = fitMediaInRect(
+    slide.width,
+    slide.height,
+    rect.width,
+    rect.height,
+  );
+
   return (
-    <div
-      style={{
-        position: 'relative',
-        pointerEvents: 'none',
-        width: rect.width,
-        height: rect.height,
-      }}
+    <MediaFrame
+      width={slide.width}
+      height={slide.height}
+      fitted={fitted}
+      style={{ pointerEvents: 'none' }}
     >
       <video
         autoPlay
         playsInline
         muted
         loop
+        className="h-full w-full object-contain"
         style={{
-          width: 'min-content',
-          height: '100%',
-          objectPosition: 'center',
-          objectFit: 'contain',
           cursor: click ? 'pointer' : undefined,
           pointerEvents: 'auto',
-          marginInline: 'auto',
         }}
         onClick={
           offset === 0 ? () => click?.({ index: currentIndex }) : undefined
@@ -59,7 +63,7 @@ function NextJsVideo({ slide, offset, rect }: NextJsVideoProps) {
         <source src={slide.src} type={slide.type} />
         Your browser does not support the video tag.
       </video>
-    </div>
+    </MediaFrame>
   );
 }
 
@@ -67,11 +71,14 @@ export interface LightboxVideoProps
   extends Omit<React.VideoHTMLAttributes<HTMLVideoElement>, 'src'> {
   src: string;
   type: string;
+  width: number;
+  height: number;
   className?: string;
 }
 
 export default function LightboxVideo(props: LightboxVideoProps) {
   const [open, setOpen] = useState(false);
+  const { src, type, width, height, className, ...rest } = props;
 
   return (
     <Fragment>
@@ -80,9 +87,9 @@ export default function LightboxVideo(props: LightboxVideoProps) {
         close={() => setOpen(false)}
         slides={[
           {
-            src: props.src,
-            width: Number(props.width),
-            height: Number(props.height),
+            src,
+            width,
+            height,
           },
         ]}
         carousel={{ finite: true, padding: '5%' }}
@@ -98,30 +105,29 @@ export default function LightboxVideo(props: LightboxVideoProps) {
           slide: NextJsVideo,
         }}
       />
-      {/** biome-ignore lint/a11y/useSemanticElements: Needs to be a video tag */}
-      <video
-        className={cn(
-          'bg-background w-auto h-auto max-w-full max-h-full',
-          props.className,
-        )}
-        role="button"
-        tabIndex={0}
-        aria-label={props['aria-label'] || 'Video'}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        onClick={() => setOpen(true)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') setOpen(true);
-        }}
-        preload="none"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src={props.src} type={props.type} />
-        Your browser does not support the video tag.
-      </video>
+      <MediaFrame width={width} height={height} className={className}>
+        {/* biome-ignore lint/a11y/useSemanticElements: Needs to be a video tag */}
+        <video
+          className="h-full w-full object-cover"
+          role="button"
+          tabIndex={0}
+          aria-label={rest['aria-label'] || 'Video'}
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          onClick={() => setOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') setOpen(true);
+          }}
+          preload="metadata"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={src} type={type} />
+          Your browser does not support the video tag.
+        </video>
+      </MediaFrame>
     </Fragment>
   );
 }

@@ -85,8 +85,10 @@ export default function CraftList() {
                     )}
                     {item.video && (
                       <LightboxVideo
-                        className="rounded-lg border border-muted-foreground/10 w-full"
-                        src={item.video}
+                        className="rounded-lg border border-muted-foreground/10"
+                        src={item.video.src}
+                        width={item.video.width}
+                        height={item.video.height}
                         type="video/mp4"
                       />
                     )}

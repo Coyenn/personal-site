@@ -96,18 +96,17 @@
     @apply italic font-serif font-normal text-[17px];
   }
 
-  img {
-    @apply border border-foreground/10 relative;
-  }
-
-  img {
+  .post-image {
     @media (min-width: 768px) {
-      display: block;
       width: calc(650px + 120px);
-      height: auto;
-      margin-left: calc(-60px);
       max-width: none;
+      margin-left: calc(-60px);
       margin-right: calc(-60px);
     }
+  }
+
+  .post-image img {
+    margin: 0;
+    max-width: none;
   }
 }

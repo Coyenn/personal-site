@@ -10,16 +10,19 @@ import Lightbox, {
   useLightboxProps,
   useLightboxState,
 } from 'yet-another-react-lightbox';
-import { cn } from '@/src/lib/utils';
+import { MediaFrame } from '@/src/components/media-frame';
+import { getBlurPlaceholderProps } from '@/src/lib/blur-placeholder';
+import { fitMediaInRect } from '@/src/lib/fit-media-in-rect';
 
 import 'yet-another-react-lightbox/styles.css';
 
-// biome-ignore lint/suspicious/noExplicitAny: Needed
-function isNextJsImage(slide: any) {
+function hasMediaDimensions(
+  slide: SlideImage,
+): slide is SlideImage & { width: number; height: number } {
   return (
     isImageSlide(slide) &&
-    typeof slide?.width === 'number' &&
-    typeof slide?.height === 'number'
+    typeof slide.width === 'number' &&
+    typeof slide.height === 'number'
   );
 }
 
@@ -37,30 +40,24 @@ export function NextJsImage({ slide, offset, rect }: NextJsImageProps) {
 
   const { currentIndex } = useLightboxState();
 
-  const cover = isImageSlide(slide) && isImageFitCover(slide, imageFit);
+  if (!hasMediaDimensions(slide)) return undefined;
 
-  if (!isNextJsImage(slide)) return undefined;
-
-  const width = !cover
-    ? Math.round(
-        Math.min(
-          rect.width,
-          (rect.height / (slide.height ?? 0)) * (slide.width ?? 0),
-        ),
-      )
-    : rect.width;
-
-  const height = !cover
-    ? Math.round(
-        Math.min(
-          rect.height,
-          (rect.width / (slide.width ?? 0)) * (slide.height ?? 0),
-        ),
-      )
-    : rect.height;
+  const cover = isImageFitCover(slide, imageFit);
+  const fitted = fitMediaInRect(
+    slide.width,
+    slide.height,
+    rect.width,
+    rect.height,
+    cover,
+  );
 
   return (
-    <div style={{ position: 'relative', width, height }}>
+    <MediaFrame
+      width={slide.width}
+      height={slide.height}
+      fitted={fitted}
+      style={{ pointerEvents: 'none' }}
+    >
       <Image
         fill
         alt={slide.alt ?? ''}
@@ -68,18 +65,15 @@ export function NextJsImage({ slide, offset, rect }: NextJsImageProps) {
         loading="eager"
         draggable={true}
         quality={100}
-        placeholder={'blur'}
-        blurDataURL={`/_next/image?url=${slide}&w=16&q=1`}
-        style={{
-          objectFit: cover ? 'cover' : 'contain',
-          cursor: click ? 'pointer' : undefined,
-        }}
-        sizes={`${Math.ceil((width / window.innerWidth) * 100)}vw`}
+        {...getBlurPlaceholderProps(slide as StaticImageData)}
+        className={cover ? 'object-cover' : 'object-contain'}
+        style={{ cursor: click ? 'pointer' : undefined }}
+        sizes={`${Math.ceil((fitted.width / window.innerWidth) * 100)}vw`}
         onClick={
           offset === 0 ? () => click?.({ index: currentIndex }) : undefined
         }
       />
-    </div>
+    </MediaFrame>
   );
 }
 
@@ -87,29 +81,29 @@ export interface LightboxImageProps
   extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   src: StaticImageData | StaticImport | string;
   alt: string;
-  height?: number | `${number}`;
-  width?: number | `${number}`;
+  width: number;
+  height: number;
   className?: string;
   loading?: 'lazy' | 'eager';
 }
 
 export default function LightboxImage(props: LightboxImageProps) {
   const [open, setOpen] = useState(false);
-  const { loading = 'lazy' } = props;
+  const { loading = 'lazy', width, height, className, style, src, alt } = props;
+
+  const slide: SlideImage = {
+    src: typeof src === 'string' ? src : (src as StaticImageData).src,
+    width,
+    height,
+    alt,
+  };
 
   return (
     <Fragment>
       <Lightbox
         open={open}
         close={() => setOpen(false)}
-        slides={[
-          // @ts-expect-error: Needed
-          typeof props.src === 'string'
-            ? {
-                src: props.src,
-              }
-            : props.src,
-        ]}
+        slides={[slide]}
         carousel={{ finite: true, padding: '5%' }}
         controller={{
           closeOnBackdropClick: true,
@@ -123,24 +117,28 @@ export default function LightboxImage(props: LightboxImageProps) {
           slide: NextJsImage,
         }}
       />
-      <Image
-        {...props}
-        className={cn('bg-background', props.className)}
-        role="button"
-        tabIndex={0}
-        aria-label={props.alt}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        loading={loading}
-        quality={100}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        placeholder={'blur'}
-        blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
-        onClick={() => setOpen(true)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') setOpen(true);
-        }}
-      />
+      <MediaFrame width={width} height={height} className={className}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          loading={loading}
+          quality={100}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+          style={style}
+          role="button"
+          tabIndex={0}
+          aria-label={alt}
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          onClick={() => setOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') setOpen(true);
+          }}
+          {...getBlurPlaceholderProps(src)}
+        />
+      </MediaFrame>
     </Fragment>
   );
 }

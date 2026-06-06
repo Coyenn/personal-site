@@ -1,30 +1,49 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import {
+  animate,
+  motion,
+  type SpringOptions,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image, { type StaticImageData } from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { MediaFrame } from '@/src/components/media-frame';
+import { getBlurPlaceholderProps } from '@/src/lib/blur-placeholder';
 import { cn } from '@/src/lib/utils';
 
 export interface ZoomImageProps {
   src: StaticImageData | StaticImport | string;
   alt: string;
-  height?: number | `${number}`;
-  width?: number | `${number}`;
+  width: number;
+  height: number;
   className?: string;
   loading?: 'lazy' | 'eager';
 }
 
+const MAX_DRAG = 150;
+
+const springConfig: SpringOptions = {
+  stiffness: 2000,
+  damping: 320,
+};
+
+function clampDrag(offset: number) {
+  return Math.min(MAX_DRAG, Math.max(-MAX_DRAG / 4, offset));
+}
+
 export default function ZoomImage(props: ZoomImageProps) {
-  const { loading = 'lazy' } = props;
+  const { loading = 'lazy', width, height, className, src, alt } = props;
 
   const [backdropOpacity, setBackdropOpacity] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [shadowSize, setShadowSize] = useState(0);
 
-  const MAX_DRAG = 150;
   const x = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 2000, damping: 320 });
+  const springX = useSpring(x, springConfig);
   const dragButtonSize = useTransform(
     springX,
     [-MAX_DRAG, 0, MAX_DRAG],
@@ -35,7 +54,7 @@ export default function ZoomImage(props: ZoomImageProps) {
     [-MAX_DRAG, 0, MAX_DRAG],
     [0, 0, 0.75],
   );
-  const imageRef = useRef<HTMLImageElement>(null);
+  const zoomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isDragging) {
@@ -51,26 +70,30 @@ export default function ZoomImage(props: ZoomImageProps) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Not needed
   useEffect(() => {
-    springX.on('change', (latest) => {
-      const image = imageRef.current;
+    const updateZoom = (latest: number) => {
+      const zoomLayer = zoomRef.current;
 
-      if (image) {
+      if (zoomLayer) {
         const newScale = 1 + latest / 400;
-        image.style.transform = `scale(${newScale})`;
-
+        zoomLayer.style.transform = `scale(${newScale})`;
         setShadowSize((newScale - 1) * 15);
-        console.log((newScale - 1) * 15);
       }
 
       setBackdropOpacity(backgroundOpacity.get());
-    });
+    };
+
+    updateZoom(springX.get());
+    const unsubscribe = springX.on('change', updateZoom);
 
     return () => {
+      unsubscribe();
       x.set(0);
       setBackdropOpacity(0);
       setShadowSize(0);
     };
   }, []);
+
+  const resetZoom = () => animate(x, 0, springConfig);
 
   return (
     <>
@@ -79,27 +102,38 @@ export default function ZoomImage(props: ZoomImageProps) {
         style={{ opacity: backdropOpacity }}
       />
       <div className="relative z-10">
-        <Image
-          {...props}
-          className={cn(
-            'bg-muted-foreground/10 z-10',
-            isDragging && 'shadow-muted dark:shadow-black',
-            props.className,
-          )}
-          style={{
-            boxShadow: `0 ${shadowSize * 3}px ${shadowSize * 10}px ${shadowSize}px rgba(0, 0, 0, 0.25)`,
-          }}
-          width={props.width ?? 500}
-          height={props.height ?? 500}
-          tabIndex={0}
-          aria-label={props.alt}
-          loading={loading}
-          draggable={false}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          placeholder={'blur'}
-          blurDataURL={`/_next/image?url=${props.src}&w=16&q=1`}
-          ref={imageRef}
-        />
+        <MediaFrame
+          width={width}
+          height={height}
+          clip={false}
+          className="post-image"
+        >
+          <div
+            ref={zoomRef}
+            className={cn(
+              'relative h-full w-full origin-center overflow-hidden',
+              'rounded-lg border border-foreground/10 bg-muted-foreground/10',
+              isDragging && 'shadow-muted dark:shadow-black',
+              className,
+            )}
+            style={{
+              boxShadow: `0 ${shadowSize * 3}px ${shadowSize * 10}px ${shadowSize}px rgba(0, 0, 0, 0.25)`,
+            }}
+          >
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-contain"
+              tabIndex={0}
+              aria-label={alt}
+              loading={loading}
+              draggable={false}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              {...getBlurPlaceholderProps(src)}
+            />
+          </div>
+        </MediaFrame>
         <div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">
           <motion.button
             type="button"
@@ -112,18 +146,19 @@ export default function ZoomImage(props: ZoomImageProps) {
             onDragStart={() => {
               setIsDragging(true);
             }}
+            onDrag={(_, { offset }) => {
+              x.set(clampDrag(offset.x));
+            }}
             onDragEnd={() => {
               setIsDragging(false);
-              x.set(0);
-              springX.set(0);
+              resetZoom();
             }}
-            // On Enter key press, set the x value to the max drag value
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 if (x.get() !== MAX_DRAG) {
-                  x.set(MAX_DRAG);
+                  animate(x, MAX_DRAG, springConfig);
                 } else {
-                  x.set(0);
+                  resetZoom();
                 }
               }
             }}

@@ -37,6 +37,12 @@ import Typo3Right from '@/public/images/craft/typo3-right.png';
 import Typo3Sidebar from '@/public/images/craft/typo3-sidebar.png';
 import WYSIWYGConcept from '@/public/images/craft/wysiwyg-concept.png';
 
+export interface CraftVideo {
+  src: string;
+  width: number;
+  height: number;
+}
+
 export interface CraftItem {
   title: string;
   description?: string;
@@ -45,7 +51,7 @@ export interface CraftItem {
   link?: string;
   target?: string;
   image?: StaticImageData;
-  video?: string;
+  video?: CraftVideo;
 }
 
 const craft: CraftItem[] = [
@@ -53,25 +59,41 @@ const craft: CraftItem[] = [
     title: 'Icon Reordering Animation',
     date: 'July 2025',
     tags: ['React', 'Motion'],
-    video: '/videos/craft/iso-reodering-demo.mp4',
+    video: {
+      src: '/videos/craft/iso-reodering-demo.mp4',
+      width: 1920,
+      height: 992,
+    },
   },
   {
     title: 'Isometric Depth Illustration & Animation',
     date: 'January 2025',
     tags: ['React', 'Illustration', 'Motion'],
-    video: '/videos/craft/z-index-stack.mp4',
+    video: {
+      src: '/videos/craft/z-index-stack.mp4',
+      width: 2940,
+      height: 1840,
+    },
   },
   {
     title: 'Notification Bell',
     date: 'January 2025',
     tags: ['React', 'Motion'],
-    video: '/videos/craft/notification-bell.mp4',
+    video: {
+      src: '/videos/craft/notification-bell.mp4',
+      width: 1400,
+      height: 1400,
+    },
   },
   {
     title: 'Graph Slider',
     date: 'January 2025',
     tags: ['React', 'Motion'],
-    video: '/videos/craft/graph-slider.mp4',
+    video: {
+      src: '/videos/craft/graph-slider.mp4',
+      width: 2790,
+      height: 1648,
+    },
   },
   {
     title: 'AI Prompt UI',
