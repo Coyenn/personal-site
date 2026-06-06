@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import { LiquidGlass } from '@/src/components/glass/liquid-glass';
 import useTabs, { type Tab } from '@/src/hooks/use-tabs';
 import { cn } from '@/src/lib/utils';
 
@@ -95,7 +96,7 @@ function NavLinks(props: NavLinksProps) {
             'exclude px-3 sm:px-3.5 py-1 text-sm motion-safe:transition-colors',
             hoveredTabIndex === index || selectedTabIndex === index
               ? 'text-background dark:text-foreground'
-              : 'text-muted/40 dark:text-muted-foreground/70 contrast-more:text-background contrast-more:dark:text-foreground',
+              : 'text-background/60 dark:text-foreground/60 contrast-more:text-background contrast-more:dark:text-foreground',
           )}
           aria-current={selectedTabIndex === index ? 'page' : undefined}
           onPointerEnter={(e) => onEnterTab(index, e.target)}
@@ -144,7 +145,8 @@ function Header() {
       className="w-full flex justify-center print:hidden"
       aria-label="Site Header"
     >
-      <div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full border-2 border-muted-foreground/5 bg-foreground/80 px-2 sm:px-3.5 pb-2.5 pt-2 text-background backdrop-blur-md shadow-xl dark:bg-muted/80 dark:text-foreground">
+      <div className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-4 fixed bottom-0 z-50 mb-8 flex items-center rounded-full px-2 sm:px-3.5 pb-2.5 pt-2 text-background shadow-xl dark:text-foreground">
+        <LiquidGlass className="bg-foreground/40 dark:bg-muted/60 border-2 border-muted-foreground/5" />
         <NavLinks {...css.tabProps} selectedTabIndex={selected} />
         <span
           className="hidden sm:block ml-1 mr-3 sm:ml-2 sm:mr-5 text-muted/40 dark:text-muted-foreground/40 font-ovo select-none contrast-more:text-background contrast-more:dark:text-foreground"
@@ -156,14 +158,9 @@ function Header() {
           href="mailto:hi@tim.cv"
           rel="noreferrer"
           target="_blank"
-          className="group relative rounded-full px-3.5 py-1.5 transition-colors border border-black/5"
+          className="text-background dark:text-foreground text-sm px-3.5 py-1.5 border border-black/5 rounded-full transition-colors duration-200 shadow-inner shadow-neutral-300/5 bg-muted/10 dark:bg-muted-foreground/10 hover:bg-muted/20 active:bg-muted/30 dark:hover:bg-muted-foreground/20 dark:active:bg-muted-foreground/30"
         >
-          <span className="group-hover:opacity-70 motion-reduce:!hidden opacity-0 transition-opacity mask-gradient group-hover:animate-flip group-hover:before:animate-rotate absolute inset-0 h-[100%] w-[100%] overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
-          <span className="absolute inset-[1px] bg-neutral-800 rounded-full" />
-          <span className="absolute rounded-full inset-[1px] transition-colors duration-200 shadow-inner shadow-neutral-300/5 bg-muted/25 dark:bg-muted-foreground/25 group-hover:bg-muted/30 group-active:bg-muted/40 dark:group-hover:bg-muted-foreground/30 dark:group-active:bg-muted-foreground/40" />
-          <span className="z-10 relative text-background dark:text-foreground text-sm">
-            Contact
-          </span>
+          Contact
         </a>
       </div>
     </header>
