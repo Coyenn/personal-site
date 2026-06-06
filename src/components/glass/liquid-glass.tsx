@@ -85,6 +85,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
   const pathname = usePathname();
   const filterId = useId().replace(/[:]/g, '');
+  const pad = Math.ceil(blur * 3 + scale + chroma + 2);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const cloneHolderRef = useRef<HTMLDivElement>(null);
@@ -237,8 +238,8 @@ export function LiquidGlass(props: LiquidGlassProps) {
       const wrapperRect = wrapper.getBoundingClientRect();
       if (target?.isConnected) {
         const targetRect = target.getBoundingClientRect();
-        const dx = targetRect.left - wrapperRect.left;
-        const dy = targetRect.top - wrapperRect.top;
+        const dx = targetRect.left - wrapperRect.left + pad;
+        const dy = targetRect.top - wrapperRect.top + pad;
         holder.style.width = `${targetRect.width}px`;
         holder.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
         syncStickies();
@@ -269,12 +270,10 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [scrollResponse, scale, chroma]);
+  }, [scrollResponse, scale, chroma, pad]);
 
   const supported =
     map !== null && size !== null && size.width > 0 && size.height > 0;
-
-  const pad = Math.ceil(blur * 3 + scale + chroma + 2);
 
   dispNodesRef.current = [];
 
@@ -289,8 +288,14 @@ export function LiquidGlass(props: LiquidGlassProps) {
         style={{ backgroundColor: 'hsl(var(--background))' }}
       />
       <div
-        className="absolute inset-0"
-        style={{ filter: supported ? `url(#${filterId})` : undefined }}
+        className="absolute overflow-hidden"
+        style={{
+          top: -pad,
+          left: -pad,
+          right: -pad,
+          bottom: -pad,
+          filter: supported ? `url(#${filterId})` : undefined,
+        }}
       >
         <div
           ref={cloneHolderRef}
@@ -314,8 +319,8 @@ export function LiquidGlass(props: LiquidGlassProps) {
               id={filterId}
               filterUnits="userSpaceOnUse"
               primitiveUnits="userSpaceOnUse"
-              x={-pad}
-              y={-pad}
+              x="0"
+              y="0"
               width={size.width + pad * 2}
               height={size.height + pad * 2}
               colorInterpolationFilters="sRGB"
@@ -323,8 +328,8 @@ export function LiquidGlass(props: LiquidGlassProps) {
               <feFlood floodColor="rgb(128,128,128)" result="neutral" />
               <feImage
                 href={map.dataUrl}
-                x="0"
-                y="0"
+                x={pad}
+                y={pad}
                 width={size.width}
                 height={size.height}
                 preserveAspectRatio="none"
