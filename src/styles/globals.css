@@ -5,7 +5,7 @@
 @plugin "tailwindcss-animate";
 
 /* Use class-based dark mode to integrate with next-themes */
-@variant dark (&:where(.dark &));
+@custom-variant dark (&:where(.dark &));
 
 @theme {
   /* Fonts */

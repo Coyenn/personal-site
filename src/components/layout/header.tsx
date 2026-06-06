@@ -6,6 +6,12 @@ import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import useTabs, { type Tab } from '@/src/hooks/use-tabs';
 import { cn } from '@/src/lib/utils';
 
+const NAV_TABS: Tab[] = [
+  { title: 'Home', href: '/' },
+  { title: 'Craft', href: '/craft' },
+  { title: 'Writing', href: '/writing' },
+];
+
 export interface NavLinksProps {
   selectedTabIndex: number;
   tabs: Tab[];
@@ -119,34 +125,15 @@ function NavLinks(props: NavLinksProps) {
 
 function Header() {
   const pathname = usePathname();
-  const tabs: Tab[] = [
-    {
-      title: 'Home',
-      href: '/',
-    },
-    {
-      title: 'Craft',
-      href: '/craft',
-    },
-    {
-      title: 'Writing',
-      href: '/writing',
-    },
-  ];
   const [selected, setSelected] = useState<number>(0);
-  const css = useTabs(tabs);
+  const css = useTabs(NAV_TABS);
 
   useEffect(() => {
-    let foundIndex = -1;
-
-    for (const tab of tabs) {
-      if (
+    const foundIndex = NAV_TABS.findIndex(
+      (tab) =>
         (pathname.startsWith(tab.href) && tab.href !== '/') ||
-        pathname === tab.href
-      ) {
-        foundIndex = tabs.indexOf(tab);
-      }
-    }
+        pathname === tab.href,
+    );
 
     setSelected(foundIndex);
   }, [pathname]);
