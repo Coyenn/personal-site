@@ -89,6 +89,8 @@ export default function ZoomImage(props: ZoomImageProps) {
           style={{
             boxShadow: `0 ${shadowSize * 3}px ${shadowSize * 10}px ${shadowSize}px rgba(0, 0, 0, 0.25)`,
           }}
+          width={props.width ?? 500}
+          height={props.height ?? 500}
           tabIndex={0}
           aria-label={props.alt}
           loading={loading}
