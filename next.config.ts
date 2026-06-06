@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     qualities: [100, 90],
   },
   experimental: {
-    reactCompiler: true,
     scrollRestoration: true,
   },
 };
