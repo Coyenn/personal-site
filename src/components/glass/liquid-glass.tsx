@@ -74,10 +74,10 @@ function sanitizeClone(root: HTMLElement) {
 export function LiquidGlass(props: LiquidGlassProps) {
   const {
     scale = 55,
-    blur = 4,
-    chroma = 1,
-    bezel = 0.9,
-    curvature = 1.8,
+    blur = 2,
+    chroma = 0.5,
+    bezel = 1,
+    curvature = 2,
     scrollResponse = true,
     refractionTargetSelector = 'main',
     className,
@@ -98,6 +98,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
     null,
   );
   const [map, setMap] = useState<DisplacementMap | null>(null);
+  const [filterVersion, setFilterVersion] = useState(0);
 
   useIsomorphicLayoutEffect(() => {
     const node = wrapperRef.current;
@@ -131,7 +132,10 @@ export function LiquidGlass(props: LiquidGlassProps) {
       curvature,
       dpr: Math.min(window.devicePixelRatio || 1, 2),
     });
-    if (generated) setMap(generated);
+    if (generated) {
+      setMap(generated);
+      setFilterVersion((version) => version + 1);
+    }
   }, [size, bezel, curvature]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: pathname re-clones on navigation
@@ -200,6 +204,8 @@ export function LiquidGlass(props: LiquidGlassProps) {
         const wrapper = clip.parentElement;
         if (!wrapper?.dataset.stickySync) continue;
 
+        const previousTransform = wrapper.style.transform;
+        wrapper.style.transform = '';
         const liveRect = live.getBoundingClientRect();
         const clipRect = clip.getBoundingClientRect();
         const dx = liveRect.left - clipRect.left;
@@ -207,8 +213,10 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
         if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
           wrapper.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-        } else {
+        } else if (previousTransform) {
           wrapper.style.transform = '';
+        } else {
+          wrapper.style.transform = previousTransform;
         }
       }
     };
@@ -274,6 +282,8 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
   const supported =
     map !== null && size !== null && size.width > 0 && size.height > 0;
+  const activeFilterId = `${filterId}-${filterVersion}`;
+  const activeFilterUrl = `url(#${activeFilterId})`;
 
   dispNodesRef.current = [];
 
@@ -294,7 +304,10 @@ export function LiquidGlass(props: LiquidGlassProps) {
           left: -pad,
           right: -pad,
           bottom: -pad,
-          filter: supported ? `url(#${filterId})` : undefined,
+          filter: supported ? activeFilterUrl : undefined,
+          WebkitFilter: supported ? activeFilterUrl : undefined,
+          transform: 'translateZ(0)',
+          willChange: 'filter',
         }}
       >
         <div
@@ -307,16 +320,24 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
       {supported ? (
         <svg
+          xmlns="http://www.w3.org/2000/svg"
           aria-hidden
-          className="absolute size-0"
-          width="0"
-          height="0"
-          style={{ position: 'absolute' }}
+          className="pointer-events-none absolute"
+          width={size.width + pad * 2}
+          height={size.height + pad * 2}
+          viewBox={`0 0 ${size.width + pad * 2} ${size.height + pad * 2}`}
+          style={{
+            top: -pad,
+            left: -pad,
+            width: size.width + pad * 2,
+            height: size.height + pad * 2,
+            overflow: 'visible',
+          }}
         >
           <title>Liquid glass refraction filter</title>
           <defs>
             <filter
-              id={filterId}
+              id={activeFilterId}
               filterUnits="userSpaceOnUse"
               primitiveUnits="userSpaceOnUse"
               x="0"
@@ -328,6 +349,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
               <feFlood floodColor="rgb(128,128,128)" result="neutral" />
               <feImage
                 href={map.dataUrl}
+                xlinkHref={map.dataUrl}
                 x={pad}
                 y={pad}
                 width={size.width}
