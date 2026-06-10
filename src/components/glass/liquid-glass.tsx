@@ -11,6 +11,12 @@ import { cn } from '@/src/lib/utils';
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
+function isWebKitEngine(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent;
+  return /AppleWebKit/.test(ua) && !/Chrom(e|ium)|Edg\/|OPR\/|Android/.test(ua);
+}
+
 export interface LiquidGlassProps {
   scale?: number;
   blur?: number;
@@ -30,6 +36,8 @@ interface VideoPair {
 interface StickyPair {
   clip: HTMLElement;
   live: HTMLElement;
+  lastDx: number;
+  lastDy: number;
 }
 
 function isStickyElement(el: HTMLElement): boolean {
@@ -66,9 +74,50 @@ function sanitizeClone(root: HTMLElement) {
     video.loop = true;
     video.playsInline = true;
     video.removeAttribute('autoplay');
-    video.setAttribute('preload', 'auto');
+    video.setAttribute('preload', 'metadata');
     video.load();
   }
+}
+
+function replaceCloneVideosWithStillFrames(
+  clone: HTMLElement,
+  liveVideos: HTMLVideoElement[],
+): () => void {
+  const cloneVideos = Array.from(clone.querySelectorAll('video'));
+  const cleanupFns: (() => void)[] = [];
+
+  for (let i = 0; i < cloneVideos.length; i++) {
+    const cloneVideo = cloneVideos[i];
+    const live = liveVideos[i];
+    if (!(live instanceof HTMLVideoElement)) continue;
+
+    const img = document.createElement('img');
+    img.alt = '';
+    img.className = cloneVideo.className;
+    img.dataset.videoStill = 'true';
+
+    const capture = () => {
+      if (live.videoWidth === 0 || live.videoHeight === 0) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = live.videoWidth;
+      canvas.height = live.videoHeight;
+      canvas.getContext('2d')?.drawImage(live, 0, 0);
+      img.src = canvas.toDataURL('image/jpeg', 0.7);
+    };
+
+    if (live.readyState >= 2) {
+      capture();
+    } else {
+      live.addEventListener('loadeddata', capture, { once: true });
+      cleanupFns.push(() => live.removeEventListener('loadeddata', capture));
+    }
+
+    cloneVideo.parentNode?.replaceChild(img, cloneVideo);
+  }
+
+  return () => {
+    for (const fn of cleanupFns) fn();
+  };
 }
 
 export function LiquidGlass(props: LiquidGlassProps) {
@@ -130,15 +179,15 @@ export function LiquidGlass(props: LiquidGlassProps) {
       radius: size.height / 2,
       bezel,
       curvature,
+      pad,
       dpr: Math.min(window.devicePixelRatio || 1, 2),
     });
     if (generated) {
       setMap(generated);
       setFilterVersion((version) => version + 1);
     }
-  }, [size, bezel, curvature]);
+  }, [size, bezel, curvature, pad]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname re-clones on navigation
   useEffect(() => {
     const holder = cloneHolderRef.current;
     if (!holder) return;
@@ -161,20 +210,33 @@ export function LiquidGlass(props: LiquidGlassProps) {
     holder.replaceChildren(clone);
 
     const realVideos = Array.from(target.querySelectorAll('video'));
-    const cloneVideos = Array.from(clone.querySelectorAll('video'));
-    videoPairsRef.current = cloneVideos
-      .map((clip, index) => ({ clip, live: realVideos[index] }))
-      .filter(
-        (pair): pair is VideoPair => pair.live instanceof HTMLVideoElement,
-      );
+
+    let cleanupFrames: (() => void) | undefined;
+    if (isWebKitEngine()) {
+      cleanupFrames = replaceCloneVideosWithStillFrames(clone, realVideos);
+      videoPairsRef.current = [];
+    } else {
+      const cloneVideos = Array.from(clone.querySelectorAll('video'));
+      videoPairsRef.current = cloneVideos
+        .map((clip, index) => ({ clip, live: realVideos[index] }))
+        .filter(
+          (pair): pair is VideoPair => pair.live instanceof HTMLVideoElement,
+        );
+    }
 
     const realStickies = findStickyElements(target);
     const cloneStickies = findStickyElements(clone);
     stickyPairsRef.current = cloneStickies
-      .map((clip, index) => ({ clip, live: realStickies[index] }))
+      .map((clip, index) => ({
+        clip,
+        live: realStickies[index],
+        lastDx: 0,
+        lastDy: 0,
+      }))
       .filter((pair): pair is StickyPair => pair.live instanceof HTMLElement);
 
     return () => {
+      cleanupFrames?.();
       for (const { clip } of videoPairsRef.current) clip.pause();
       videoPairsRef.current = [];
       stickyPairsRef.current = [];
@@ -188,35 +250,66 @@ export function LiquidGlass(props: LiquidGlassProps) {
     const holder = cloneHolderRef.current;
     if (!wrapper || !holder) return;
 
-    const reduceMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let motionQuery: MediaQueryList | null = null;
+    let reduceMotion = false;
+    const updateReduceMotion = () => {
+      reduceMotion = motionQuery?.matches ?? false;
+    };
+    if (typeof window !== 'undefined') {
+      motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      reduceMotion = motionQuery.matches;
+      motionQuery.addEventListener('change', updateReduceMotion);
+    }
 
-    let lastScrollY = window.scrollY;
+    let dirty = true;
+    let rafId: number | null = null;
+    let idleFrames = 0;
     let velocity = 0;
-    let frame = 0;
+    let lastScrollY = window.scrollY;
     let videoCheck = 0;
-    const channelOffsets = [chroma, 0, -chroma];
+    const baseScales = [scale + chroma, scale, scale - chroma];
+
+    const ensureLoop = () => {
+      if (rafId === null) {
+        idleFrames = 0;
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    const markDirty = () => {
+      dirty = true;
+      ensureLoop();
+    };
 
     const syncStickies = () => {
-      for (const { clip, live } of stickyPairsRef.current) {
+      const updates: Array<{
+        wrapper: HTMLElement;
+        dx: number;
+        dy: number;
+        pair: StickyPair;
+      }> = [];
+      for (const pair of stickyPairsRef.current) {
+        const { clip, live } = pair;
         if (!live.isConnected) continue;
-        const wrapper = clip.parentElement;
-        if (!wrapper?.dataset.stickySync) continue;
+        const w = clip.parentElement;
+        if (!w?.dataset.stickySync) continue;
 
-        const previousTransform = wrapper.style.transform;
-        wrapper.style.transform = '';
         const liveRect = live.getBoundingClientRect();
         const clipRect = clip.getBoundingClientRect();
-        const dx = liveRect.left - clipRect.left;
-        const dy = liveRect.top - clipRect.top;
+        const dx = liveRect.left - (clipRect.left - pair.lastDx);
+        const dy = liveRect.top - (clipRect.top - pair.lastDy);
+        updates.push({ wrapper: w, dx, dy, pair });
+      }
 
+      for (const { wrapper, dx, dy, pair } of updates) {
         if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
           wrapper.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-        } else if (previousTransform) {
+          pair.lastDx = dx;
+          pair.lastDy = dy;
+        } else if (pair.lastDx !== 0 || pair.lastDy !== 0) {
           wrapper.style.transform = '';
-        } else {
-          wrapper.style.transform = previousTransform;
+          pair.lastDx = 0;
+          pair.lastDy = 0;
         }
       }
     };
@@ -244,13 +337,19 @@ export function LiquidGlass(props: LiquidGlassProps) {
     const tick = () => {
       const target = targetElRef.current;
       const wrapperRect = wrapper.getBoundingClientRect();
-      if (target?.isConnected) {
-        const targetRect = target.getBoundingClientRect();
-        const dx = targetRect.left - wrapperRect.left + pad;
-        const dy = targetRect.top - wrapperRect.top + pad;
-        holder.style.width = `${targetRect.width}px`;
-        holder.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-        syncStickies();
+
+      if (dirty) {
+        dirty = false;
+        idleFrames = 0;
+
+        if (target?.isConnected) {
+          const targetRect = target.getBoundingClientRect();
+          const dx = targetRect.left - wrapperRect.left + pad;
+          const dy = targetRect.top - wrapperRect.top + pad;
+          holder.style.width = `${targetRect.width}px`;
+          holder.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+          syncStickies();
+        }
       }
 
       videoCheck += 1;
@@ -261,23 +360,85 @@ export function LiquidGlass(props: LiquidGlassProps) {
 
       if (scrollResponse && !reduceMotion) {
         const current = window.scrollY;
-        velocity += (Math.abs(current - lastScrollY) - velocity) * 0.25;
-        velocity *= 0.9;
+        const delta = Math.abs(current - lastScrollY);
         lastScrollY = current;
+
+        if (delta > 0) {
+          velocity += (delta - velocity) * 0.25;
+        }
+        velocity *= 0.9;
+
         const boost = Math.min(velocity * 0.6, scale * 0.9);
-        dispNodesRef.current.forEach((node, index) => {
-          node?.setAttribute(
-            'scale',
-            String(scale + boost + channelOffsets[index]),
-          );
-        });
+        const boostSignificant = boost > 0.1 || velocity > 0.05;
+
+        if (boostSignificant) {
+          dispNodesRef.current.forEach((node, index) => {
+            node?.setAttribute('scale', String(baseScales[index] + boost));
+          });
+        } else if (velocity <= 0.05) {
+          dispNodesRef.current.forEach((node, index) => {
+            node?.setAttribute('scale', String(baseScales[index]));
+          });
+          velocity = 0;
+        }
       }
 
-      frame = requestAnimationFrame(tick);
+      if (!dirty && velocity === 0) {
+        idleFrames += 1;
+      }
+
+      if (idleFrames >= 5) {
+        rafId = null;
+        return;
+      }
+
+      rafId = requestAnimationFrame(tick);
     };
 
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    const onScroll = () => {
+      dirty = true;
+      ensureLoop();
+    };
+
+    const onResize = () => markDirty();
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      } else {
+        markDirty();
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    document.addEventListener('visibilitychange', onVisibility);
+
+    let mutationObs: MutationObserver | null = null;
+    const target0 = targetElRef.current;
+    if (target0) {
+      mutationObs = new MutationObserver(markDirty);
+      mutationObs.observe(target0, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        characterData: false,
+      });
+    }
+
+    ensureLoop();
+
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
+      motionQuery?.removeEventListener('change', updateReduceMotion);
+      mutationObs?.disconnect();
+    };
   }, [scrollResponse, scale, chroma, pad]);
 
   const supported =
@@ -313,7 +474,6 @@ export function LiquidGlass(props: LiquidGlassProps) {
         <div
           ref={cloneHolderRef}
           className="absolute left-0 top-0 origin-top-left"
-          style={{ willChange: 'transform' }}
         />
       </div>
       <div className={cn('absolute inset-0 rounded-[inherit]', className)} />
@@ -346,29 +506,25 @@ export function LiquidGlass(props: LiquidGlassProps) {
               height={size.height + pad * 2}
               colorInterpolationFilters="sRGB"
             >
-              <feFlood floodColor="rgb(128,128,128)" result="neutral" />
+              {/* Pad is baked into the displacement map (neutral 128,128,128 border),
+                  so feImage covers the full filter region at (0,0). This removes the
+                  feFlood+feComposite and avoids WebKit's feImage subregion bugs. */}
               <feImage
                 href={map.dataUrl}
                 xlinkHref={map.dataUrl}
-                x={pad}
-                y={pad}
-                width={size.width}
-                height={size.height}
+                x="0"
+                y="0"
+                width={size.width + pad * 2}
+                height={size.height + pad * 2}
                 preserveAspectRatio="none"
                 result="lens"
-              />
-              <feComposite
-                in="lens"
-                in2="neutral"
-                operator="over"
-                result="map"
               />
               <feDisplacementMap
                 ref={(el) => {
                   if (el) dispNodesRef.current[0] = el;
                 }}
                 in="SourceGraphic"
-                in2="map"
+                in2="lens"
                 scale={scale + chroma}
                 xChannelSelector="R"
                 yChannelSelector="G"
@@ -385,7 +541,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
                   if (el) dispNodesRef.current[1] = el;
                 }}
                 in="SourceGraphic"
-                in2="map"
+                in2="lens"
                 scale={scale}
                 xChannelSelector="R"
                 yChannelSelector="G"
@@ -402,7 +558,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
                   if (el) dispNodesRef.current[2] = el;
                 }}
                 in="SourceGraphic"
-                in2="map"
+                in2="lens"
                 scale={scale - chroma}
                 xChannelSelector="R"
                 yChannelSelector="G"

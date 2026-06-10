@@ -5,6 +5,7 @@ export interface DisplacementMapOptions {
   bezel?: number;
   curvature?: number;
   dpr?: number;
+  pad?: number;
 }
 
 function roundedRectSdf(
@@ -36,14 +37,15 @@ export function generateDisplacementMap(
     bezel = 0.45,
     curvature = 1.6,
     dpr = 1,
+    pad = 0,
   } = options;
 
   if (width <= 0 || height <= 0 || typeof document === 'undefined') {
     return null;
   }
 
-  const w = Math.max(1, Math.round(width * dpr));
-  const h = Math.max(1, Math.round(height * dpr));
+  const w = Math.max(1, Math.round((width + pad * 2) * dpr));
+  const h = Math.max(1, Math.round((height + pad * 2) * dpr));
 
   const canvas = document.createElement('canvas');
   canvas.width = w;
@@ -54,30 +56,32 @@ export function generateDisplacementMap(
   const image = ctx.createImageData(w, h);
   const data = image.data;
 
-  const halfW = w / 2;
-  const halfH = h / 2;
+  data.fill(128);
+  for (let i = 3; i < data.length; i += 4) data[i] = 255;
+
+  const innerW = Math.round(width * dpr);
+  const innerH = Math.round(height * dpr);
+  const halfW = innerW / 2;
+  const halfH = innerH / 2;
   const cornerRadius = Math.min(radius * dpr, halfW, halfH);
   const band = Math.max(1, bezel * Math.min(halfW, halfH));
   const eps = Math.max(1, dpr);
 
+  const cx = w / 2;
+  const cy = h / 2;
+
   const sdf = (px: number, py: number) =>
     roundedRectSdf(px, py, halfW, halfH, cornerRadius);
 
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const px = x - halfW + 0.5;
-      const py = y - halfH + 0.5;
+  const halfRows = Math.ceil(h / 2);
+  const halfCols = Math.ceil(w / 2);
+
+  for (let y = 0; y < halfRows; y++) {
+    for (let x = 0; x < halfCols; x++) {
+      const px = x - cx + 0.5;
+      const py = y - cy + 0.5;
 
       const d = sdf(px, py);
-      const i = (y * w + x) * 4;
-
-      if (d >= 0) {
-        data[i] = 128;
-        data[i + 1] = 128;
-        data[i + 2] = 128;
-        data[i + 3] = 255;
-        continue;
-      }
 
       const proximity = Math.max(0, 1 + d / band);
       const profile = proximity ** curvature;
@@ -91,14 +95,35 @@ export function generateDisplacementMap(
       const dispX = -nx * profile;
       const dispY = -ny * profile;
 
-      data[i] = Math.round(128 + dispX * 127);
-      data[i + 1] = Math.round(128 + dispY * 127);
-      data[i + 2] = 128;
-      data[i + 3] = 255;
+      const r = Math.round(128 + dispX * 127);
+      const g = Math.round(128 + dispY * 127);
+
+      const yMirror = h - 1 - y;
+      const xMirror = w - 1 - x;
+
+      const i0 = (y * w + x) * 4;
+      data[i0] = r;
+      data[i0 + 1] = g;
+
+      const i1 = (y * w + xMirror) * 4;
+      data[i1] = 256 - r;
+      data[i1 + 1] = g;
+
+      const i2 = (yMirror * w + x) * 4;
+      data[i2] = r;
+      data[i2 + 1] = 256 - g;
+
+      const i3 = (yMirror * w + xMirror) * 4;
+      data[i3] = 256 - r;
+      data[i3 + 1] = 256 - g;
     }
   }
 
   ctx.putImageData(image, 0, 0);
 
-  return { dataUrl: canvas.toDataURL(), width, height };
+  return {
+    dataUrl: canvas.toDataURL(),
+    width: width + pad * 2,
+    height: height + pad * 2,
+  };
 }

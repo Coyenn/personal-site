@@ -4,22 +4,18 @@ test.describe('Sitemap', () => {
   test('should return valid sitemap', async ({ page }) => {
     const response = await page.goto('/sitemap.xml');
 
-    // Check if the response status is 200
     expect(response?.status()).toBe(200);
 
-    // Check if the content type is XML
     const contentType = response?.headers()['content-type'];
     expect(contentType).toContain('xml');
 
-    // Check if the response contains sitemap elements
-    const text = await page.content();
+    const text = await response?.text();
     expect(text).toContain('<urlset');
     expect(text).toContain('<url>');
     expect(text).toContain('<loc>');
 
-    // Check if the sitemap contains the main routes
-    expect(text).toContain('/writing');
-    expect(text).toContain('/craft');
-    expect(text).toContain('/colophon');
+    expect(text).toContain('https://tim.cv/writing');
+    expect(text).toContain('https://tim.cv/craft');
+    expect(text).toContain('https://tim.cv/colophon');
   });
 });

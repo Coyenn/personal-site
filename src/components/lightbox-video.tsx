@@ -1,6 +1,7 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import Lightbox, {
   useLightboxProps,
   useLightboxState,
@@ -80,6 +81,24 @@ export default function LightboxVideo(props: LightboxVideoProps) {
   const [open, setOpen] = useState(false);
   const { src, type, width, height, className, ...rest } = props;
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { ref: inViewRef, inView } = useInView({ rootMargin: '200px 0px' });
+
+  const setRefs = (el: HTMLVideoElement | null) => {
+    (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el;
+    inViewRef(el);
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (inView && !open) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [inView, open]);
+
   return (
     <Fragment>
       <Lightbox
@@ -108,7 +127,8 @@ export default function LightboxVideo(props: LightboxVideoProps) {
       <MediaFrame width={width} height={height} className={className}>
         {/* biome-ignore lint/a11y/useSemanticElements: Needs to be a video tag */}
         <video
-          className="h-full w-full object-cover"
+          ref={setRefs}
+          className="h-full w-full object-cover [content-visibility:auto]"
           role="button"
           tabIndex={0}
           aria-label={rest['aria-label'] || 'Video'}
@@ -119,7 +139,6 @@ export default function LightboxVideo(props: LightboxVideoProps) {
             if (e.key === 'Enter') setOpen(true);
           }}
           preload="metadata"
-          autoPlay
           loop
           muted
           playsInline
