@@ -519,11 +519,20 @@ export function LiquidGlass(props: LiquidGlassProps) {
                 preserveAspectRatio="none"
                 result="lens"
               />
+              {/* Frost blur runs on the SourceGraphic *before* displacement:
+                  WebKit silently drops feGaussianBlur when it consumes the
+                  displaced/composited result, and also ignores function filters
+                  chained after url() in the CSS filter list. */}
+              <feGaussianBlur
+                in="SourceGraphic"
+                stdDeviation={blur}
+                result="frosted"
+              />
               <feDisplacementMap
                 ref={(el) => {
                   if (el) dispNodesRef.current[0] = el;
                 }}
-                in="SourceGraphic"
+                in="frosted"
                 in2="lens"
                 scale={scale + chroma}
                 xChannelSelector="R"
@@ -540,7 +549,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
                 ref={(el) => {
                   if (el) dispNodesRef.current[1] = el;
                 }}
-                in="SourceGraphic"
+                in="frosted"
                 in2="lens"
                 scale={scale}
                 xChannelSelector="R"
@@ -557,7 +566,7 @@ export function LiquidGlass(props: LiquidGlassProps) {
                 ref={(el) => {
                   if (el) dispNodesRef.current[2] = el;
                 }}
-                in="SourceGraphic"
+                in="frosted"
                 in2="lens"
                 scale={scale - chroma}
                 xChannelSelector="R"
@@ -590,7 +599,6 @@ export function LiquidGlass(props: LiquidGlassProps) {
                 k4="0"
                 result="rgb"
               />
-              <feGaussianBlur in="rgb" stdDeviation={blur} />
             </filter>
           </defs>
         </svg>
