@@ -41,3 +41,6 @@ playwright-report
 
 # Nix
 .direnv
+
+# AI
+.claude

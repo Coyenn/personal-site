@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**"]
+    "includes": ["**", "!.agents", "!skills-lock.json"]
   },
   "formatter": {
     "enabled": true,
