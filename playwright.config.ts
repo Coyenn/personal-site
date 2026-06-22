@@ -13,8 +13,9 @@ export default defineConfig({
   // Retry on CI only.
   retries: process.env.CI ? 2 : 0,
 
-  // Opt out of parallel tests on CI.
-  workers: process.env.CI ? 1 : undefined,
+  // Parallelize across CPU cores. The site is static, so there's no shared
+  // state to serialize on; let Playwright pick the worker count.
+  workers: undefined,
 
   // Reporter to use
   reporter: 'list',
@@ -37,10 +38,16 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-  // Run your local dev server before starting the tests.
+  // Start the app before running tests.
+  // On CI, test against a production build: routes are precompiled (every
+  // request is ~ms instead of the dev server's 7-10s on-demand compile) and
+  // it exercises the same output users get. Locally, use the dev server and
+  // reuse one if it's already running.
   webServer: {
-    command: 'bun run dev',
+    command: process.env.CI ? 'bun run build && bun run start' : 'bun run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
+    // A cold production build needs more than the default 60s.
+    timeout: 120_000,
   },
 });

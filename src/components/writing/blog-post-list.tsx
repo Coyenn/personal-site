@@ -56,8 +56,8 @@ export default function BlogPostList(props: BlogPostProps) {
                 </time>
               </h3>
             </article>
+            {index < posts.length - 1 && <hr />}
           </li>
-          {index < posts.length - 1 && <hr />}
         </Fragment>
       ))}
     </ul>

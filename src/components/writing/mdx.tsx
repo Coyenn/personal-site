@@ -59,8 +59,12 @@ const Code = (({ children, ...props }) => {
   return (
     <>
       {isMultiLine && <CopyCode code={children as string} />}
-      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Needed in this case */}
-      <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+      <code
+        tabIndex={isMultiLine ? 0 : undefined}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Needed in this case
+        dangerouslySetInnerHTML={{ __html: codeHTML }}
+        {...props}
+      />
     </>
   );
 }) as FC<{ children: ReactNode }>;
@@ -78,6 +82,7 @@ const createHeading = (level: number) => {
           key: `link-${slug}`,
           className: 'anchor',
           tabIndex: -1,
+          'aria-hidden': true,
         }),
       ],
       children,

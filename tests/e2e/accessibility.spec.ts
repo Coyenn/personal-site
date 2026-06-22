@@ -1,54 +1,87 @@
-import { expect, test } from '@playwright/test';
+import type AxeBuilder from '@axe-core/playwright';
+import type { Result } from 'axe-core';
+import { expect, test } from '../fixtures';
 
-test.describe('Accessibility', () => {
-  test('home page should have proper heading structure', async ({ page }) => {
-    await page.goto('/');
+function format(violations: Result[]): string {
+  return JSON.stringify(
+    violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      help: v.help,
+      nodes: v.nodes.map((n) => n.html),
+    })),
+    null,
+    2,
+  );
+}
 
-    const h1Count = await page.locator('h1').count();
-    expect(h1Count).toBe(1);
+function audit(makeAxeBuilder: () => AxeBuilder): AxeBuilder {
+  return makeAxeBuilder().disableRules(['color-contrast']);
+}
 
-    const images = page.locator('img:not([alt])');
-    const imagesWithoutAlt = await images.count();
-    expect(imagesWithoutAlt).toBe(0);
+const PAGES = [
+  { name: 'home', path: '/' },
+  { name: 'writing', path: '/writing' },
+  { name: 'craft', path: '/craft' },
+  { name: 'colophon', path: '/colophon' },
+] as const;
 
-    const title = await page.title();
-    expect(title.length).toBeGreaterThan(0);
-  });
+test.describe('Accessibility (axe-core)', () => {
+  for (const { name, path } of PAGES) {
+    test(`${name} page has no detectable WCAG violations`, async ({
+      page,
+      makeAxeBuilder,
+    }) => {
+      await page.goto(path);
 
-  test('writing page should have proper heading structure', async ({
+      const { violations } = await audit(makeAxeBuilder).analyze();
+
+      expect(violations, format(violations)).toEqual([]);
+    });
+  }
+
+  test('blog post page has no detectable WCAG violations', async ({
     page,
+    makeAxeBuilder,
   }) => {
     await page.goto('/writing');
+    await page.getByRole('article').first().getByRole('link').click();
+    await expect(page).toHaveURL(/\/writing\/.+/);
 
-    const h1Count = await page.locator('main h1').count();
-    expect(h1Count).toBe(1);
+    const { violations } = await audit(makeAxeBuilder).analyze();
 
-    const images = page.locator('img:not([alt])');
-    const imagesWithoutAlt = await images.count();
-    expect(imagesWithoutAlt).toBe(0);
+    expect(violations, format(violations)).toEqual([]);
   });
 
-  test('craft page should have proper heading structure', async ({ page }) => {
-    await page.goto('/craft');
-
-    const h1Count = await page.locator('main h1').count();
-    expect(h1Count).toBe(1);
-
-    const images = page.locator('img:not([alt])');
-    const imagesWithoutAlt = await images.count();
-    expect(imagesWithoutAlt).toBe(0);
-  });
-
-  test('colophon page should have proper heading structure', async ({
+  test('not-found page has no detectable WCAG violations', async ({
     page,
+    makeAxeBuilder,
   }) => {
-    await page.goto('/colophon');
+    await page.goto('/this-route-does-not-exist');
 
-    const h1Count = await page.locator('h1').count();
-    expect(h1Count).toBe(1);
+    const { violations } = await audit(makeAxeBuilder).analyze();
 
-    const images = page.locator('img:not([alt])');
-    const imagesWithoutAlt = await images.count();
-    expect(imagesWithoutAlt).toBe(0);
+    expect(violations, format(violations)).toEqual([]);
   });
+});
+
+test.describe('Accessibility (structure)', () => {
+  for (const { name, path } of PAGES) {
+    test(`${name} page exposes core landmarks and a single h1`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+
+      await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+
+      await expect(page.getByRole('banner')).toBeAttached();
+      await expect(page.getByRole('main')).toBeVisible();
+      await expect(page.getByRole('contentinfo')).toBeVisible();
+      await expect(
+        page.getByRole('navigation', { name: 'Main navigation' }),
+      ).toBeVisible();
+
+      await expect(page.locator('img:not([alt])')).toHaveCount(0);
+    });
+  }
 });

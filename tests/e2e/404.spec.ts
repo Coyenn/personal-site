@@ -1,15 +1,15 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('404 Page', () => {
-  test('should show 404 page for non-existent routes', async ({ page }) => {
-    await page.goto('/404');
+test.describe('Not found page', () => {
+  test('returns 404 for unknown routes and links home', async ({ page }) => {
+    const response = await page.goto('/this-route-does-not-exist');
 
-    await expect(page.locator('main').getByText(/Not Found/i)).toBeVisible();
+    expect(response?.status()).toBe(404);
+    await expect(
+      page.getByRole('heading', { level: 1, name: /not found/i }),
+    ).toBeVisible();
 
-    const homeLink = page.getByText(/go home/i);
-    await expect(homeLink).toBeVisible();
-
-    await homeLink.click();
+    await page.getByRole('link', { name: /go home/i }).click();
     await expect(page).toHaveURL('/');
   });
 });

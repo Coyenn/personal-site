@@ -1,14 +1,25 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('Colophon Page', () => {
-  test('should load successfully', async ({ page }) => {
+test.describe('Colophon page', () => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/colophon');
+  });
 
-    // Check if the page title contains "Colophon"
+  test('renders the title and heading', async ({ page }) => {
     await expect(page).toHaveTitle(/Colophon/);
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Colophon' }),
+    ).toBeVisible();
+  });
 
-    // Check if the main heading is visible
-    const heading = page.getByRole('heading', { name: /Colophon/i });
-    await expect(heading).toBeVisible();
+  test('credits the tech stack and inspirations', async ({ page }) => {
+    await expect(page.getByRole('link', { name: 'Next.js' })).toHaveAttribute(
+      'href',
+      'https://nextjs.org',
+    );
+    await expect(page.getByRole('link', { name: 'GitHub' })).toBeVisible();
+    await expect(
+      page.getByRole('list', { name: 'Inspiration' }).getByRole('listitem'),
+    ).toHaveCount(7);
   });
 });
