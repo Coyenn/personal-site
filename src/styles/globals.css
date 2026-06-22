@@ -112,37 +112,6 @@
   --chart-5: 340 75% 55%;
 }
 
-@utility animation-delay-1 {
-  animation-delay: 300ms;
-}
-@utility animation-delay-2 {
-  animation-delay: 450ms;
-}
-@utility animation-delay-3 {
-  animation-delay: 600ms;
-}
-@utility animation-delay-4 {
-  animation-delay: 750ms;
-}
-@utility animation-delay-5 {
-  animation-delay: 900ms;
-}
-@utility animation-delay-6 {
-  animation-delay: 1050ms;
-}
-@utility animation-delay-7 {
-  animation-delay: 1200ms;
-}
-@utility animation-delay-8 {
-  animation-delay: 1350ms;
-}
-@utility animation-delay-9 {
-  animation-delay: 1500ms;
-}
-@utility animation-delay-10 {
-  animation-delay: 1650ms;
-}
-
 @utility animate-accordion-down {
   animation: accordion-down 0.2s ease-out;
 }

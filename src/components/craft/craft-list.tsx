@@ -33,7 +33,10 @@ export default function CraftList() {
           className={cn('relative flex flex-col')}
         >
           <div className="z-10 sticky top-12 mb-3  rounded-full transform -translate-x-1/2 left-1/2 w-max">
-            <p className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full animate-intro animation-delay-1">
+            <p
+              className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full animate-intro"
+              style={{ animationDelay: '300ms' }}
+            >
               {group[0].date}
             </p>
           </div>
@@ -48,8 +51,10 @@ export default function CraftList() {
                   className={cn(
                     'motion-reduce:duration-0 motion-reduce:opacity-100',
                     'animate-intro',
-                    `animation-delay-${overallItemIndex + 2}`,
                   )}
+                  style={{
+                    animationDelay: `${(overallItemIndex + 3) * 150}ms`,
+                  }}
                   key={`${item.date}-${slugify(item.title)}`}
                 >
                   {/* biome-ignore lint/a11y/useKeyWithClickEvents: onClick is needed */}
@@ -93,10 +98,10 @@ export default function CraftList() {
                       />
                     )}
                     <div
-                      className={cn(
-                        'animate-intro',
-                        `animation-delay-${overallItemIndex + 2}`,
-                      )}
+                      className="animate-intro"
+                      style={{
+                        animationDelay: `${(overallItemIndex + 3) * 150}ms`,
+                      }}
                     >
                       <h3 className="flex justify-between items-center gap-4 mb-4 mt-2 md:mb-6 sm:mt-3">
                         <span>{item.title}</span>

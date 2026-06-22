@@ -28,7 +28,8 @@ export default function BlogPostList(props: BlogPostProps) {
       {posts.map((post, index) => (
         <Fragment key={post.slug}>
           <li
-            className={`animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 2}`}
+            className="animate-intro motion-reduce:duration-0 motion-reduce:opacity-100"
+            style={{ animationDelay: `${(index + 3) * 150}ms` }}
             onMouseEnter={() => setHighlightIndex(index)}
             onMouseLeave={() => setHighlightIndex(-1)}
           >

@@ -1,7 +1,9 @@
 import {
   Children,
+  type CSSProperties,
   cloneElement,
   Fragment,
+  type HTMLAttributes,
   isValidElement,
   type ReactNode,
 } from 'react';
@@ -19,13 +21,15 @@ export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
       {Children.map(children, (child, index) => {
         if (isValidElement(child)) {
           return cloneElement(child, {
-            // @ts-expect-error className should always be there
             className: cn(
-              `animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 animation-delay-${index + 1}`,
-              // biome-ignore lint/suspicious/noExplicitAny: We just need to pass the className
-              (child.props as any)?.className,
+              'animate-intro motion-reduce:duration-0 motion-reduce:opacity-100',
+              (child.props as { className?: string })?.className,
             ),
-          });
+            style: {
+              ...(child.props as { style?: CSSProperties })?.style,
+              animationDelay: `${(index + 2) * 150}ms`,
+            },
+          } as HTMLAttributes<HTMLElement>);
         }
         return child;
       })}
