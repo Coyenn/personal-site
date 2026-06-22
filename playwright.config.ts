@@ -20,6 +20,11 @@ export default defineConfig({
   // Reporter to use
   reporter: 'list',
 
+  // Headroom for the dev server's on-demand route compilation and hydration.
+  // Production builds (CI) resolve assertions in milliseconds, so this only
+  // raises the ceiling; it never slows a passing run.
+  expect: { timeout: 10_000 },
+
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
     baseURL: 'http://localhost:3000',
