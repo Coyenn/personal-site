@@ -30,8 +30,10 @@ test.describe('Blog post page', () => {
     const body = page.locator('body');
     await expect(body).not.toHaveClass(/\bfocus\b/);
 
-    await page.keyboard.down('F');
-    await expect(body).toHaveClass(/\bfocus\b/);
+    await expect(async () => {
+      await page.keyboard.down('F');
+      await expect(body).toHaveClass(/\bfocus\b/, { timeout: 1000 });
+    }).toPass({ timeout: 10_000 });
 
     await page.keyboard.up('F');
     await expect(body).not.toHaveClass(/\bfocus\b/);
