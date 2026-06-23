@@ -10,12 +10,9 @@ test.describe('Craft page', () => {
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 
-  test('renders keyboard-accessible gallery items', async ({ page }) => {
-    const triggers = page.locator('[aria-haspopup="dialog"]');
-    await expect(triggers.first()).toBeVisible();
-
-    await expect(triggers.first()).toHaveAttribute('aria-expanded', 'false');
-    await expect(triggers.first()).toHaveAttribute('tabindex', '0');
-    await expect(page.getByRole('button')).not.toHaveCount(0);
+  test('renders gallery media', async ({ page }) => {
+    const media = page.locator('main img, main video');
+    await expect(media.first()).toBeVisible();
+    expect(await media.count()).toBeGreaterThan(0);
   });
 });

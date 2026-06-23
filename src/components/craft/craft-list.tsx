@@ -1,11 +1,56 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import slugify from 'slugify';
 import { Image } from '@/src/components/image/image';
-import LightboxVideo from '@/src/components/lightbox-video';
 import craft from '@/src/data/craft';
 import { cn } from '@/src/lib/utils';
+
+function CraftVideo({
+  src,
+  width,
+  height,
+  className,
+}: {
+  src: string;
+  width: number;
+  height: number;
+  className?: string;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { ref: inViewRef, inView } = useInView({ rootMargin: '200px 0px' });
+
+  const setRefs = useCallback(
+    (el: HTMLVideoElement | null) => {
+      videoRef.current = el;
+      inViewRef(el);
+    },
+    [inViewRef],
+  );
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (inView) video.play().catch(() => {});
+    else video.pause();
+  }, [inView]);
+
+  return (
+    <video
+      ref={setRefs}
+      width={width}
+      height={height}
+      className={cn('h-auto w-full [content-visibility:auto]', className)}
+      preload="metadata"
+      loop
+      muted
+      playsInline
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
 
 function groupItemsByDate() {
   const groups: Record<string, typeof craft> = {};
@@ -77,22 +122,19 @@ export default function CraftList() {
                   >
                     {item.image && (
                       <Image
-                        variant="lightbox"
-                        loading={index < 3 ? 'eager' : 'lazy'}
-                        alt={item.title}
-                        className="rounded-lg border border-muted-foreground/10"
-                        height={item.image.height}
                         src={item.image}
-                        width={item.image.width}
+                        alt={item.title}
+                        placeholder="blur"
+                        loading={index < 3 ? 'eager' : 'lazy'}
+                        className="h-auto w-full rounded-lg border border-muted-foreground/10"
                       />
                     )}
                     {item.video && (
-                      <LightboxVideo
-                        className="rounded-lg border border-muted-foreground/10"
+                      <CraftVideo
                         src={item.video.src}
                         width={item.video.width}
                         height={item.video.height}
-                        type="video/mp4"
+                        className="rounded-lg border border-muted-foreground/10"
                       />
                     )}
                     <div
