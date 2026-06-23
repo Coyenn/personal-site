@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { PageHeading } from '@/src/components/page-heading';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function Colophon() {
   return (
     <PageLoadAnimationWrapper>
       <section>
-        <h1 className="font-instrument-serif text-3xl md:text-4xl">Colophon</h1>
+        <PageHeading title="Colophon" />
       </section>
       <section>
         <p>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Aurora from '@/src/components/aurora';
+import { PageHeading } from '@/src/components/page-heading';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import { ProjectContainer, ProjectItem } from '@/src/components/project';
 
@@ -9,13 +10,10 @@ export default function Home() {
       <Aurora />
       <PageLoadAnimationWrapper>
         <section>
-          <h1 className="font-instrument-serif text-3xl md:text-4xl">
-            <span aria-hidden="true">Tim Ritter</span>
-            <br />
-            <span className="text-muted-foreground contrast-more:text-foreground">
-              Design Engineer
-            </span>
-          </h1>
+          <PageHeading
+            title={<span aria-hidden="true">Tim Ritter</span>}
+            subtitle="Design Engineer"
+          />
         </section>
         <section>
           <p>

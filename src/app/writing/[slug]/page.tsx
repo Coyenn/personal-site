@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPosts } from '@/src/app/writing/posts';
 import ArrowUpLeftIcon from '@/src/components/icons/arrow-up-left-icon';
+import { PageHeading } from '@/src/components/page-heading';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import BlogPostLD from '@/src/components/writing/blog-post-ld';
 import FocusMode from '@/src/components/writing/focus-mode';
@@ -73,18 +74,15 @@ export default async function Page(props: PageProps) {
       <article>
         <PageLoadAnimationWrapper>
           <section>
-            <h1 className="font-instrument-serif text-3xl md:text-4xl">
-              <span>{post.metadata.title}</span>
-              <br />
-              <span className="text-muted-foreground contrast-more:text-foreground">
-                {post.metadata.summary}
-              </span>
-            </h1>
+            <PageHeading
+              title={post.metadata.title}
+              subtitle={post.metadata.summary}
+            />
             <Link
               href="/writing"
               className="exclude flex items-center text-muted-foreground contrast-more:text-foreground mt-4 w-fit hover:text-foreground"
             >
-              <ArrowUpLeftIcon className="h-4 w-4 mr-1" aria-hidden="true" />
+              <ArrowUpLeftIcon className="size-5 mr-1" aria-hidden="true" />
               All Posts
             </Link>
           </section>

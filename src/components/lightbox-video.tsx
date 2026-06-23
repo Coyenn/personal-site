@@ -49,7 +49,7 @@ function NextJsVideo({ slide, offset, rect }: NextJsVideoProps) {
         playsInline
         muted
         loop
-        className="h-full w-full object-contain"
+        className="h-full w-full object-contain rounded-lg"
         style={{
           cursor: click ? 'pointer' : undefined,
           pointerEvents: 'auto',

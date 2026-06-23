@@ -94,7 +94,7 @@ function NavLinks(props: NavLinksProps) {
           key={`nav-item-${encodeURIComponent(item.title)}`}
           href={item.href}
           className={cn(
-            'exclude px-3 sm:px-3.5 py-1 text-sm motion-safe:transition-colors',
+            'exclude px-3 sm:px-3.5 py-1 text-base motion-safe:transition-colors',
             hoveredTabIndex === index || selectedTabIndex === index
               ? 'text-background dark:text-foreground'
               : 'text-background/60 dark:text-foreground/60 contrast-more:text-background contrast-more:dark:text-foreground',
@@ -167,7 +167,7 @@ function Header() {
           href="mailto:hi@tim.cv"
           rel="noreferrer"
           target="_blank"
-          className="text-background dark:text-foreground text-sm px-3.5 py-1.5 border border-black/5 rounded-full transition-colors duration-200 shadow-inner shadow-neutral-300/5 bg-muted/10 dark:bg-muted-foreground/10 hover:bg-muted/20 active:bg-muted/30 dark:hover:bg-muted-foreground/20 dark:active:bg-muted-foreground/30"
+          className="text-background dark:text-foreground text-base px-3.5 py-1.5 border border-black/5 rounded-full transition-colors duration-200 shadow-inner shadow-neutral-300/5 bg-muted/10 dark:bg-muted-foreground/10 hover:bg-muted/20 active:bg-muted/30 dark:hover:bg-muted-foreground/20 dark:active:bg-muted-foreground/30"
         >
           Contact
         </a>

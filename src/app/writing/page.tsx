@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getPosts } from '@/src/app/writing/posts';
+import { PageHeading } from '@/src/components/page-heading';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import BlogPostList from '@/src/components/writing/blog-post-list';
 import BlogPostRow from '@/src/components/writing/blog-post-row';
@@ -35,7 +36,7 @@ export default function Writing() {
   return (
     <PageLoadAnimationWrapper>
       <section>
-        <h1 className="font-instrument-serif text-3xl md:text-4xl">Writing</h1>
+        <PageHeading title="Writing" />
       </section>
       <section className="animate-intro">
         <BlogPostRow

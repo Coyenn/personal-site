@@ -29,7 +29,7 @@ export function MediaFrame({
   return (
     <div
       className={cn(
-        'relative bg-background',
+        'relative',
         fitted ? undefined : 'w-full',
         clip && 'overflow-hidden',
         className,

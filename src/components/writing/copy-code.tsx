@@ -16,7 +16,7 @@ export default function CopyCode(props: CopyCodeProps) {
   return (
     <button
       type="button"
-      className="absolute top-1 right-1 h-6 w-6 rounded border border-transparent hover:border-foreground/5 text-foreground/30 hover:text-foreground contrast-more:text-foreground bg-white dark:bg-muted transition-all"
+      className="absolute top-1 right-1 size-7 rounded border border-transparent hover:border-foreground/5 text-foreground/30 hover:text-foreground contrast-more:text-foreground bg-white dark:bg-muted transition-all"
       onClick={async () => {
         if (copied === true) return;
 
@@ -34,7 +34,7 @@ export default function CopyCode(props: CopyCodeProps) {
       <AnimatePresence>
         {copied && (
           <CopyIcon
-            className="w-4 h-4 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            className="size-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
             asMotion
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -48,7 +48,7 @@ export default function CopyCode(props: CopyCodeProps) {
       <AnimatePresence>
         {!copied && (
           <ArrowIcon
-            className="w-4 h-4 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            className="size-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
             asMotion
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

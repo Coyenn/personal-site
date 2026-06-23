@@ -74,7 +74,7 @@ export default function ZoomImage(props: ZoomImageProps) {
       const zoomLayer = zoomRef.current;
 
       if (zoomLayer) {
-        const newScale = 1 + latest / 400;
+        const newScale = 1 + latest / 500;
         zoomLayer.style.transform = `scale(${newScale})`;
         setShadowSize((newScale - 1) * 15);
       }
@@ -98,7 +98,7 @@ export default function ZoomImage(props: ZoomImageProps) {
   return (
     <>
       <div
-        className="bg-background fixed inset-0 w-full h-full z-[9] pointer-events-none scale-blur-fix"
+        className="bg-background fixed inset-0 w-full h-full z-9 pointer-events-none scale-blur-fix"
         style={{ opacity: backdropOpacity }}
       />
       <div className="relative z-10">
@@ -106,7 +106,7 @@ export default function ZoomImage(props: ZoomImageProps) {
           width={width}
           height={height}
           clip={false}
-          className="post-image"
+          className="md:w-[870px] md:max-w-none md:ml-[-60px] md:mr-[-60px]"
         >
           <div
             ref={zoomRef}
@@ -134,7 +134,7 @@ export default function ZoomImage(props: ZoomImageProps) {
             />
           </div>
         </MediaFrame>
-        <div className="hidden lg:block absolute right-0 md:right-[-110px] top-1/2 -translate-y-1/2 w-7 h-14">
+        <div className="hidden lg:block absolute right-0 md:right-[-140px] top-1/2 -translate-y-1/2 w-7 h-14">
           <motion.button
             type="button"
             className="block absolute group w-full h-full touch-none cursor-grab focus:outline-none"

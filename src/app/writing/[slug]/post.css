@@ -28,6 +28,8 @@
 .prose {
   color: hsl(var(--foreground));
 
+  @apply text-lg;
+
   --tw-prose-body: hsl(var(--foreground));
   --tw-prose-headings: hsl(var(--foreground));
   --tw-prose-lead: hsl(var(--foreground));
@@ -50,7 +52,7 @@
   h4,
   h5,
   h6 {
-    @apply mb-4 font-medium text-base;
+    @apply mb-4 font-medium text-lg;
   }
 
   pre {
@@ -72,7 +74,7 @@
   }
 
   p > code {
-    @apply bg-muted border border-foreground/10 rounded-lg p-1 text-sm;
+    @apply bg-muted border border-foreground/10 rounded-lg p-1 text-base;
   }
 
   p > code span {
@@ -80,7 +82,7 @@
   }
 
   pre > code {
-    @apply block text-sm scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground;
+    @apply block text-base scroll-p-3 overflow-x-auto rounded-lg border border-foreground/10 bg-white dark:bg-muted/50 p-3 text-muted-foreground;
 
     font-family: var(--font-mono);
   }
@@ -93,19 +95,10 @@
   i,
   cite,
   strong {
-    @apply italic font-serif font-normal text-[17px];
+    @apply italic font-serif font-normal;
   }
 
-  .post-image {
-    @media (min-width: 768px) {
-      width: calc(650px + 120px);
-      max-width: none;
-      margin-left: calc(-60px);
-      margin-right: calc(-60px);
-    }
-  }
-
-  .post-image img {
+  img {
     margin: 0;
     max-width: none;
   }

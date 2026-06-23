@@ -107,7 +107,7 @@ export default function RootLayout({
     >
       <body
         className={
-          'container px-6 sm:px-0 bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col'
+          'mx-auto w-full max-w-[750px] px-4 pt-20 pb-[120px] bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
         }
       >
         <ThemeProvider
@@ -119,7 +119,7 @@ export default function RootLayout({
           <TooltipProvider>
             <div className="blur" />
             <Nav />
-            <main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:!my-0 grow">
+            <main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:my-0! grow">
               {children}
             </main>
             <Footer />

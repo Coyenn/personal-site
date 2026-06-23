@@ -3,6 +3,7 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
+@plugin "fluid-tailwindcss";
 
 /* Use class-based dark mode to integrate with next-themes */
 @custom-variant dark (&:where(.dark &));
@@ -143,7 +144,7 @@
     @apply border-border;
 
     &::selection {
-      @apply bg-rose-600/10 text-red-900 dark:bg-red-900/50 dark:text-rose-300 contrast-more:bg-muted-foreground contrast-more:text-muted;
+      @apply bg-rose-600/50 text-foreground contrast-more:bg-muted-foreground;
     }
 
     &:focus-visible {
@@ -164,7 +165,7 @@
   }
 
   em {
-    @apply font-serif italic text-[17px];
+    @apply font-serif italic fl-text-base/xl;
   }
 
   main a,
