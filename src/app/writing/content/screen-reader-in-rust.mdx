@@ -6,49 +6,64 @@ image: "/images/writing/screen-reader-in-rust/thumbnail.png"
 placeholderImage: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAFCAYAAAB4ka1VAAAAAXNSR0IArs4c6QAAAH1JREFUGFclyjsKg1AUBuE53oAIYtJp5TpiYWfr/lcRH0S9ED3+wWSm/cz7XsSI8hzqGisKJKF1ZR9GzLtO2jZcgqrCHnf47Bwx4ssb87bVOc8cy4LKEssyNLxwAWaYN418mtjHET9PSBJ+hYClKebPC4x/cBwIYdchkIQbX3U5ReQhSQQWAAAAAElFTkSuQmCC"
 ---
 
-### Backstory
+<section>
+A screen reader is the one piece of software its users never look at.
 
-In June 2025, a new law, the 'Barrierefreiheitsstärkungsgesetz' (BFSG), will come into effect in Germany, requiring _most_ websites to be accessible.
-And thus, German website owners are currently scrambling to conform to the new regulations.
+It narrates the operating system out loud to someone who can't read the pixels: every button, every menu, every field that takes focus. For the people who rely on it, the screen reader _is_ the interface. Everything else is implementation detail.
 
-This is also how I first got exposed to the topic of web accessibility. More and more of our clients (@[next.motion](https://next-motion.de)) are asking for audits and improvements in this space.
+Until recently, I had no idea how one actually worked.
+</section>
 
-So recently, while working on the accessibility of a website, I got the idea to delve deeper into how screen readers actually work.
-What better way to understand something than to build it yourself?
+<section>
+### How I got here
 
-To keep things simple, I decided to only focus on Windows for now because it's by far the most popular OS of my target audience.
+This is how I first got exposed to web accessibility. In June 2025 a new German law, the _Barrierefreiheitsstärkungsgesetz_, comes into effect, requiring _most_ websites to be accessible. German site owners are scrambling, and our clients at @[next.motion](https://next-motion.de) started asking for audits and improvements.
 
-### Choosing the right tools
+While working on the accessibility of one site, I got curious about something the checklist never explains: how does a screen reader actually work?
 
-Screen readers require low-level access to OS APIs for reading text and interacting with applications.
-Rust is pretty much the only low-level programming language I'm somewhat comfortable with.
-So it was an easy choice for this project.
-The borrow checker&trade; is the cherry on top, because I don't feel like shooting myself in the foot with memory leaks.
+So I did the thing I always do with a black box. I tried to build one.
 
-As for functionality, I figured a basic screen reader should be able to:
+To keep the scope small, I limited myself to Windows, by far the most popular OS in my target audience.
+</section>
 
-- Access information about UI elements on the screen
-- Read text aloud (text-to-speech)
-- Listen and react to user input
-- Play audio files (for sound effects)
+<section>
+### What it has to do
 
-But there are also several key features that I won't implement at this stage, namely:
-- A GUI
-- Support for reading anything but the focused element (this would require a significant of work because browsers restrict access to web content by default)
+Stripped down, a basic screen reader needs to:
 
-After searching around GitHub a bit I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs).
-It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop as well as the ability to interact with them programmatically.
-This is exactly what I need for the first point on my list!
+- Know which UI element you're currently on
+- Read text aloud
+- Listen and react to input
+- Play sounds for feedback
 
-Now for text-to-speech, I knew that Windows has a built-in text-to-speech API; I just needed a way to access it. Luckily, there is a Rust crate that provides raw FFI bindings to the *whole* Windows API: [retep998/winapi-rs](https://github.com/retep998/winapi-rs).
-This should cover point 2.
+And, just as deliberately, a list of things mine would _not_ do:
 
-For points 3 and 4, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
+- Have a GUI
+- Read anything beyond the focused element
 
-### Name and Logo
+That second omission is the big one. Reading real web content means fighting the browser, which sandboxes its content from exactly this kind of access. That's a project in its own right. For now, the focused element is more than enough to learn from.
+</section>
 
-I decided to name this little project 'Aria', after the set of roles and attributes for HTML elements.
-Before diving into the code, I also created a simple logo.
+<section>
+### Reaching into the OS
+
+Screen readers live close to the metal. They need low-level access to OS APIs to pull text out of other applications and poke at their controls. Rust is more or less the only low-level language I'm comfortable in, so the choice made itself. The borrow checker&trade; is the cherry on top. I'd rather not chase memory leaks through someone else's UI tree.
+
+After that it was a matter of finding the right things to stand on.
+
+For reading the UI: [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs), a Rust wrapper around the Windows UI Automation API. It exposes nearly every control on the desktop and lets you interact with them programmatically. Exactly the first item on my list.
+
+For speech, Windows already ships a text-to-speech engine; I just needed a way in. [retep998/winapi-rs](https://github.com/retep998/winapi-rs) provides raw FFI bindings to the _whole_ Windows API. That covers reading text aloud.
+
+For the rest, there's [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input, straight off crates.io.
+</section>
+
+<section>
+### A name
+
+I called it _Aria_, after [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA): the set of roles and attributes that tell assistive tech what an HTML element actually _is_. A screen reader is one of the main things that reads them. It felt right to name the reader after the vocabulary it reads.
+
+Before writing any code, I also made a simple logo. Premature for a side project, maybe, but it makes the thing feel real.
 
 <Image
   src="/images/writing/screen-reader-in-rust/logo.png"
@@ -57,16 +72,12 @@ Before diving into the code, I also created a simple logo.
   quality="100"
   alt="Aria Logo"
 />
+</section>
 
-### The Implementation
+<section>
+### Reading the screen
 
-I set up a new Rust project and added the dependencies mentioned above.
-Then I started implementing the basic functionality.
-
-#### Reading UI elements
-
-UIAutomation makes it easy to hook into Windows interface events.
-For example, to get information about the currently focused element, I created a `FocusChangedEventHandler` struct that implements the `UIFocusChangedEventHandler` trait.
+UI Automation makes it easy to hook into Windows interface events. To follow focus, I created a `FocusChangedEventHandler` and handed it to the automation runtime:
 
 ```rust
 struct FocusChangedEventHandler {
@@ -80,54 +91,36 @@ let focus_changed_handler = FocusChangedEventHandler {
 let focus_changed_handler = UIFocusChangedEventHandler::from(focus_changed_handler);
 ```
 
-The implementation of the `UIFocusChangedEventHandler` trait is pretty straightforward.
-A `handle` method is called whenever the focus changes.
+Its `handle` method fires every time focus moves. Or rather, every time Windows _thinks_ focus moves, which turned out to be several times for a single tab press. Without a guard, Aria would announce the same button two or three times in a row, stuttering over itself. So I keep the previous element around and bail early when nothing actually changed:
 
 ```rust
 impl CustomFocusChangedEventHandler for FocusChangedEventHandler {
     fn handle(&self, sender: &uiautomation::UIElement) -> uiautomation::Result<()> {
         let mut previous = self.previous_element.lock().unwrap();
 
-        // The handle method sometimes gets called multiple times in quick succession
-        // To prevent multiple announcements of the same element, we check if the new element is the same as the previous one
         if let Some(prev_elem) = previous.as_ref() {
             if prev_elem.get_runtime_id()? == sender.get_runtime_id()? {
-                // Same element, do nothing
                 return Ok(());
             }
         }
 
-        // Update the previous element
         *previous = Some(sender.clone());
 
-        // Proceed with handling the new focus
         let name = sender.get_name().unwrap().trim().to_string();
-        let content = sender.get_help_text().unwrap().trim().to_string();
-        let control_type_name: String = sender
-            .get_localized_control_type()
-            .unwrap()
-            .to_string()
-            .trim()
-            .to_string();
         let control_type = sender.get_control_type().unwrap();
-        let mut is_focussed_on_input = IS_FOCUSSED_ON_INPUT.lock().unwrap();
 
         log::info!("Focus changed to: {}", name);
     }
 }
 ```
 
-Using this, I was also able to get information about the control type of the focused element, which is important for playing a sound when the user focuses an input field.
+That `control_type` turned out to be more useful than it looks. It tells me not just _what_ to say, but how the moment should feel.
+</section>
 
-```rust
-if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
-    play_sound(INPUT_FOCUSSED_SOUND);
-}
-```
+<section>
+### Speaking
 
-#### Reading Text
-
-The Windows text-to-speech API is pretty straightforward. You just need to create a `SpeechSynthesizer` object and call the `SynthesizeTextToStreamAsync` method with the text you want to read.
+The text-to-speech side is refreshingly boring. Create a `SpeechSynthesizer`, hand it a string, get an audio stream back, play it:
 
 ```rust
 let synthesizer = SpeechSynthesizer::new()?;
@@ -151,11 +144,27 @@ std::thread::sleep(std::time::Duration::from_secs(2));
 Ok(())
 ```
 
-#### Playing Sounds
+The `sleep` at the end is a placeholder, not a design. It just keeps the program alive long enough to hear the sentence finish. Making speech interrupt and queue properly came later.
+</section>
 
-This is also quite simple. For my implementation, only three sounds are needed:
-a startup sound, a shutdown sound, and a sound for when the user focuses an input field.
-I skipped any fancy asset management and just included the sound files as byte arrays in the source code.
+<section>
+### Earcons
+
+When focus lands on a text field, Aria plays a sound:
+
+```rust
+if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
+    play_sound(INPUT_FOCUSSED_SOUND);
+}
+```
+
+This is the detail I ended up caring about most. That little sound is an _earcon_: a sound that means something without saying anything. The tick of a turn signal. The beep of a truck backing up. Nobody explains them to you, and everybody understands them.
+
+_Before a word is spoken, a sound has already told you where you are._
+
+A sighted user gets this for free: a text field _looks_ like a text field, and your fingers know to type before you've finished thinking. Take the visuals away and that instant, wordless sense of place has to come from somewhere else. Sound is the obvious place to put it.
+
+The implementation is deliberately dumb. Three sounds (startup, shutdown, input-focused), baked straight into the binary as byte arrays. No asset pipeline, no config:
 
 ```rust
 use rodio::{Decoder, OutputStream, Sink};
@@ -165,7 +174,6 @@ pub const STARTUP_SOUND: &[u8] = include_bytes!("../assets/sounds/startup.mp3");
 pub const SHUTDOWN_SOUND: &[u8] = include_bytes!("../assets/sounds/shutdown.mp3");
 pub const INPUT_FOCUSSED_SOUND: &[u8] = include_bytes!("../assets/sounds/input-focussed.mp3");
 
-// Plays the given sound data asynchronously on the default audio output.
 pub fn play_sound(sound_data: &[u8]) {
     let sound_data_clone = sound_data.to_vec();
 
@@ -182,34 +190,42 @@ pub fn play_sound(sound_data: &[u8]) {
 }
 ```
 
-Sounds are then played like this:
+Then playing one is a single call:
 
 ```rust
 play_sound(STARTUP_SOUND);
 ```
+</section>
 
-#### Listening to Keyboard Input
+<section>
+### Listening for keys
 
-Similar to how you can listen to focus changes, you can listen to keyboard input using the `mki` crate.
+Keyboard input works the same way focus does. You hand `mki` a closure and it calls you back:
 
 ```rust
 mki::bind_any_key(Action::handle_kb(|key| {
     use Keyboard::*;
 
     match key {
-        // This will stop the screen reader when the escape key is pressed
         Escape => TTS::stop(true).unwrap(),
-        // This will announce the key that was pressed
         _ => on_keypress(format!("{:?}", key)),
     }
 }));
 ```
 
-### Putting it all together
+`Escape` cuts off whatever Aria is saying, the single most important key on the keyboard when a computer won't stop talking at you. Everything else gets read back as you press it.
+</section>
 
-I wired up each individual component and added some nice-to-have features like async text-to-speech, a simple command-line interface, and a configuration file for customizing the screen reader's behavior.
+<section>
+### Putting it together
 
-A build, as well as the source code (MIT), is now available on GitHub:
+The rest was wiring: making speech asynchronous so it could be interrupted, a small command-line interface, a config file for the parts people would actually want to change. Each piece was simple on its own. The interesting part was always the seam between them: what should happen the instant focus moves while a sentence is still being read.
+
+I didn't set out to ship a screen reader, and Aria isn't one you'd want to rely on. But building even this much changed how I think about the work. The gaps you can gloss over on screen, a button with no name, a field that announces itself as nothing, become the entire experience when sound is all you have.
+
+_You don't really understand an interface until you've used it with your eyes closed._
+
+The build and the source (MIT) are on GitHub.
 
 <DownloadButton
     href="https://github.com/Coyenn/Aria/releases/latest/download/aria.exe"
@@ -217,3 +233,4 @@ A build, as well as the source code (MIT), is now available on GitHub:
     icon="download"
     github="https://github.com/Coyenn/Aria"
 />
+</section>

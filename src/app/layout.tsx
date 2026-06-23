@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
+import { IntroAnimationGate } from '@/src/components/intro-animation-gate';
 import Footer from '@/src/components/layout/footer';
 import Nav from '@/src/components/layout/header';
 import { ThemeProvider } from '@/src/components/theme-provider';
@@ -107,7 +108,7 @@ export default function RootLayout({
     >
       <body
         className={
-          'mx-auto w-full max-w-[750px] px-4 pt-20 pb-[120px] bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
+          'mx-auto w-full pt-20 pb-[120px] bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
         }
       >
         <ThemeProvider
@@ -117,7 +118,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <div className="blur" />
+            <IntroAnimationGate />
+            <div aria-hidden="true" className="fade" data-side="top" />
+            <div
+              aria-hidden="true"
+              className="fade max-[960px]:hidden"
+              data-side="bottom"
+            />
             <Nav />
             <main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:my-0! grow">
               {children}

@@ -77,7 +77,7 @@ export default function CraftList() {
           key={`group-${slugify(group[0].date)}`}
           className={cn('relative flex flex-col')}
         >
-          <div className="z-10 sticky top-12 mb-3  rounded-full transform -translate-x-1/2 left-1/2 w-max">
+          <div className="z-10 sticky top-12 mb-3 rounded-full transform -translate-x-1/2 left-1/2 w-max">
             <p
               className="border bg-white border-muted-foreground/10 backdrop-blur-md dark:border-muted-foreground/5 dark:bg-muted/80 text-foreground px-4 py-1 rounded-full animate-intro"
               style={{ animationDelay: '300ms' }}

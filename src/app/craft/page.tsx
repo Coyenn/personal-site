@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import CraftItems from '@/src/components/craft/craft-items';
+import { SiteContainer } from '@/src/components/layout/site-container';
 import { PageHeading } from '@/src/components/page-heading';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 
@@ -29,18 +30,22 @@ export const metadata: Metadata = {
 
 export default function Craft() {
   return (
-    <PageLoadAnimationWrapper>
-      <section>
-        <PageHeading
-          title="Craft"
-          subtitle={
-            <>
-              Designs <span className="font-ovo">&</span> Experiments
-            </>
-          }
-        />
-      </section>
-      <CraftItems />
-    </PageLoadAnimationWrapper>
+    <SiteContainer>
+      <SiteContainer.Content>
+        <PageLoadAnimationWrapper>
+          <section>
+            <PageHeading
+              title="Craft"
+              subtitle={
+                <>
+                  Designs <span className="font-ovo">&</span> Experiments
+                </>
+              }
+            />
+          </section>
+          <CraftItems />
+        </PageLoadAnimationWrapper>
+      </SiteContainer.Content>
+    </SiteContainer>
   );
 }

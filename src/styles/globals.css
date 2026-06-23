@@ -186,10 +186,31 @@
     }
   }
 
-  .blur {
-    mask-image: linear-gradient(to bottom, black 25%, transparent);
+  .fade {
+    --stop: 25%;
+    --blur: 4px;
 
-    @apply h-8 md:h-16 fixed top-0 left-0 right-0 w-full z-50 select-none pointer-events-none backdrop-blur-[5px] opacity-100;
+    backdrop-filter: blur(var(--blur));
+
+    @apply h-[90px] fixed left-0 right-0 w-full z-40 select-none pointer-events-none;
+  }
+
+  .fade[data-side="top"] {
+    top: 0;
+    background: linear-gradient(to top, transparent, hsl(var(--background)));
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black var(--stop),
+      transparent
+    );
+    mask-image: linear-gradient(to bottom, black var(--stop), transparent);
+  }
+
+  .fade[data-side="bottom"] {
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+    -webkit-mask-image: linear-gradient(to top, black var(--stop), transparent);
+    mask-image: linear-gradient(to top, black var(--stop), transparent);
   }
 
   .animate-intro {
@@ -200,6 +221,11 @@
     transform: perspective(1px) translateZ(0);
     backface-visibility: hidden;
   }
+}
+
+html[data-navigated] .animate-intro {
+  animation: none;
+  opacity: 1;
 }
 
 @keyframes accordion-down {

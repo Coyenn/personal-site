@@ -151,7 +151,7 @@ function Header() {
         refraction={100}
         rimOpacity={0}
         className={cn(
-          'animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 fixed bottom-0 z-50 mb-8 flex items-center rounded-full px-2 sm:px-3.5 pb-2.5 pt-2 text-background shadow-xl dark:text-foreground bg-foreground/40 dark:bg-muted/60 border-2 border-muted-foreground/5',
+          'animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 fixed bottom-0 z-50 mb-8 flex items-center rounded-full px-2 sm:px-3.5 pb-2.5 pt-2 text-background shadow-xl dark:text-foreground bg-foreground/60 dark:bg-muted/80 border-2 border-muted-foreground/5',
           glassVariantStyles['liquid-refract'],
         )}
         style={{ animationDelay: '750ms' }}

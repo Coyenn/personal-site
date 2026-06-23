@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import slugify from 'slugify';
 import { Image } from '@/src/components/image/image';
 import { useHighlightList } from '@/src/hooks/use-highlight-list';
+import { isInitialLoad } from '@/src/lib/intro-animation';
 import { cn } from '@/src/lib/utils';
 
 export interface BlogPostRowProps {
@@ -28,6 +29,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
   const setHighlightIndex = useHighlightList(
     (state) => state.setHighlightIndex,
   );
+  const [playIntro] = useState(isInitialLoad);
 
   return (
     <div
@@ -38,7 +40,7 @@ export default function BlogPostRow(props: BlogPostRowProps) {
     >
       {items.map((item, index) => {
         const rotations = [-12, 6, -10];
-        const scaleValue = useMotionValue(0.85);
+        const scaleValue = useMotionValue(playIntro ? 0.85 : 1);
         const scaleSpring = useSpring(scaleValue, {
           stiffness: 700,
           damping: 40,
