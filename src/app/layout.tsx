@@ -113,6 +113,17 @@ export default function RootLayout({
           'mx-auto w-full bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
         }
       >
+        <figure
+          className="fixed inset-0 z-0 pointer-events-none filter-[url('#noise-bg-fx')_grayscale(100%)] opacity-10 mix-blend-screen"
+          aria-hidden="true"
+        >
+          <svg>
+            <title>grain</title>
+            <filter id="noise-bg-fx">
+              <feTurbulence baseFrequency="0.8" />
+            </filter>
+          </svg>
+        </figure>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

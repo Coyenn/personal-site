@@ -2,25 +2,55 @@
 
 import { useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-import { type ReactNode, useState } from 'react';
+import {
+  Children,
+  createContext,
+  type ReactNode,
+  use,
+  useEffect,
+  useState,
+} from 'react';
 import { RoughNotation } from 'react-rough-notation';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
 import { cn } from '@/src/lib/utils';
 
 const CIRCLE_COLOR = '#be123c';
 const BIRTHDAY = new Date('2004-06-05');
+const STAGGER_BASE_DELAY = 120;
+const STAGGER_STEP = 70;
 const GLYPH_CLASS =
   'mr-[0.2em] inline-block size-[0.85em] fill-current align-[-0.1em]';
 const IMAGE_CLASS =
   'mr-[0.2em] inline-block size-[0.85em] select-none rounded-[0.25em] object-contain align-[-0.1em]';
 
+const IntroSettledContext = createContext(true);
+
 export function Intro({ children }: { children: ReactNode }) {
+  const reduceMotion = useReducedMotion();
+  const [settled, setSettled] = useState(false);
+  const settleMs =
+    STAGGER_BASE_DELAY + (Children.count(children) - 1) * STAGGER_STEP;
+
+  useEffect(() => {
+    if (reduceMotion || document.documentElement.dataset.navigated === 'true') {
+      setSettled(true);
+      return;
+    }
+    const id = setTimeout(() => setSettled(true), settleMs);
+    return () => clearTimeout(id);
+  }, [reduceMotion, settleMs]);
+
   return (
-    <div className="flex flex-col text-pretty text-center fl-text-2xl/4xl leading-[1.5] text-foreground">
-      <PageLoadAnimationWrapper baseDelay={120} step={70}>
-        {children}
-      </PageLoadAnimationWrapper>
-    </div>
+    <IntroSettledContext.Provider value={settled}>
+      <div className="flex flex-col text-pretty text-center fl-text-2xl/4xl leading-[1.5] text-foreground">
+        <PageLoadAnimationWrapper
+          baseDelay={STAGGER_BASE_DELAY}
+          step={STAGGER_STEP}
+        >
+          {children}
+        </PageLoadAnimationWrapper>
+      </div>
+    </IntroSettledContext.Provider>
   );
 }
 
@@ -53,7 +83,9 @@ function Circle({
 }
 
 export function Emphasis({ children }: { children: ReactNode }) {
-  return <Circle show>{children}</Circle>;
+  const settled = use(IntroSettledContext);
+
+  return <Circle show={settled}>{children}</Circle>;
 }
 
 function Glyph({
