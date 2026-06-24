@@ -73,7 +73,7 @@ export default async function Page(props: PageProps) {
       <SiteContainer.Left>
         <Link
           href="/writing"
-          className="exclude flex w-fit items-center text-muted-foreground contrast-more:text-foreground hover:text-foreground animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 mb-8 min-[1100px]:sticky min-[1100px]:top-24 min-[1100px]:mt-[196px] min-[1100px]:mb-0 min-[1100px]:ml-auto min-[1100px]:mr-14"
+          className="exclude flex w-fit items-center text-muted-foreground contrast-more:text-foreground hover:text-foreground animate-intro motion-reduce:duration-0 motion-reduce:opacity-100 mb-8 min-[1100px]:sticky min-[1100px]:top-24 min-[1100px]:mt-[203px] min-[1100px]:mb-0 min-[1100px]:ml-auto min-[1100px]:mr-14"
           style={{ animationDelay: '300ms' }}
         >
           <ArrowUpLeftIcon className="size-5 mr-1" aria-hidden="true" />

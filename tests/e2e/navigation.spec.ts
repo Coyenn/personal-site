@@ -19,15 +19,4 @@ test.describe('Site navigation', () => {
       ).toHaveAttribute('aria-current', 'page');
     }
   });
-
-  test('footer links to the colophon', async ({ page }) => {
-    await page.goto('/');
-
-    await page
-      .getByRole('contentinfo')
-      .getByRole('link', { name: 'Colophon' })
-      .click();
-
-    await expect(page).toHaveURL('/colophon');
-  });
 });

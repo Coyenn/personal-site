@@ -76,7 +76,6 @@ test.describe('Accessibility (structure)', () => {
 
       await expect(page.getByRole('banner')).toBeAttached();
       await expect(page.getByRole('main')).toBeVisible();
-      await expect(page.getByRole('contentinfo')).toBeVisible();
       await expect(
         page.getByRole('navigation', { name: 'Main navigation' }),
       ).toBeVisible();

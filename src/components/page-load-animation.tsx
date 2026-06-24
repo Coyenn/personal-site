@@ -11,10 +11,12 @@ import { cn } from '@/src/lib/utils';
 
 export interface PageLoadAnimationWrapperProps {
   children?: ReactNode;
+  baseDelay?: number;
+  step?: number;
 }
 
 export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
-  const { children } = props;
+  const { children, baseDelay = 300, step = 150 } = props;
 
   return (
     <Fragment>
@@ -27,7 +29,7 @@ export function PageLoadAnimationWrapper(props: PageLoadAnimationWrapperProps) {
             ),
             style: {
               ...(child.props as { style?: CSSProperties })?.style,
-              animationDelay: `${(index + 2) * 150}ms`,
+              animationDelay: `${baseDelay + index * step}ms`,
             },
           } as HTMLAttributes<HTMLElement>);
         }

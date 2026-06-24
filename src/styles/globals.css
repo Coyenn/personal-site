@@ -144,7 +144,7 @@
     @apply border-border;
 
     &::selection {
-      @apply bg-rose-600/50 text-foreground contrast-more:bg-muted-foreground;
+      @apply bg-rose-700/80 text-foreground contrast-more:bg-muted-foreground;
     }
 
     &:focus-visible {
@@ -220,6 +220,10 @@
   .scale-blur-fix {
     transform: perspective(1px) translateZ(0);
     backface-visibility: hidden;
+  }
+
+  main a.mention-link::after {
+    content: none;
   }
 }
 

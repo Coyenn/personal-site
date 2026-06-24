@@ -1,123 +1,77 @@
-import Link from 'next/link';
-import Aurora from '@/src/components/aurora';
+import {
+  Age,
+  Emphasis,
+  Faded,
+  GitHubMark,
+  InlineImage,
+  Intro,
+  Mention,
+  XMark,
+} from '@/src/components/home/intro';
 import { SiteContainer } from '@/src/components/layout/site-container';
-import { PageHeading } from '@/src/components/page-heading';
-import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
-import { ProjectContainer, ProjectItem } from '@/src/components/project';
+
+const roblox = (id: string, slug: string) =>
+  `https://www.roblox.com/communities/${id}/${slug}#!/about`;
 
 export default function Home() {
   return (
-    <>
-      <Aurora />
-      <SiteContainer>
+    <div className="flex grow flex-col justify-center">
+      <SiteContainer width={1300}>
         <SiteContainer.Content>
-          <PageLoadAnimationWrapper>
-            <section>
-              <PageHeading
-                title={<span aria-hidden="true">Tim Ritter</span>}
-                subtitle="Design Engineer"
-              />
-            </section>
-            <section>
-              <p>
-                <em>Creating web experiences</em> with meticulous attention to
-                detail. Diving deep into technical intricacies.
-              </p>
-            </section>
-            <section className="flex flex-col gap-y-6">
-              <h2 id="projects">Projects</h2>
-              <ProjectContainer aria-labelledby="projects">
-                <ProjectItem
-                  href="https://create.t3.gg"
-                  target="_blank"
-                  name="Create T3 App"
-                  position="Contributor"
-                  summary="Popular full-stack project boilerplate"
+          <Intro>
+            <h1 className="font-normal">
+              Hey, I'm <Emphasis>Tim Ritter</Emphasis>, a <Age />
+              -year-old designer, engineer <span className="font-ovo">&</span>{' '}
+              game developer.
+            </h1>
+            <p>
+              By day, I build the ERP software that powers the German housing
+              market.
+            </p>
+            <p>
+              At night, I work on <Faded>a multitude of</Faded> passion
+              projects. Mostly{' '}
+              <Mention href="https://roblox.com">
+                <InlineImage src="/icons/roblox.png" />
+                Roblox
+              </Mention>{' '}
+              games.
+            </p>
+            <p>
+              In the past, I contributed to{' '}
+              <Mention href="https://create.t3.gg">
+                <InlineImage
+                  light="/icons/t3-light-bg.svg"
+                  dark="/icons/t3-dark-bg.svg"
                 />
-                <ProjectItem
-                  href="https://github.com/Coyenn/iso"
-                  target="_blank"
-                  name="Iso"
-                  position="Creator"
-                  summary="Simple self-hosted service dashboard"
-                />
-                <ProjectItem
-                  href="https://www.roblox.com/groups/32385121"
-                  target="_blank"
-                  name="Luminary Games"
-                  position="Co-Founder"
-                  summary="Game development studio"
-                />
-                <ProjectItem
-                  href="https://www.roblox.com/groups/5560533"
-                  target="_blank"
-                  name="BluBlox Development"
-                  position="Developer"
-                  summary="Game development studio"
-                />
-                <ProjectItem
-                  href="https://www.roblox.com/communities/16976426/Blu-Cat-Studios"
-                  target="_blank"
-                  name="Blu-Cat Studios"
-                  position="Lead Developer"
-                  summary="Game development studio"
-                />
-                <ProjectItem
-                  href="https://www.roblox.com/groups/34260095"
-                  target="_blank"
-                  name="Pixel Pirates"
-                  position="Founder"
-                  summary="Game development studio"
-                />
-              </ProjectContainer>
-            </section>
-            <section className="flex flex-col gap-y-6">
-              <h2>Now</h2>
-              <p>
-                Spending my time dabbling in all kinds of technologies. Learning
-                about declarative programming with{' '}
-                <Link href={'https://nixos.org/'} target="_blank">
-                  Nix
-                </Link>
-                , developing next-gen video games on{' '}
-                <Link href="https://roblox.com" target="_blank">
-                  Roblox
-                </Link>
-                , and building my very own homelab using{' '}
-                <Link href="https://k3s.io" target="_blank">
-                  K3s
-                </Link>
-                .
-                <span aria-hidden="true" className="select-none">
-                  <br />
-                  <br />
-                </span>
-                Blurring the lines between design & engineering.
-                <span aria-hidden="true" className="select-none">
-                  <br />
-                  <br />
-                </span>
-                From typography and motion design to copywriting and
-                illustration, the web offers endless opportunities for
-                creativity, and I've only just begun to explore it.
-              </p>
-            </section>
-            <section className="flex flex-col gap-y-6">
-              <h2>Get in touch</h2>
-              <p>
-                Message me{' '}
-                <Link href="https://x.com/Kojenia" target="_blank">
-                  @Kojenia
-                </Link>{' '}
-                or send me an email at{' '}
-                <Link href="mailto:hi@tim.cv" target="_blank">
-                  hi@tim.cv
-                </Link>
-              </p>
-            </section>
-          </PageLoadAnimationWrapper>
+                Create T3 App
+              </Mention>
+              , and built{' '}
+              <Mention href="https://github.com/Coyenn/iso">
+                <GitHubMark />
+                Iso
+              </Mention>
+              . I founded{' '}
+              <Mention href={roblox('32385121', 'Luminary-Games')}>
+                Luminary Games
+              </Mention>
+              , and{' '}
+              <Mention href={roblox('34260095', 'Pixel-Pirates')}>
+                Pixel Pirates
+              </Mention>{' '}
+              <Faded>together with my twin brother</Faded>.
+            </p>
+            <p>
+              Feel free to say hi{' '}
+              <Mention href="https://x.com/Kojenia">
+                <XMark />
+                @Kojenia
+              </Mention>{' '}
+              or at <Mention href="mailto:hi@tim.cv">hi@tim.cv</Mention>.
+            </p>
+          </Intro>
         </SiteContainer.Content>
       </SiteContainer>
-    </>
+    </div>
   );
 }

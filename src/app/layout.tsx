@@ -1,7 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
 import { IntroAnimationGate } from '@/src/components/intro-animation-gate';
-import Footer from '@/src/components/layout/footer';
 import Nav from '@/src/components/layout/header';
 import { ThemeProvider } from '@/src/components/theme-provider';
 import { TooltipProvider } from '@/src/components/ui/tooltip';
@@ -51,8 +50,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+    ],
+    apple: '/apple-icon.png',
   },
   twitter: {
     card: 'summary_large_image',
@@ -108,7 +110,7 @@ export default function RootLayout({
     >
       <body
         className={
-          'mx-auto w-full pt-20 pb-[120px] bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
+          'mx-auto w-full bg-background contrast-less:opacity-80 overflow-x-hidden min-h-screen flex flex-col fl-text-base/lg'
         }
       >
         <ThemeProvider
@@ -120,16 +122,11 @@ export default function RootLayout({
           <TooltipProvider>
             <IntroAnimationGate />
             <div aria-hidden="true" className="fade" data-side="top" />
-            <div
-              aria-hidden="true"
-              className="fade max-[960px]:hidden"
-              data-side="bottom"
-            />
+            <div aria-hidden="true" className="fade" data-side="bottom" />
             <Nav />
-            <main className="flex flex-col mt-16 md:mt-24 lg:mt-32 mb-32 gap-y-10 md:gap-y-12 print:my-0! grow">
+            <main className="flex flex-col mt-[20dvh] mb-[25dvh] gap-y-10 md:gap-y-12 print:my-0! grow">
               {children}
             </main>
-            <Footer />
           </TooltipProvider>
         </ThemeProvider>
         <Analytics />

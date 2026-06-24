@@ -29,6 +29,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-intersection-observer": "^10.0.3",
+    "react-rough-notation": "^1.0.8",
     "sharp": "^0.34.5",
     "slugify": "^1.6.9",
     "sugar-high": "^1.2.1",
