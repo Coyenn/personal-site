@@ -8,6 +8,7 @@
     "lint": "next lint",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
+    "generate:posters": "bun scripts/generate-video-posters.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {

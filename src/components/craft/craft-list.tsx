@@ -5,7 +5,10 @@ import { useInView } from 'react-intersection-observer';
 import slugify from 'slugify';
 import { Image } from '@/src/components/image/image';
 import craft from '@/src/data/craft';
+import { craftVideoPosters } from '@/src/data/craft-video-posters';
 import { cn } from '@/src/lib/utils';
+
+const loadedVideoSrcs = new Set<string>();
 
 function CraftVideo({
   src,
@@ -20,6 +23,7 @@ function CraftVideo({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { ref: inViewRef, inView } = useInView({ rootMargin: '200px 0px' });
+  const [showPoster] = useState(() => !loadedVideoSrcs.has(src));
 
   const setRefs = useCallback(
     (el: HTMLVideoElement | null) => {
@@ -36,12 +40,26 @@ function CraftVideo({
     else video.pause();
   }, [inView]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.readyState >= 2) {
+      loadedVideoSrcs.add(src);
+      return;
+    }
+    const mark = () => loadedVideoSrcs.add(src);
+    video.addEventListener('loadeddata', mark, { once: true });
+    return () => video.removeEventListener('loadeddata', mark);
+  }, [src]);
+
   return (
     <video
       ref={setRefs}
       width={width}
       height={height}
-      className={cn('h-auto w-full [content-visibility:auto]', className)}
+      poster={showPoster ? craftVideoPosters[src] : undefined}
+      style={{ aspectRatio: `${width} / ${height}` }}
+      className={cn('h-auto w-full object-cover', className)}
       preload="metadata"
       loop
       muted
