@@ -3,9 +3,10 @@ import {
   Emphasis,
   Faded,
   GitHubMark,
-  InlineImage,
   Intro,
   Mention,
+  RobloxMark,
+  T3Mark,
   XMark,
 } from '@/src/components/home/intro';
 import { SiteContainer } from '@/src/components/layout/site-container';
@@ -32,7 +33,7 @@ export default function Home() {
               At night, I work on <Faded>a multitude of</Faded> passion
               projects. Mostly{' '}
               <Mention href="https://roblox.com">
-                <InlineImage src="/icons/roblox.png" />
+                <RobloxMark />
                 Roblox
               </Mention>{' '}
               games.
@@ -40,10 +41,7 @@ export default function Home() {
             <p>
               In the past, I contributed to{' '}
               <Mention href="https://create.t3.gg">
-                <InlineImage
-                  light="/icons/t3-light-bg.svg"
-                  dark="/icons/t3-dark-bg.svg"
-                />
+                <T3Mark />
                 Create T3 App
               </Mention>
               , and built{' '}

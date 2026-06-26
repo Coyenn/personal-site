@@ -12,7 +12,6 @@ import {
 } from 'react';
 import { RoughNotation } from 'react-rough-notation';
 import { PageLoadAnimationWrapper } from '@/src/components/page-load-animation';
-import { cn } from '@/src/lib/utils';
 
 const CIRCLE_COLOR = '#be123c';
 const BIRTHDAY = new Date('2004-06-05');
@@ -118,37 +117,34 @@ export function XMark() {
   );
 }
 
-export function InlineImage({
-  src,
-  light,
-  dark,
-}: {
-  src?: string;
-  light?: string;
-  dark?: string;
-}) {
-  if (src) {
-    // biome-ignore lint/performance/noImgElement: tiny inline icon, not a layout image
-    return <img src={src} alt="" aria-hidden="true" className={IMAGE_CLASS} />;
-  }
-
+export function T3Mark() {
   return (
-    <>
-      {/* biome-ignore lint/performance/noImgElement: tiny inline icon, not a layout image */}
-      <img
-        src={light}
-        alt=""
-        aria-hidden="true"
-        className={cn(IMAGE_CLASS, 'dark:hidden')}
+    <Glyph viewBox="0 0 258 199">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M165.735 25.0701L188.947 0.972412H0.465994V25.0701H165.735Z"
       />
-      {/* biome-ignore lint/performance/noImgElement: tiny inline icon, not a layout image */}
-      <img
-        src={dark}
-        alt=""
-        aria-hidden="true"
-        className={cn(IMAGE_CLASS, 'hidden dark:inline-block')}
+      <path d="M163.981 96.3239L254.022 3.68314L221.206 3.68295L145.617 80.7609L163.981 96.3239Z" />
+      <path d="M233.658 131.418C233.658 155.075 214.48 174.254 190.823 174.254C171.715 174.254 155.513 161.738 150 144.439L146.625 133.848L127.329 153.143L129.092 157.336C139.215 181.421 163.034 198.354 190.823 198.354C227.791 198.354 257.759 168.386 257.759 131.418C257.759 106.937 244.399 85.7396 224.956 74.0905L220.395 71.3582L202.727 89.2528L210.788 93.5083C224.403 100.696 233.658 114.981 233.658 131.418Z" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M88.2625 192.669L88.2626 45.6459H64.1648L64.1648 192.669H88.2625Z"
       />
-    </>
+    </Glyph>
+  );
+}
+
+export function RobloxMark() {
+  return (
+    <svg viewBox="0 0 512 512" aria-hidden="true" className={IMAGE_CLASS}>
+      <rect width="512" height="512" rx="115" fill="#335FFF" />
+      <path
+        fill="#fff"
+        d="M144.8,63.3L63.3,366.7l303.9,82l81.5-303.4l-152-41L144.8,63.3z M224.9,202l84.8,23.3L287.1,310l-84.8-23.3L224.9,202z"
+      />
+    </svg>
   );
 }
 
