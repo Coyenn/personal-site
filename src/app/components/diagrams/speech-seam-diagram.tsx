@@ -5,13 +5,13 @@ import {
   typogramBottomRow,
   typogramFramedRow,
   typogramTitleRow,
-  useTypogramTick,
   writeTypogramCells,
   Typogram,
   type TypogramCell,
   type TypogramSpan,
   type TypogramTone,
 } from "./typogram";
+import { useTypogramTick } from "./typogram-tick";
 
 const WIDTH = 45;
 const INNER = WIDTH - 2;

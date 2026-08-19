@@ -5,7 +5,7 @@ import { PageIntro } from "../components/page-intro";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Over the years, I've contributed to a few projects that I'm proud of.",
+  description: "Over the years, I've contributed to a few projects I'm proud of.",
 };
 
 const projects = [
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
       <PageIntro.Frame>
         <PageIntro.Title>Projects</PageIntro.Title>
       </PageIntro.Frame>
-      <p>Over the years, I've contributed to a few projects that I'm proud of.</p>
+      <p>Over the years, I've contributed to a few projects I'm proud of.</p>
 
       <Listing.Frame className="mt-12">
         {projects.map((project) => (

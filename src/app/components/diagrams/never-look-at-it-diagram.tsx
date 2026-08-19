@@ -5,7 +5,6 @@ import {
   typogramBottomRow,
   typogramFramedRow,
   typogramTitleRow,
-  useTypogramTick,
   writeTypogramCells,
   Typogram,
   type TypogramCell,
@@ -13,6 +12,7 @@ import {
   type TypogramSpan,
   type TypogramTone,
 } from "./typogram";
+import { useTypogramTick } from "./typogram-tick";
 
 const WIDTH = 52;
 const INNER = WIDTH - 2;

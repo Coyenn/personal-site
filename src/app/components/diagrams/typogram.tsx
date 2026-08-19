@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -27,7 +25,7 @@ export type TypogramCell = {
   selectNone?: boolean;
 };
 
-const toneClassName: Record<TypogramTone, string> = {
+export const typogramToneClassName: Record<TypogramTone, string> = {
   frame: "select-none text-secondary",
   title: "select-none text-primary",
   label: "text-foreground",
@@ -123,41 +121,6 @@ export function typogramFramedRow(inner: TypogramCell[]): TypogramSpan[] {
   ];
 }
 
-export function useTypogramTick(intervalMs: number) {
-  const [tick, setTick] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(true);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => {
-      setReducedMotion(media.matches);
-    };
-
-    apply();
-    media.addEventListener("change", apply);
-
-    return () => {
-      media.removeEventListener("change", apply);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setTick((current) => current + 1);
-    }, intervalMs);
-
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, [intervalMs, reducedMotion]);
-
-  return { reducedMotion, tick };
-}
-
 function TypogramFrame({
   children,
   className,
@@ -193,10 +156,13 @@ function TypogramLine({ icons = [], spans }: { icons?: TypogramIcon[]; spans: Ty
         Array.from(span.text).map((character, characterIndex) => {
           const currentColumn = spanOffsets[spanIndex] + characterIndex;
           const icon = iconByColumn.get(currentColumn);
+          const code = character.charCodeAt(0);
+          const isBraille = code >= 0x2800 && code <= 0x28ff;
           const className = cn(
-            toneClassName[icon?.tone ?? span.tone],
+            typogramToneClassName[icon?.tone ?? span.tone],
             (icon?.pulse ?? span.pulse) && "animate-[marker-pulse_2200ms_ease-in-out_infinite]",
             icon && "inline-block h-[1em] w-[1ch] align-[-0.15em]",
+            isBraille && "inline-block w-[1ch] text-center",
             span.selectNone && "select-none",
           );
 
