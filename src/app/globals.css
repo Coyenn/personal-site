@@ -140,6 +140,32 @@
   color: var(--primary-foreground);
 }
 
+* {
+  scrollbar-color: var(--secondary) var(--background);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--background);
+}
+
 @keyframes marker-pulse {
   0%,
   100% {
