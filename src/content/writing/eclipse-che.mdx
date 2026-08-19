@@ -1,0 +1,184 @@
+export const metadata = {
+  date: "2024-03-09",
+  lead: "I recently spent an entire weekend deploying Eclipse Che on a K3s cluster using Keycloak as an OIDC provider.",
+  title: "Deploying Eclipse Che on K3s",
+};
+
+## Backstory
+
+Although it was a lot of fun, I was surprised by the lack of documentation and tutorials on this topic. So, to save you some time and frustration, I decided to write a guide on how to do it.
+
+## Prerequisites
+
+- A K3s cluster up and running
+- Traefik installed as your ingress controller
+- A domain pointing to your K3s cluster's IP address
+- An SSL certificate for your chosen domain
+- chectl installed on the machine running the cluster
+
+## Step 1: Deploying Keycloak
+
+First things first, create the necessary files:
+
+```shell
+touch keycloak-namespace.yaml keycloak-chart.yaml keycloak-ingress.yaml
+```
+
+Kubernetes namespaces help organize resources:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keycloak
+```
+
+Apply the YAML:
+
+```shell
+kubectl apply -f keycloak-namespace.yaml
+```
+
+Now install Keycloak using Helm. K3s comes with a built-in Helm controller:
+
+```yaml
+apiVersion: Helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: keycloak
+  namespace: kube-system
+spec:
+  repo: https://charts.bitnami.com/bitnami
+  chart: keycloak
+  targetNamespace: keycloak
+  valuesContent: |-
+    auth:
+      adminUser: admin
+      adminPassword: admin
+    ingress:
+      enabled: false
+    proxy: edge
+    production: true
+```
+
+```shell
+kubectl apply -f keycloak-chart.yaml
+```
+
+Since ingress is disabled in the Helm chart, create a Traefik ingress to make Keycloak externally accessible:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: keycloak
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - keycloak.example.com
+  rules:
+    - host: keycloak.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak
+                port:
+                  number: 80
+```
+
+Apply the ingress definition:
+
+```shell
+kubectl apply -f keycloak-ingress.yaml
+```
+
+## Step 2: Configuring Keycloak
+
+Create a new realm and a client specifically for Eclipse Che.
+
+1. Log in to the Keycloak admin dashboard.
+2. Select Add realm from the master dropdown.
+3. Give the realm a name and click Create.
+4. Navigate to Clients and click Create Client.
+5. Assign a name and configure the client.
+
+## Step 3: Configuring K3s
+
+Edit `/etc/rancher/k3s/config.yaml` and add the following lines, replacing placeholders with your values:
+
+```yaml
+kube-apiserver-arg:
+  - "oidc-issuer-url=https://keycloak.example.com/realms/your-realm-name"
+  - "oidc-client-id=eclipse-che"
+  - "oidc-username-claim=email"
+```
+
+Restart the K3s server:
+
+```shell
+systemctl restart k3s
+```
+
+## Step 4: Deploying Eclipse Che
+
+Deploy Eclipse Che using `chectl`, which is generally simpler than Helm for Che deployments.
+
+```shell
+touch che-cluster.yaml che-ingress.yaml
+```
+
+The Che cluster configuration defines Keycloak as the OIDC provider:
+
+```yaml
+kind: CheCluster
+apiVersion: org.eclipse.che/v2
+spec:
+  networking:
+    auth:
+      externalIdentityProvider: true
+      openShiftoAuth: false
+      oAuthClientName: eclipse-che
+      oAuthSecret: eclipse-che
+      identityProviderURL: "https://keycloak.example.com/realms/your-realm"
+  components:
+    cheServer:
+      extraProperties:
+        CHE_OIDC_USERNAME__CLAIM: email
+```
+
+The ingress exposes the Che web interface:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eclipse-che-ingress
+  namespace: eclipse-che
+spec:
+  rules:
+    - host: che.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: che-gateway
+                port:
+                  number: 8080
+```
+
+Deploy Che and apply the ingress:
+
+```shell
+chectl server:deploy --domain che.example.com --platform k8s --che-operator-cr-patch-yaml che-cluster.yaml --skip-cert-manager
+
+kubectl apply -f che-ingress.yaml
+```
+
+Once all pods are running, the Che interface should be externally accessible.
