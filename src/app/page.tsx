@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { Age } from "./components/age";
-import { LastVisitMap } from "./components/diagrams/last-visit-map";
+import { LastVisitMap, LastVisitMapFallback } from "./components/diagrams/last-visit-map";
 import { PageIntro } from "./components/page-intro";
 
 export const metadata: Metadata = {
@@ -32,7 +33,9 @@ export default async function Home() {
           </div>
         </section>
 
-        <LastVisitMap />
+        <Suspense fallback={<LastVisitMapFallback />}>
+          <LastVisitMap />
+        </Suspense>
       </main>
     </div>
   );

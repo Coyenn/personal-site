@@ -1,37 +1,39 @@
 import { cn } from "@/lib/utils";
-import { LAST_VISIT_MAP_COLS, renderLastVisitMap } from "@/lib/last-visit/render";
+import { renderLastVisitMap } from "@/lib/last-visit/render";
 import { getRequestVisit } from "@/lib/last-visit/visit";
 
 import { typogramToneClassName } from "./typogram";
 
+export function LastVisitMapFallback() {
+  return <div aria-hidden="true" className="mt-12 h-[392px] max-w-full" />;
+}
+
 export async function LastVisitMap() {
   const visit = await getRequestVisit();
-  const map = renderLastVisitMap(visit);
+  const map = await renderLastVisitMap(visit);
 
   return (
     <figure className="mt-12 w-[600px] max-w-full overflow-x-hidden text-[12px]">
       <div aria-hidden="true" className="flex justify-center">
-        <div
-          className="grid w-[600px] shrink-0 leading-5"
-          style={{ gridTemplateColumns: `repeat(${LAST_VISIT_MAP_COLS}, minmax(0, 1fr))` }}
-        >
-          {map.rows.flatMap((spans, rowIndex) =>
-            spans.flatMap((span, spanIndex) =>
-              Array.from(span.text).map((character, characterIndex) => (
+        <div className="w-[600px] shrink-0 leading-5">
+          {map.rows.map((spans, rowIndex) => (
+            <div className="flex" key={rowIndex}>
+              {spans.map((span, spanIndex) => (
                 <span
                   className={cn(
-                    "overflow-hidden text-center whitespace-pre",
+                    "inline-block overflow-hidden whitespace-pre",
                     typogramToneClassName[span.tone],
                     span.pulse && "animate-[marker-pulse_2200ms_ease-in-out_infinite]",
                     span.selectNone && "select-none",
                   )}
-                  key={`${rowIndex}-${spanIndex}-${characterIndex}`}
+                  key={`${rowIndex}-${spanIndex}`}
+                  style={{ width: `${span.text.length}ch` }}
                 >
-                  {character}
+                  {span.text}
                 </span>
-              )),
-            ),
-          )}
+              ))}
+            </div>
+          ))}
         </div>
       </div>
       <figcaption className="mt-3 text-center">

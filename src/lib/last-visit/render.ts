@@ -1,11 +1,13 @@
-import lines from "@/data/last-visit/lines.json";
-import places from "@/data/last-visit/places.json";
 import {
   collapseTypogramCells,
   type TypogramCell,
   type TypogramSpan,
   type TypogramTone,
 } from "@/app/components/diagrams/typogram";
+import {
+  LAST_VISIT_TILE_DEG,
+  lastVisitTileLoaders,
+} from "@/data/last-visit/tile-loaders";
 
 import { countryName, type Visit } from "./visit";
 
@@ -15,6 +17,9 @@ const PIXEL_W = LAST_VISIT_MAP_COLS * 2;
 const PIXEL_H = ROWS * 4;
 const LAT_HALF = 2.15;
 const MAX_NEARBY = 4;
+const CACHE_LIMIT = 32;
+const LON_TILES = 360 / LAST_VISIT_TILE_DEG;
+const LAT_TILES = 180 / LAST_VISIT_TILE_DEG;
 const BRAILLE_DOTS = [
   [0x01, 0x08],
   [0x02, 0x10],
@@ -36,6 +41,14 @@ type BBox = {
   north: number;
 };
 
+export type LastVisitMapView = {
+  city: string;
+  country: string;
+  rows: TypogramSpan[][];
+};
+
+const renderCache = new Map<string, LastVisitMapView>();
+
 function bboxFor(visit: Visit): BBox {
   const aspect = PIXEL_W / PIXEL_H;
   const cos = Math.max(0.2, Math.cos((visit.latitude * Math.PI) / 180));
@@ -46,6 +59,34 @@ function bboxFor(visit: Visit): BBox {
     east: visit.longitude + lonHalf,
     south: visit.latitude - LAT_HALF,
     north: visit.latitude + LAT_HALF,
+  };
+}
+
+function tileKeysFor(box: BBox) {
+  const keys = new Set<string>();
+  const minX = Math.floor((box.west + 180) / LAST_VISIT_TILE_DEG);
+  const maxX = Math.floor((box.east + 180) / LAST_VISIT_TILE_DEG);
+  const minY = Math.max(0, Math.floor((box.south + 90) / LAST_VISIT_TILE_DEG));
+  const maxY = Math.min(LAT_TILES - 1, Math.floor((box.north + 90) / LAST_VISIT_TILE_DEG));
+
+  for (let y = minY; y <= maxY; y += 1) {
+    for (let x = minX; x <= maxX; x += 1) {
+      const wrappedX = ((x % LON_TILES) + LON_TILES) % LON_TILES;
+      keys.add(`${wrappedX}_${y}`);
+    }
+  }
+
+  return [...keys];
+}
+
+async function loadTiles(box: BBox) {
+  const tiles = await Promise.all(
+    tileKeysFor(box).map((key) => lastVisitTileLoaders[key]?.() ?? { lines: [], places: [] }),
+  );
+
+  return {
+    lines: tiles.flatMap((tile) => tile.lines),
+    places: tiles.flatMap((tile) => tile.places),
   };
 }
 
@@ -108,7 +149,7 @@ function drawLine(pixels: Uint8Array, x0: number, y0: number, x1: number, y1: nu
   }
 }
 
-function rasterize(box: BBox) {
+function rasterize(lines: number[][], box: BBox) {
   const pixels = new Uint8Array(PIXEL_W * PIXEL_H);
 
   for (const line of lines) {
@@ -250,10 +291,10 @@ function placeLabel(
   return true;
 }
 
-function nearbyPlaces(visit: Visit, box: BBox) {
+function nearbyPlaces(visit: Visit, box: BBox, places: Place[]) {
   const visitName = visit.city.toLowerCase();
 
-  return (places as Place[])
+  return places
     .filter((place) => {
       if (
         place.lon < box.west ||
@@ -273,13 +314,41 @@ function nearbyPlaces(visit: Visit, box: BBox) {
     .sort((left, right) => right.p - left.p);
 }
 
-export function renderLastVisitMap(visit: Visit): {
-  city: string;
-  country: string;
-  rows: TypogramSpan[][];
-} {
+function cacheKey(visit: Visit) {
+  return `${visit.city}|${visit.country}|${visit.latitude.toFixed(2)}|${visit.longitude.toFixed(2)}`;
+}
+
+function cacheGet(key: string) {
+  const hit = renderCache.get(key);
+
+  if (!hit) {
+    return undefined;
+  }
+
+  renderCache.delete(key);
+  renderCache.set(key, hit);
+  return hit;
+}
+
+function cacheSet(key: string, value: LastVisitMapView) {
+  if (renderCache.has(key)) {
+    renderCache.delete(key);
+  }
+
+  renderCache.set(key, value);
+
+  if (renderCache.size > CACHE_LIMIT) {
+    const oldest = renderCache.keys().next().value;
+
+    if (oldest) {
+      renderCache.delete(oldest);
+    }
+  }
+}
+
+function paintMap(visit: Visit, lines: number[][], places: Place[]): LastVisitMapView {
   const box = bboxFor(visit);
-  const pixels = rasterize(box);
+  const pixels = rasterize(lines, box);
   const grid = Array.from({ length: ROWS }, emptyRow);
   const used = Array.from({ length: ROWS }, () =>
     Array.from({ length: LAST_VISIT_MAP_COLS }, () => false),
@@ -303,7 +372,7 @@ export function renderLastVisitMap(visit: Visit): {
 
   let placed = 0;
 
-  for (const place of nearbyPlaces(visit, box)) {
+  for (const place of nearbyPlaces(visit, box, places)) {
     if (placed >= MAX_NEARBY) {
       break;
     }
@@ -322,4 +391,18 @@ export function renderLastVisitMap(visit: Visit): {
     country: countryName(visit.country),
     rows: grid.map((cells) => collapseTypogramCells(cells)),
   };
+}
+
+export async function renderLastVisitMap(visit: Visit): Promise<LastVisitMapView> {
+  const key = cacheKey(visit);
+  const cached = cacheGet(key);
+
+  if (cached) {
+    return cached;
+  }
+
+  const { lines, places } = await loadTiles(bboxFor(visit));
+  const rendered = paintMap(visit, lines, places);
+  cacheSet(key, rendered);
+  return rendered;
 }
