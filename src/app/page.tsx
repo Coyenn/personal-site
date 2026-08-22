@@ -3,40 +3,47 @@ import { Suspense } from "react";
 
 import { Age } from "./components/age";
 import { LastVisitMap, LastVisitMapFallback } from "./components/diagrams/last-visit-map";
+import { JsonLd } from "./components/json-ld";
+import { homeIntroAfter, homeIntroBefore } from "./home";
+import { siteDescription, siteName, siteTitle } from "./metadata";
 import { PageIntro } from "./components/page-intro";
+import { getSiteJsonLd, jobTitle } from "@/lib/schema/json-ld";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Tim Ritter · Design Engineer",
+    absolute: siteTitle,
   },
-  description:
-    "Tim Ritter is a designer, engineer, and game developer building things from curiosity.",
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+    types: {
+      "text/markdown": "/index.md",
+    },
+  },
 };
 
 export default async function Home() {
   return (
-    <div>
-      <main className="m-0 w-full">
-        <section aria-labelledby="home-title">
-          <PageIntro.Frame>
-            <PageIntro.Title id="home-title">Tim Ritter</PageIntro.Title>
-            <PageIntro.Subtitle>Design Engineer</PageIntro.Subtitle>
-          </PageIntro.Frame>
+    <>
+      <JsonLd data={getSiteJsonLd()} />
+      <section aria-labelledby="home-title">
+        <PageIntro.Frame>
+          <PageIntro.Title id="home-title">{siteName}</PageIntro.Title>
+          <PageIntro.Subtitle>{jobTitle}</PageIntro.Subtitle>
+        </PageIntro.Frame>
 
-          <div className="grid gap-3">
-            <p>
-              I&apos;m a <Age />
-              -year-old designer, engineer &amp; game developer. My passion is to create beautiful
-              software. I work on ERP systems that power the German housing market and develop video
-              games played by hundreds of millions.
-            </p>
-          </div>
-        </section>
+        <div className="grid gap-3">
+          <p>
+            {homeIntroBefore}
+            <Age />
+            {homeIntroAfter}
+          </p>
+        </div>
+      </section>
 
-        <Suspense fallback={<LastVisitMapFallback />}>
-          <LastVisitMap />
-        </Suspense>
-      </main>
-    </div>
+      <Suspense fallback={<LastVisitMapFallback />}>
+        <LastVisitMap />
+      </Suspense>
+    </>
   );
 }

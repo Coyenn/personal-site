@@ -1,24 +1,16 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
-import { SiteHeader } from "@/app/components/site-header";
 import { SiteFooter } from "@/app/components/site-footer";
+import { SiteHeader } from "@/app/components/site-header";
+
+export { metadata } from "./metadata";
 
 const akkuratMono = localFont({
   src: "../fonts/akkurat-mono.otf",
   variable: "--font-ui",
   display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: {
-    default: "Tim Ritter · Design Engineer",
-    template: "%s · Tim Ritter",
-  },
-  description:
-    "Tim Ritter is a designer, engineer, and game developer building things from curiosity.",
-};
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

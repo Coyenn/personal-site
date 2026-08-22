@@ -1,3 +1,6 @@
+export const craftTitle = "Craft";
+export const craftDescription = "A gallery of my designs and experiments.";
+
 export type CraftImageMedia = {
   height: number;
   kind: "image";

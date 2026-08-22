@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -17,6 +18,7 @@
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.3.1",
     "@types/mdx": "^2.0.14",
+    "@vercel/agent-readability": "^0.6.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.32.0",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bun": "^1.4.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

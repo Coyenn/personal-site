@@ -3,6 +3,10 @@ import path from "node:path";
 import type { ComponentType } from "react";
 import type { MDXProps } from "mdx/types";
 
+export const writingTitle = "Writing";
+export const writingDescription =
+  "Technical notes about interfaces, infrastructure, tools, and following curiosity.";
+
 export type ArticleMetadata = {
   date: string;
   lead: string;
@@ -25,10 +29,22 @@ function getSections(source: string) {
   return [...source.matchAll(/^## (.+)$/gm)].map((match) => match[1].trim());
 }
 
+export function getArticleFilePath(slug: string) {
+  return path.join(articlesDirectory, `${slug}.mdx`);
+}
+
 export function getArticleSlugs() {
   return readdirSync(articlesDirectory)
     .filter((fileName) => fileName.endsWith(".mdx"))
     .map((fileName) => fileName.replace(/\.mdx$/, ""));
+}
+
+export function getArticleSource(slug: string) {
+  if (!getArticleSlugs().includes(slug)) {
+    return undefined;
+  }
+
+  return readFileSync(getArticleFilePath(slug), "utf8");
 }
 
 export async function getArticle(slug: string): Promise<Article | undefined> {
@@ -37,7 +53,11 @@ export async function getArticle(slug: string): Promise<Article | undefined> {
   }
 
   const { metadata } = await import(`@/content/writing/${slug}.mdx`);
-  const source = readFileSync(path.join(articlesDirectory, `${slug}.mdx`), "utf8");
+  const source = getArticleSource(slug);
+
+  if (!source) {
+    return undefined;
+  }
 
   return {
     slug,
@@ -61,8 +81,12 @@ export async function getArticleWithContent(slug: string): Promise<ArticleWithCo
 
   const [{ default: Content, metadata, Hero }, source] = await Promise.all([
     import(`@/content/writing/${slug}.mdx`),
-    Promise.resolve(readFileSync(path.join(articlesDirectory, `${slug}.mdx`), "utf8")),
+    Promise.resolve(getArticleSource(slug)),
   ]);
+
+  if (!source) {
+    return undefined;
+  }
 
   return {
     slug,

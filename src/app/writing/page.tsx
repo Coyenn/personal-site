@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 
 import { Listing } from "../components/listing";
 import { PageIntro } from "../components/page-intro";
-import { getArticles } from "./articles";
+import { getArticles, writingDescription, writingTitle } from "./articles";
 
 export const metadata: Metadata = {
-  title: "Writing",
-  description: "Technical notes about interfaces, infrastructure, tools, and following curiosity.",
+  title: writingTitle,
+  description: writingDescription,
+  alternates: {
+    types: {
+      "text/markdown": "/writing.md",
+    },
+  },
 };
 
 export default async function WritingPage() {
@@ -15,11 +20,9 @@ export default async function WritingPage() {
   return (
     <>
       <PageIntro.Frame>
-        <PageIntro.Title>Writing</PageIntro.Title>
+        <PageIntro.Title>{writingTitle}</PageIntro.Title>
       </PageIntro.Frame>
-      <p className="mt-6">
-        Technical notes about interfaces, infrastructure, tools, and following curiosity.
-      </p>
+      <p className="mt-6">{writingDescription}</p>
 
       <Listing.Frame className="mt-12">
         {articles.map((article) => (

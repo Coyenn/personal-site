@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { PageIntro } from "../../components/page-intro";
 import { ArticleBody } from "../article-body";
-import { getArticle, getArticleSlugs, getArticleWithContent } from "../articles";
+import { getArticle, getArticleSlugs, getArticleWithContent, writingTitle } from "../articles";
 import { slugifyHeading } from "../heading";
 
 type WritingArticleProps = {
@@ -23,13 +23,18 @@ export async function generateMetadata({ params }: WritingArticleProps): Promise
 
   if (!article) {
     return {
-      title: "Writing",
+      title: writingTitle,
     };
   }
 
   return {
     title: article.title,
     description: article.lead,
+    alternates: {
+      types: {
+        "text/markdown": `/writing/${slug}.md`,
+      },
+    },
   };
 }
 
