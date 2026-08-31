@@ -7,7 +7,7 @@ import { SiteHeader } from "@/app/components/site-header";
 export { metadata } from "./metadata";
 
 const akkuratMono = localFont({
-  src: "../fonts/akkurat-mono.otf",
+  src: "../fonts/akkurat-mono.woff2",
   variable: "--font-ui",
   display: "swap",
 });
