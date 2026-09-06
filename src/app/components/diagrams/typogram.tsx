@@ -2,6 +2,10 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
+import { AsciiGlyph, isAsciiMark } from "./ascii-glyph";
+
+export const TYPOGRAM_WIDTH = 39;
+
 export type TypogramTone = "frame" | "title" | "label" | "taught" | "muted";
 
 export type TypogramSpan = {
@@ -9,13 +13,6 @@ export type TypogramSpan = {
   tone: TypogramTone;
   pulse?: boolean;
   selectNone?: boolean;
-};
-
-export type TypogramIcon = {
-  column: number;
-  node: ReactNode;
-  tone: TypogramTone;
-  pulse?: boolean;
 };
 
 export type TypogramCell = {
@@ -86,27 +83,14 @@ export function collapseTypogramCells(cells: TypogramCell[]): TypogramSpan[] {
 }
 
 export function typogramTitleRow(title: string, width: number): TypogramSpan[] {
-  const label = `[ ${title} ]`;
-  const inner = width - 2;
-  const leftover = inner - label.length;
-
-  if (leftover < 2) {
+  const label = ` [ ${title} ] `;
+  if (label.length > width - 4) {
     throw new Error(`typogram title too long for width ${width}`);
   }
-
-  let left = Math.floor(leftover / 2);
-  let right = leftover - left;
-
-  if (left % 2 === 0 && left > 0) {
-    left -= 1;
-    right += 1;
-  }
-
-  return [
-    { text: `+${dashFill(left)}`, tone: "frame" },
-    { text: label, tone: "title" },
-    { text: `${dashFill(right)}+`, tone: "frame" },
-  ];
+  const cells = createTypogramCells(width);
+  writeTypogramCells(cells, 0, `+${dashFill(width - 2)}+`, "frame");
+  writeTypogramCells(cells, Math.floor((width - label.length) / 2), label, "title");
+  return collapseTypogramCells(cells);
 }
 
 export function typogramBottomRow(width: number): TypogramSpan[] {
@@ -121,6 +105,12 @@ export function typogramFramedRow(inner: TypogramCell[]): TypogramSpan[] {
   ];
 }
 
+export function typogramTextRow(text = "", tone: TypogramTone = "label"): TypogramSpan[] {
+  const cells = createTypogramCells(TYPOGRAM_WIDTH - 2);
+  writeTypogramCells(cells, 2, text, tone);
+  return typogramFramedRow(cells);
+}
+
 function TypogramFrame({
   children,
   className,
@@ -131,44 +121,35 @@ function TypogramFrame({
   explanation: string;
 }) {
   return (
-    <figure className={cn("my-6 max-w-full", className)}>
-      <figcaption className="sr-only">{explanation}</figcaption>
-      <div className="max-w-full overflow-x-auto pb-3 scrollbar-thin" aria-hidden="true">
+    <figure className={cn("typogram my-6 max-w-full", className)}>
+      <div className="max-w-full overflow-x-auto scrollbar-thin" aria-hidden="true">
         {children}
       </div>
+      <figcaption className="sr-only">{explanation}</figcaption>
     </figure>
   );
 }
 
 function TypogramGrid({ children }: { children: ReactNode }) {
-  return <pre className="m-0 whitespace-pre leading-5">{children}</pre>;
+  return <div className="w-max font-mono whitespace-pre leading-5">{children}</div>;
 }
 
-function TypogramLine({ icons = [], spans }: { icons?: TypogramIcon[]; spans: TypogramSpan[] }) {
-  const iconByColumn = new Map(icons.map((icon) => [icon.column, icon]));
-  const spanOffsets = spans.map((_, spanIndex) =>
-    spans.slice(0, spanIndex).reduce((offset, span) => offset + span.text.length, 0),
-  );
-
+function TypogramLine({ spans }: { spans: TypogramSpan[] }) {
   return (
-    <div>
+    <div className="flex h-5" data-typogram-row="">
       {spans.flatMap((span, spanIndex) =>
         Array.from(span.text).map((character, characterIndex) => {
-          const currentColumn = spanOffsets[spanIndex] + characterIndex;
-          const icon = iconByColumn.get(currentColumn);
-          const code = character.charCodeAt(0);
-          const isBraille = code >= 0x2800 && code <= 0x28ff;
+          const isMark = span.tone === "frame" && isAsciiMark(character);
           const className = cn(
-            typogramToneClassName[icon?.tone ?? span.tone],
-            (icon?.pulse ?? span.pulse) && "animate-[marker-pulse_2200ms_ease-in-out_infinite]",
-            icon && "inline-block h-[1em] w-[1ch] align-[-0.15em]",
-            isBraille && "inline-block w-[1ch] text-center",
+            "inline-flex h-5 w-[10px] shrink-0 items-center justify-center",
+            typogramToneClassName[span.tone],
+            span.pulse && "animate-[marker-pulse_2200ms_ease-in-out_infinite]",
             span.selectNone && "select-none",
           );
 
           return (
             <span key={`${spanIndex}-${characterIndex}`} className={className}>
-              {icon?.node ?? character}
+              {isMark ? <AsciiGlyph character={character} /> : character}
             </span>
           );
         }),

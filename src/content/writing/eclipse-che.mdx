@@ -1,30 +1,32 @@
 export const metadata = {
   date: "2024-03-09",
-  lead: "I recently spent an entire weekend deploying Eclipse Che on a K3s cluster using Keycloak as an OIDC provider.",
+  lead: "Notes from a weekend setting up Eclipse Che on K3s, with Traefik for ingress and Keycloak for login.",
   title: "Deploying Eclipse Che on K3s",
 };
 
-## Backstory
+## The setup
 
-Although it was a lot of fun, I was surprised by the lack of documentation and tutorials on this topic. So, to save you some time and frustration, I decided to write a guide on how to do it.
+I wanted to run Eclipse Che on my K3s cluster and use Keycloak for authentication. Getting the pieces to work together took a weekend, so I wrote down the configuration in the order I needed it.
+
+There are three parts to the login setup: Keycloak issues tokens, the Kubernetes API server accepts them, and Che uses the same provider to sign users in. The issuer URL and client ID need to agree across all three.
+
+These notes describe my March 2024 setup. The examples use the chart values and Che configuration from that period; check the documentation for your installed versions when adapting them.
 
 ## Prerequisites
 
-- A K3s cluster up and running
-- Traefik installed as your ingress controller
-- A domain pointing to your K3s cluster's IP address
-- An SSL certificate for your chosen domain
-- chectl installed on the machine running the cluster
+The examples assume you have:
 
-## Step 1: Deploying Keycloak
+- A running K3s cluster with `kubectl` access.
+- Traefik installed as the ingress controller.
+- DNS records for `keycloak.example.com` and `che.example.com` pointing to the cluster.
+- TLS certificates configured for those hosts.
+- `chectl` installed on the machine you use to manage the cluster.
 
-First things first, create the necessary files:
+Replace the example domains throughout. I use `che` as the Keycloak realm and `eclipse-che` as the client ID in all of the examples below.
 
-```shell
-touch keycloak-namespace.yaml keycloak-chart.yaml keycloak-ingress.yaml
-```
+## Deploying Keycloak
 
-Kubernetes namespaces help organize resources:
+Create a namespace for Keycloak. Save this as `keycloak-namespace.yaml`:
 
 ```yaml
 apiVersion: v1
@@ -33,16 +35,16 @@ metadata:
   name: keycloak
 ```
 
-Apply the YAML:
+Apply it before installing the chart:
 
 ```shell
 kubectl apply -f keycloak-namespace.yaml
 ```
 
-Now install Keycloak using Helm. K3s comes with a built-in Helm controller:
+K3s includes a [Helm controller](https://docs.k3s.io/add-ons/helm), so a `HelmChart` resource can manage the installation. Save the following as `keycloak-chart.yaml`, replacing the admin password before applying it:
 
 ```yaml
-apiVersion: Helm.cattle.io/v1
+apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
   name: keycloak
@@ -54,7 +56,7 @@ spec:
   valuesContent: |-
     auth:
       adminUser: admin
-      adminPassword: admin
+      adminPassword: REPLACE_WITH_YOUR_ADMIN_PASSWORD
     ingress:
       enabled: false
     proxy: edge
@@ -65,7 +67,7 @@ spec:
 kubectl apply -f keycloak-chart.yaml
 ```
 
-Since ingress is disabled in the Helm chart, create a Traefik ingress to make Keycloak externally accessible:
+I configured ingress separately from the chart. In `keycloak-ingress.yaml`, route the Keycloak hostname to its service:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -78,6 +80,7 @@ spec:
   tls:
     - hosts:
         - keycloak.example.com
+      secretName: keycloak-tls
   rules:
     - host: keycloak.example.com
       http:
@@ -91,48 +94,46 @@ spec:
                   number: 80
 ```
 
-Apply the ingress definition:
+Here, `keycloak-tls` is the TLS secret in the `keycloak` namespace. Use the name of your own certificate secret, then apply the ingress:
 
 ```shell
 kubectl apply -f keycloak-ingress.yaml
 ```
 
-## Step 2: Configuring Keycloak
+Wait for the Keycloak pods to become ready, then open `https://keycloak.example.com` and sign in to the admin console.
 
-Create a new realm and a client specifically for Eclipse Che.
+## Configuring Keycloak
 
-1. Log in to the Keycloak admin dashboard.
-2. Select Add realm from the master dropdown.
-3. Give the realm a name and click Create.
-4. Navigate to Clients and click Create Client.
-5. Assign a name and configure the client.
+Create a realm named `che`, then create an OpenID Connect client inside it with the client ID `eclipse-che`.
 
-## Step 3: Configuring K3s
+The client needs authentication enabled and a redirect URI that matches Che's login callback. For the example hostname, that is `https://che.example.com/oauth/callback`. Copy the generated client secret from the client's Credentials tab; it will become `oAuthSecret` in the Che configuration.
 
-Edit `/etc/rancher/k3s/config.yaml` and add the following lines, replacing placeholders with your values:
+The realm's issuer URL is `https://keycloak.example.com/realms/che`. Keep this URL consistent in the K3s and Che configuration. It identifies the realm, so using the Keycloak homepage or a different realm here won't work.
+
+Che's [external identity provider documentation](https://eclipse.dev/che/docs/stable/install/proc_installing-che-on-openshift-with-keycloak-as-oidc/) also describes the Keycloak client settings. Its cluster installation steps are for OpenShift; the K3s API server configuration is below.
+
+## Configuring K3s
+
+The Kubernetes API server needs to trust tokens from the Keycloak realm. Add these arguments to `/etc/rancher/k3s/config.yaml`, merging them with any existing `kube-apiserver-arg` entries:
 
 ```yaml
 kube-apiserver-arg:
-  - "oidc-issuer-url=https://keycloak.example.com/realms/your-realm-name"
+  - "oidc-issuer-url=https://keycloak.example.com/realms/che"
   - "oidc-client-id=eclipse-che"
   - "oidc-username-claim=email"
 ```
 
-Restart the K3s server:
+The issuer selects the provider, the client ID specifies the expected token audience, and the username claim tells Kubernetes which token field to use as the user's identity. Kubernetes documents these options in its [OpenID Connect authentication guide](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens).
+
+Restart the K3s server to load the configuration:
 
 ```shell
-systemctl restart k3s
+sudo systemctl restart k3s
 ```
 
-## Step 4: Deploying Eclipse Che
+## Deploying Eclipse Che
 
-Deploy Eclipse Che using `chectl`, which is generally simpler than Helm for Che deployments.
-
-```shell
-touch che-cluster.yaml che-ingress.yaml
-```
-
-The Che cluster configuration defines Keycloak as the OIDC provider:
+Save the following patch as `che-cluster.yaml`. It tells Che to use the same realm and client as the Kubernetes API server. Replace `REPLACE_WITH_KEYCLOAK_CLIENT_SECRET` with the secret generated for the client:
 
 ```yaml
 kind: CheCluster
@@ -143,15 +144,15 @@ spec:
       externalIdentityProvider: true
       openShiftoAuth: false
       oAuthClientName: eclipse-che
-      oAuthSecret: eclipse-che
-      identityProviderURL: "https://keycloak.example.com/realms/your-realm"
+      oAuthSecret: REPLACE_WITH_KEYCLOAK_CLIENT_SECRET
+      identityProviderURL: "https://keycloak.example.com/realms/che"
   components:
     cheServer:
       extraProperties:
         CHE_OIDC_USERNAME__CLAIM: email
 ```
 
-The ingress exposes the Che web interface:
+In `che-ingress.yaml`, route the Che hostname to the gateway service:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -160,6 +161,11 @@ metadata:
   name: eclipse-che-ingress
   namespace: eclipse-che
 spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - che.example.com
+      secretName: che-tls
   rules:
     - host: che.example.com
       http:
@@ -173,12 +179,22 @@ spec:
                   number: 8080
 ```
 
-Deploy Che and apply the ingress:
+The `che-tls` secret needs to exist in the `eclipse-che` namespace. Deploy Che with the patch, then apply the ingress:
 
 ```shell
-chectl server:deploy --domain che.example.com --platform k8s --che-operator-cr-patch-yaml che-cluster.yaml --skip-cert-manager
+chectl server:deploy \
+  --domain che.example.com \
+  --platform k8s \
+  --che-operator-cr-patch-yaml che-cluster.yaml \
+  --skip-cert-manager
 
 kubectl apply -f che-ingress.yaml
 ```
 
-Once all pods are running, the Che interface should be externally accessible.
+The command skips cert-manager because TLS is already configured for this setup.
+
+## Checking the login flow
+
+Once the pods are ready, open `https://che.example.com`. Signing in should take you to Keycloak and return you to Che. Then create a workspace to check that the authenticated session can do useful work.
+
+If login fails, compare the issuer URL, client ID, and client secret across the configurations first. If Keycloak reports an invalid redirect URI, compare the callback URL in the login request with the one registered on the client. These values connect the services; a running pod alone doesn't confirm that authentication is working.
