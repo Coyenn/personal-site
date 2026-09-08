@@ -3,6 +3,8 @@ import type { LanguageName } from "sugar-high";
 import { generate, parse, type GeneratedLine, type GeneratedToken } from "sugar-high/core";
 import { languages } from "sugar-high/lang";
 
+import { AsciiGlyph } from "./diagrams/ascii-glyph";
+
 function highlightLines(code: string, lang: LanguageName) {
   const config = languages.find((language) => language.id === lang)?.config;
   return generate(parse(code, config));
@@ -24,29 +26,7 @@ function padLineNumber(value: number, width: number) {
 function PlusMark() {
   return (
     <span className="shrink-0 text-secondary select-none" aria-hidden="true">
-      +
-    </span>
-  );
-}
-
-function DashFillFromPlus() {
-  return (
-    <span
-      className="min-w-3 flex-1 overflow-hidden text-secondary whitespace-pre select-none"
-      aria-hidden="true"
-    >
-      {" -".repeat(80)}
-    </span>
-  );
-}
-
-function DashFillToPlus() {
-  return (
-    <span
-      className="min-w-3 flex-1 overflow-hidden text-secondary whitespace-pre select-none"
-      aria-hidden="true"
-    >
-      {"- ".repeat(80)}
+      <AsciiGlyph character="+" />
     </span>
   );
 }
@@ -54,17 +34,21 @@ function DashFillToPlus() {
 function DashFill() {
   return (
     <span
-      className="min-w-3 flex-1 overflow-hidden text-secondary whitespace-pre select-none"
+      className="grid h-4 min-w-6 flex-1 auto-rows-[16px] grid-cols-[repeat(auto-fit,16px)] justify-center overflow-hidden px-1 text-secondary select-none"
       aria-hidden="true"
     >
-      {" -".repeat(80)}{" "}
+      {Array.from({ length: 80 }, (_, index) => (
+        <span className="flex justify-center" key={index}>
+          <AsciiGlyph character="-" />
+        </span>
+      ))}
     </span>
   );
 }
 
 function CodeSnippetFrame({ caption, children }: { caption: string; children: ReactNode }) {
   return (
-    <figure className="code-snippet my-6 grid w-[min(600px,calc(100vw-3rem))] max-w-[600px] gap-3 md:w-[min(600px,calc(100vw-5rem))]">
+    <figure className="code-snippet my-6 grid w-full max-w-full gap-3">
       <figcaption className="sr-only">{caption}</figcaption>
       {children}
     </figure>
@@ -77,9 +61,9 @@ function CodeSnippetRule({ children }: { children?: ReactNode }) {
       <PlusMark />
       {children ? (
         <>
-          <DashFillFromPlus />
+          <DashFill />
           {children}
-          <DashFillToPlus />
+          <DashFill />
         </>
       ) : (
         <DashFill />
@@ -109,7 +93,7 @@ function CodeSnippetLine({ line, number }: { line: GeneratedLine; number: string
         {number}
       </span>
       <span className="select-none text-secondary" aria-hidden="true">
-        |
+        <AsciiGlyph character="|" />
       </span>
       <code className="min-w-0 whitespace-pre-wrap break-all">
         {isEmpty

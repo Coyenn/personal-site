@@ -46,7 +46,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --text-base: 0.875rem;
+  --text-base: 14px;
+  --text-base--line-height: 21px;
 }
 
 @utility fancy-underline {
@@ -105,6 +106,7 @@
 
 .article-mdx {
   counter-reset: article-section;
+  overflow-wrap: anywhere;
 }
 
 .article-heading {
