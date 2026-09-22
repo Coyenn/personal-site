@@ -1,92 +1,39 @@
-"use client";
-
-import { lineText, prepare, solve, type Line, type Prepared } from "@kitlangton/justice";
-import { useEffect, useRef, useState, type ComponentProps } from "react";
+import { lineText, prepare, solve } from "@kitlangton/justice";
+import type { ComponentProps } from "react";
 
 type JustifiedParagraphProps = Omit<ComponentProps<"p">, "children"> & { text: string };
-type ComposedParagraph = { prepared: Prepared; lines: Line[] };
+
+// Akkurat Mono's printable glyphs have a 620-unit advance in a 1000-unit em.
+// The site's base font size is 14px and its desktop text column is 480px.
+const glyphAdvance = (620 / 1000) * 14;
+const desktopColumnWidth = 480;
+const graphemes = new Intl.Segmenter("en", { granularity: "grapheme" });
 
 export function JustifiedParagraph({ text, ...props }: JustifiedParagraphProps) {
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
-  const [composition, setComposition] = useState<ComposedParagraph | null>(null);
-
-  useEffect(() => {
-    const paragraph = paragraphRef.current;
-    if (!paragraph) return;
-
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    let prepared: Prepared | null = null;
-    let width = 0;
-    let active = true;
-
-    function compose() {
-      if (!prepared || width <= 0) return;
-      const layout = solve(prepared, width);
-      setComposition(layout.lines.length ? { prepared, lines: layout.lines } : null);
-    }
-
-    function measureFont() {
-      if (!active || !paragraph || !context) return;
-      const style = getComputedStyle(paragraph);
-      context.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-      context.fontKerning = style.fontKerning as CanvasFontKerning;
-      prepared = prepare(text, (fragment) => context.measureText(fragment).width);
-      compose();
-    }
-
-    const observer = new ResizeObserver(([entry]) => {
-      width = entry.contentRect.width;
-      compose();
-    });
-    observer.observe(paragraph);
-    measureFont();
-    document.fonts.ready.then(measureFont);
-    document.fonts.addEventListener("loadingdone", measureFont);
-
-    return () => {
-      active = false;
-      observer.disconnect();
-      document.fonts.removeEventListener("loadingdone", measureFont);
-    };
-  }, [text]);
+  const prepared = prepare(
+    text,
+    (fragment) => Array.from(graphemes.segment(fragment)).length * glyphAdvance,
+  );
+  const { lines } = solve(prepared, desktopColumnWidth);
 
   return (
-    <p
-      {...props}
-      ref={paragraphRef}
-      onCopy={(event) => {
-        if (!composition) return;
-        const selectedText = window.getSelection()?.toString().replace(/\s+/g, " ").trim();
-        if (selectedText !== text.replace(/\s+/g, " ").trim()) return;
-        event.clipboardData.setData("text/plain", text);
-        event.preventDefault();
-      }}
-    >
-      {composition ? (
-        <>
-          <span className="sr-only select-none">{text}</span>
-          <span aria-hidden="true">
-            {composition.lines.map((line, index) => (
-              <span
-                key={index}
-                className="block whitespace-nowrap"
-                style={{
-                  wordSpacing: `${line.wordSpacing}px`,
-                  letterSpacing: `${line.tracking}px`,
-                  marginLeft: `${-line.opening}px`,
-                }}
-              >
-                {lineText(composition.prepared, line)}
-              </span>
-            ))}
+    <p {...props}>
+      <span className="block text-justify md:sr-only md:select-none">{text}</span>
+      <span className="hidden md:block" aria-hidden="true">
+        {lines.map((line, index) => (
+          <span
+            key={index}
+            className="block whitespace-nowrap"
+            style={{
+              wordSpacing: `${line.wordSpacing}px`,
+              letterSpacing: `${line.tracking}px`,
+              marginLeft: `${-line.opening}px`,
+            }}
+          >
+            {lineText(prepared, line)}
           </span>
-        </>
-      ) : (
-        text
-      )}
+        ))}
+      </span>
     </p>
   );
 }
