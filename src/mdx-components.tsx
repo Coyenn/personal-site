@@ -4,6 +4,7 @@ import { lang } from "sugar-high/lang";
 
 import { CodeSnippet } from "@/app/components/code-snippet";
 import { Listing } from "@/app/components/listing";
+import { JustifiedParagraph } from "@/app/writing/justified-paragraph";
 import { cn } from "@/lib/utils";
 
 function getCodeElement(children: ReactNode) {
@@ -54,9 +55,20 @@ function ListItem({ children, ...props }: ComponentProps<"li">) {
   );
 }
 
+function Paragraph({ children, ...props }: ComponentProps<"p">) {
+  const parts = Children.toArray(children);
+  const plainText = parts.every((part) => typeof part === "string") ? parts.join("") : null;
+  if (plainText && plainText.length > 90) {
+    return <JustifiedParagraph {...props} text={plainText} />;
+  }
+
+  return <p {...props}>{children}</p>;
+}
+
 const components = {
   h2: Heading,
   li: ListItem,
+  p: Paragraph,
   pre: Pre,
 } satisfies MDXComponents;
 
