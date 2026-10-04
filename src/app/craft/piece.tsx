@@ -6,9 +6,6 @@ import { CraftVideo } from "../components/craft/craft-video";
 import { Listing } from "../components/listing";
 import { isCraftVideo, type CraftImageItem, type CraftItem, type CraftVideoItem } from "./items";
 
-const craftMediaWidthClassName =
-  "col-span-full w-[min(600px,calc(100vw-3rem))] max-w-[600px] md:w-[min(600px,calc(100vw-5rem))]";
-
 function mediaCaption(item: CraftItem) {
   if (item.description) {
     return `${item.title}. ${item.description}`;
@@ -29,7 +26,7 @@ function CraftMediaFrame({
   style?: CSSProperties;
 }) {
   return (
-    <figure className={cn(craftMediaWidthClassName, className)} style={style}>
+    <figure className={cn("col-span-full w-full", className)} style={style}>
       <figcaption className="sr-only">{caption}</figcaption>
       {children}
     </figure>

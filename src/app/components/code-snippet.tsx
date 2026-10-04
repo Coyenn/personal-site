@@ -3,7 +3,7 @@ import type { LanguageName } from "sugar-high";
 import { generate, parse, type GeneratedLine, type GeneratedToken } from "sugar-high/core";
 import { languages } from "sugar-high/lang";
 
-import { AsciiGlyph } from "./diagrams/ascii-glyph";
+import { AsciiGlyph, DashFill, PlusMark } from "./diagrams/ascii-glyph";
 
 function highlightLines(code: string, lang: LanguageName) {
   const config = languages.find((language) => language.id === lang)?.config;
@@ -21,29 +21,6 @@ function splitCodeLines(code: string) {
 
 function padLineNumber(value: number, width: number) {
   return String(value).padStart(width, "0");
-}
-
-function PlusMark() {
-  return (
-    <span className="shrink-0 text-secondary select-none" aria-hidden="true">
-      <AsciiGlyph character="+" />
-    </span>
-  );
-}
-
-function DashFill() {
-  return (
-    <span
-      className="grid h-4 min-w-6 flex-1 auto-rows-[16px] grid-cols-[repeat(auto-fit,16px)] justify-center overflow-hidden px-1 text-secondary select-none"
-      aria-hidden="true"
-    >
-      {Array.from({ length: 80 }, (_, index) => (
-        <span className="flex justify-center" key={index}>
-          <AsciiGlyph character="-" />
-        </span>
-      ))}
-    </span>
-  );
 }
 
 function CodeSnippetFrame({ caption, children }: { caption: string; children: ReactNode }) {

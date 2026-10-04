@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
+import { columnWidth } from "@/lib/column";
 
 export { metadata } from "./metadata";
 
@@ -15,7 +16,10 @@ const akkuratMono = localFont({
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={akkuratMono.variable}>
-      <body className="min-h-screen p-6 md:p-10 max-w-[560px] bg-background font-mono text-foreground text-base">
+      <body
+        className="mx-auto box-content min-h-screen p-6 md:p-10 bg-background font-mono text-foreground text-base"
+        style={{ maxWidth: columnWidth }}
+      >
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
