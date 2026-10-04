@@ -1,42 +1,47 @@
-import { AriaFocusDiagram } from "@/app/components/diagrams/aria-focus-diagram";
-import { SameRuntimeIdDiagram } from "@/app/components/diagrams/same-runtime-id-diagram";
-import { SpeechInterruptionDiagram } from "@/app/components/diagrams/speech-interruption-diagram";
+import {
+  AriaFocusFigure,
+  SameRuntimeIdFigure,
+  SpeechInterruptionFigure,
+} from "@/app/components/diagrams/hairline/screen-reader-figures";
 
-export const Hero = AriaFocusDiagram;
+export const Hero = AriaFocusFigure;
 
 export const metadata = {
   date: "2024-11-20",
-  lead: "I built Aria, a small Windows screen reader, to understand how an interface becomes speech.",
+  lead: "I wanted to know how screen readers actually work, so I built a small one for Windows.",
   title: "Writing a Screen Reader in Rust",
 };
 
-## How I got here
+## Backstory
 
-Screen readers have always been fascinating to me.
-I knew how to label a button, but I had only a vague idea of what happened between pressing Tab and hearing a screen reader announce it. I wanted to understand that part, so I built a small screen reader of my own.
+In June 2025, a new law, the Barrierefreiheitsstärkungsgesetz (BFSG), comes into effect in Germany and requires a _lot_ of websites, basically anything that sells to consumers, to be accessible. So German website owners are currently scrambling to conform to the new regulations. This is also how I first got exposed to the topic of web accessibility: more and more of our clients at [next.motion](https://next-motion.de) are asking for audits and improvements in this space.
 
-## What it has to do
+So recently, while working on the accessibility of a website, I got the idea to dig deeper into how screen readers actually work. I knew how to label a button, but I only had a vague idea of what happens between pressing Tab and hearing that label read out loud. What better way to understand something than to build it yourself?
 
-The first version had four jobs:
+To keep things simple, I decided to only focus on Windows for now, because it's by far the most popular OS among the people I build for. I named the project Aria, after the set of roles and attributes for HTML elements.
 
-- Detect which control has keyboard focus.
-- Read its name and type aloud.
-- Respond to keyboard input, including a key to stop speech.
-- Play short sounds for feedback.
+## Choosing the right tools
 
-I left out a graphical interface and navigation beyond the focused control. That kept the project small enough to build while learning the Windows APIs.
+Screen readers need low-level access to OS APIs, both for reading what's on screen and for interacting with applications. Rust is pretty much the only low-level programming language I'm somewhat comfortable with, so it was an easy choice for this project. The borrow checker is the cherry on top, because I don't feel like shooting myself in the foot with memory bugs while I'm also learning a bunch of new APIs.
 
-A full screen reader also needs ways to explore content that cannot receive focus, such as paragraphs and headings. Browsers expose this information through accessibility APIs; they don't simply hide it behind their sandbox. Supporting that navigation was beyond the scope of Aria. Chromium's [accessibility documentation](https://www.chromium.org/developers/accessibility/) is a useful starting point for how browsers expose their content.
+As for functionality, I figured a basic screen reader should be able to:
 
-## Reaching into the OS
+- Access information about UI elements on the screen
+- Read text aloud (text-to-speech)
+- Listen and react to user input
+- Play audio files (for sound effects)
 
-Aria reads the information applications expose through Windows UI Automation. That includes properties such as a control's accessible name and type, along with events that report changes to the interface. The quality of those properties depends on the application providing them.
+There are also a few things I won't implement at this stage, mainly a GUI and support for reading anything but the focused element. A real screen reader also lets you move through content that can't receive focus, like the paragraphs and headings on a website. Browsers do expose all of that through their accessibility APIs (Chromium's [accessibility documentation](https://www.chromium.org/developers/accessibility/) is a good starting point if you're curious), but supporting it would be a whole project of its own.
 
-Rust was the systems language I was most comfortable with. The [uiautomation crate](https://github.com/leexgone/uiautomation-rs) gave me a wrapper around UI Automation, and the [windows crate](https://github.com/microsoft/windows-rs) provided the Windows Runtime APIs for speech synthesis and playback. I used `rodio` for the short feedback sounds and `mki` for keyboard input.
+After searching around GitHub a bit, I found [leexgone/uiautomation-rs](https://github.com/leexgone/uiautomation-rs). It's a Rust wrapper around the Windows UI Automation API, which provides programmatic access to most user interface elements on the desktop, as well as the ability to interact with them. This is exactly what I need for the first point on my list!
 
-## Reading the screen
+For text-to-speech, I knew that Windows has a built-in speech API, I just needed a way to access it from Rust. Luckily, Microsoft maintains the [windows crate](https://github.com/microsoft/windows-rs), which has bindings for pretty much the whole Windows API, speech synthesis included. That covers point two.
 
-To follow focus, I registered a handler with UI Automation. The handler remembers the previous element so it can ignore consecutive events for the same control. Here is the setup, with the surrounding application code omitted:
+For points three and four, I searched for utility crates on [crates.io](https://crates.io) and found [rodio](https://crates.io/crates/rodio) for audio playback and [mki](https://crates.io/crates/mki) for keyboard input.
+
+## Reading UI elements
+
+UI Automation makes it easy to hook into Windows interface events. For example, to get notified whenever the focused element changes, I created a `FocusChangedEventHandler` struct and registered it as a focus changed handler:
 
 ```rust
 struct FocusChangedEventHandler {
@@ -51,7 +56,7 @@ let handler = UIFocusChangedEventHandler::from(FocusChangedEventHandler {
 automation.add_focus_changed_event_handler(None, &handler)?;
 ```
 
-During testing, a single Tab press could produce several focus events for the same element. Announcing every event meant hearing the same button repeatedly. Comparing the element's runtime ID with the previous one let me skip those duplicates:
+From then on, Windows calls the handler's `handle` method every time focus moves. It sometimes gets called several times in quick succession for the same element, though, which meant a single press of Tab could announce the same button over and over. To prevent that, the handler remembers the previous element and compares runtime IDs, which UI Automation uses to tell elements apart. If the new element has the same ID as the previous one, there's nothing new to say:
 
 ```rust
 impl CustomFocusChangedEventHandler for FocusChangedEventHandler {
@@ -76,13 +81,13 @@ impl CustomFocusChangedEventHandler for FocusChangedEventHandler {
 }
 ```
 
-<SameRuntimeIdDiagram />
+<SameRuntimeIdFigure />
 
-This shortened handler stops at logging. In Aria, the next step is to assemble the announcement from the control's name and localized type. A button named Save becomes “Save, button.” The control type also determines whether to play a sound before speaking.
+This shortened version stops at logging. In Aria, the next step is building the actual announcement from the element's name and its localized control type, so a button named Save becomes "Save, button." The control type is also what decides whether to play a sound before speaking, but more on that later.
 
-## Speaking
+## Reading text
 
-Windows provides the voice. Its [SpeechSynthesizer](https://learn.microsoft.com/en-us/uwp/api/windows.media.speechsynthesis.speechsynthesizer.synthesizetexttostreamasync?view=winrt-26100) turns a string into an audio stream, which a `MediaPlayer` can play. A minimal example using the Windows bindings looks like this:
+The Windows text-to-speech API is pretty straightforward. You create a [`SpeechSynthesizer`](https://learn.microsoft.com/en-us/uwp/api/windows.media.speechsynthesis.speechsynthesizer.synthesizetexttostreamasync?view=winrt-26100), call `SynthesizeTextToStreamAsync` with the text you want to read, and hand the resulting stream to a `MediaPlayer`:
 
 ```rust
 let synthesizer = SpeechSynthesizer::new()?;
@@ -101,11 +106,11 @@ player.SetSource(&source)?;
 player.Play()?;
 ```
 
-The `.get()` call waits for synthesis to finish. This shows the sequence, but it isn't enough for responsive speech: the application also needs to keep handling input while synthesis and playback are in progress.
+The `.get()` call waits until synthesis is done, which is fine for a "Hello, World!" but not for a screen reader that has to keep listening to your keyboard while it talks. So in Aria, speech runs asynchronously, which comes back to haunt me a little at the end of this post.
 
-## Earcons
+## Playing sounds
 
-An earcon is a short sound that communicates something about the interface. Aria plays one when focus reaches an editable field or combo box:
+This one is also quite simple. For my implementation, only three sounds are needed: a startup sound, a shutdown sound, and a sound for when you focus an input field. The input sound is an earcon, a short sound that tells you something about the interface, and it plays right before the field's name is read:
 
 ```rust
 if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
@@ -113,7 +118,7 @@ if control_type == ControlType::Edit || control_type == ControlType::ComboBox {
 }
 ```
 
-I started with three sounds: startup, shutdown, and input focus. They are embedded in the executable with `include_bytes!`, so they don't need to be distributed as separate files:
+I skipped any fancy asset management and just included the sound files as byte arrays, so they're baked into the executable:
 
 ```rust
 pub const STARTUP_SOUND: &[u8] = include_bytes!("../assets/sounds/startup.mp3");
@@ -122,11 +127,9 @@ pub const INPUT_FOCUSSED_SOUND: &[u8] =
     include_bytes!("../assets/sounds/input-focussed.mp3");
 ```
 
-The input sound gives a quick cue about the control before its name is read aloud.
+## Listening to keyboard input
 
-## Listening for keys
-
-The keyboard hook sends Escape directly to the speech controller. Other keys go to `on_keypress`, which handles spoken feedback while typing in an input. In the initial implementation, the binding looked like this:
+Similar to how you can listen to focus changes, you can listen to keyboard input using the `mki` crate. Escape stops whatever Aria is currently saying, and every other key goes to `on_keypress`, which reads keys back to you while you type in an input field:
 
 ```rust
 mki::bind_any_key(Action::handle_kb(|key| {
@@ -139,16 +142,16 @@ mki::bind_any_key(Action::handle_kb(|key| {
 }));
 ```
 
-`TTS` is Aria's wrapper around synthesis and playback. Keeping those operations behind a shared interface lets both the keyboard and focus handlers control the same announcement.
+`TTS` here is Aria's own little wrapper around synthesis and playback. Both the keyboard hook and the focus handler talk to the same one, so either of them can control what's currently being said.
 
-## Putting it together
+## Putting it all together
 
-The difficult part was deciding what to do when input arrived during speech. If I moved from a text field to Save, the old announcement needed to stop and the new one needed to begin. Pressing Escape needed to stop speech without starting anything else.
+With all the pieces working on their own, the tricky part was deciding what should happen when input arrives while Aria is still talking. Say focus is on a text field and Aria is in the middle of "Name, edit" when you tab over to Save. The old announcement should stop right away and "Save, button" should start. Pressing Escape should stop speech without starting anything new. Simple rules, but focus events, key presses and audio playback all come from different places, and they all have to agree on what's currently being said.
 
-<SpeechInterruptionDiagram />
+<SpeechInterruptionFigure />
 
-That meant coordinating focus events, keyboard input, and audio playback. I moved speech work out of the event handlers and added a command-line interface and configuration file around it.
+In the end, I moved the speech handling out of the event handlers into one place that owns the current announcement, and added some nice-to-have features on top, like a simple command-line interface and a configuration file for customizing the screen reader's behavior.
 
-Aria was a learning project. Following focus covers only a small part of what people need from a screen reader, but it made missing labels much easier for me to notice. When a button has no useful name, there is very little to say about it.
+Aria only follows focus, which is a tiny part of what people actually need from a screen reader. But building it made missing labels a lot easier for me to notice, because when a button has no useful name, there's very little a screen reader can say about it.
 
-The [source code is on GitHub](https://github.com/Coyenn/Aria) under the MIT license.
+A build, as well as the source code (MIT), is available on [GitHub](https://github.com/Coyenn/Aria). You can grab the latest release [here](https://github.com/Coyenn/Aria/releases/latest).

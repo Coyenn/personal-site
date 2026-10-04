@@ -69,6 +69,31 @@
   }
 }
 
+/*
+ * ASCII rules of any length, drawn as a background in the current colour: the
+ * "-" mark of AsciiGlyph every 16px across, or its "|" mark on every 20px row.
+ */
+@utility ascii-dashes {
+  background-image: linear-gradient(
+    to right,
+    transparent 5px,
+    currentColor 5px 11px,
+    transparent 11px
+  );
+  background-position: center;
+  background-repeat: space no-repeat;
+  background-size: 16px 1px;
+  background-origin: content-box;
+  background-clip: content-box;
+}
+
+@utility ascii-bars {
+  background-image: linear-gradient(transparent 7px, currentColor 7px 13px, transparent 13px);
+  background-position: center top;
+  background-repeat: no-repeat repeat;
+  background-size: 1px 20px;
+}
+
 :root {
   --background: #11110f;
   --foreground: #b8b4a9;
@@ -109,6 +134,28 @@
   overflow-wrap: anywhere;
 }
 
+/*
+ * Links in prose wear the site's dashed underline at rest, so they read as
+ * links at a glance, and it brightens on hover. It is a background rather than
+ * fancy-underline's pseudo-element, so it follows a link onto a second line.
+ */
+.article-mdx a {
+  --link-dash: var(--color-secondary);
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--link-dash) 0 6px,
+    transparent 6px 10px
+  );
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1.5px;
+  padding-bottom: 2px;
+}
+
+.article-mdx a:hover {
+  --link-dash: var(--color-foreground);
+}
+
 .article-heading {
   counter-increment: article-section;
 }
@@ -130,6 +177,45 @@
   --sh-comment: var(--secondary);
   --sh-break: var(--foreground);
   --sh-space: var(--foreground);
+}
+
+.hairline {
+  --hairline-plate: var(--background);
+  --hairline-hi: var(--primary);
+  --hairline-edge: var(--foreground);
+  --hairline-mid: var(--secondary);
+  --hairline-lo: color-mix(in srgb, var(--secondary) 55%, var(--background));
+  --hairline-stroke: 1;
+}
+
+/*
+ * A figure's stage keeps the 400 × 320 viewBox, so the pointer lands where it
+ * is drawn. It is --zoom times wider than its frame, up to 420px of frame, so
+ * the frame crops the viewBox's empty margin. --visible of its height shows,
+ * in whole 20px rows, so the bars down the frame's sides line up.
+ */
+.hairline-interior {
+  --zoom: 1.15;
+  --visible: 0.78;
+  --stage-width: calc(min(100cqw, 420px) * var(--zoom));
+  --stage-height: calc(var(--stage-width) * 320 / 400);
+  position: relative;
+  overflow: hidden;
+  height: calc(var(--stage-height) * var(--visible));
+}
+
+@supports (height: round(nearest, 1px, 20px)) {
+  .hairline-interior {
+    height: round(nearest, calc(var(--stage-height) * var(--visible)), 20px);
+  }
+}
+
+.hairline-stage {
+  position: absolute;
+  top: calc(50% - var(--stage-height) / 2);
+  left: calc(50% - var(--stage-width) / 2);
+  width: var(--stage-width);
+  height: var(--stage-height);
 }
 
 *:focus-visible {

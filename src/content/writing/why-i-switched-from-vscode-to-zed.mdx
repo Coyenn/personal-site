@@ -1,35 +1,35 @@
+import { VimMotionsFigure } from "@/app/components/diagrams/hairline/zed-figures";
+
 export const metadata = {
   date: "2023-10-30",
-  lead: "Zed had fewer features than VS Code, but it covered my daily work and felt faster to use.",
+  lead: "Zed is still a macOS-only beta, but it's already my main editor.",
   title: "Why I Switched from VS Code to Zed",
 };
 
 ## Backstory
 
-I wrote my first line of code in Roblox Studio. As I started working outside Roblox, I moved to PhpStorm and WebStorm, then to Visual Studio Code. Each move reflected what I needed from an editor at the time.
+Since starting my career in IT, I've used a wide variety of code editors and IDEs. My first ever line of code was actually written in an IDE called [Roblox Studio](https://www.roblox.com/create), which is used to create games on the Roblox platform. It's a pretty niche IDE, and at the time (and honestly, even today) it lacked many basic features that are considered standard in modern editors. So I quickly moved on to other, more capable editors, like JetBrains' [PhpStorm](https://www.jetbrains.com/phpstorm/) and [WebStorm](https://www.jetbrains.com/webstorm/).
 
-By October 2023, I was trying Zed. It was still in beta and available only on macOS. These are the reasons I switched then.
+## Visual Studio Code, the best of both worlds?
 
-## What I liked about VS Code
+But here's the thing: I don't like slow, bloated software. When I'm writing code, I want to work quickly and efficiently, and five minutes of indexing and loading is, at least for me, unacceptable.
 
-VS Code gave me language support and extensions without the weight I associated with a full IDE. It was free, worked across platforms, and had a large enough extension ecosystem that I could usually find what I needed.
+This is where [Visual Studio Code](https://code.visualstudio.com/) comes in. It's fast, lightweight, open source and free. There's a huge community creating extensions for it, and it's available on all major platforms. For me, it simply ticks all the right boxes, and it always felt like the perfect balance between a full-blown IDE and a simple text editor.
 
-I was happy using it. I also care a lot about how quickly an editor responds. Waiting for a project to open or finish indexing interrupts my work, and I wanted to see whether a smaller editor would feel better.
+## The switch to Zed
 
-## Trying Zed
+Until a couple of weeks ago, I was a happy VS Code user. But recently I started looking for something new, something that's even faster and even more lightweight, and that's when I learned about [Zed](https://zed.dev/). It's written entirely in Rust, using its own UI framework, which makes it extremely fast. Probably the fastest editor on the market right now.
 
-Zed caught my attention because of its emphasis on speed. It was written in Rust with a custom UI framework, but what mattered to me was how it felt during everyday editing.
+That sounds almost too good to be true, so where's the catch? Well, there are a few. First of all, Zed is still in beta (v0.110 as I'm writing this). Half a year ago, a lot of core features were missing. Since then, the editor has matured a lot, but many features and languages are still on the roadmap. It's also only available for macOS right now. Windows and Linux support is planned, but there's no ETA yet.
 
-The beta had gaps in both features and language support. Windows and Linux versions were still planned. Those limitations mattered, but they didn't prevent me from doing my usual work on macOS.
+## Why am I using it then?
 
-## What made the switch practical
+To put it simply, Zed has everything I need for my day-to-day work. It supports all the languages I regularly use, it [works with GitHub Copilot](https://zed.dev/blog/copilot), and most importantly, it has Vim emulation, so I get to keep all my muscle memory.
 
-My requirements were fairly specific: support for the languages I used, GitHub Copilot, and Vim emulation. Zed covered all three. Its [Copilot integration had arrived earlier that year](https://zed.dev/blog/copilot), and I could keep the keyboard habits I had built around Vim.
+<VimMotionsFigure />
 
-I worked mainly in Rust and TypeScript, so the available language support was enough for me. I didn't need Zed to match every VS Code feature before I could use it as my daily editor.
+## Would I recommend Zed?
 
-## Was it worth it?
+If you're on macOS and looking for a fast, lightweight editor, then yes, absolutely. Zed is free to download from their [website](https://zed.dev/), so I recommend giving it a try, especially if you're using Rust or TypeScript on a daily basis.
 
-For my work at the time, yes. I preferred the way Zed felt, and the features it was missing weren't ones I depended on.
-
-The deciding factor was whether I could comfortably work on my own projects in it. Someone relying on a particular VS Code extension or a language Zed didn't yet support would have had a different answer. My needs happened to fit what the beta already did well.
+If a language or feature you need is missing, you can always [open an issue](https://github.com/zed-industries/zed/issues) on Zed's GitHub, or upvote an existing one to help the developers prioritize.

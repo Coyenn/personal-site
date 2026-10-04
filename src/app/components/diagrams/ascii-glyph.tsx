@@ -1,21 +1,14 @@
-// Each mark uses the same six-pixel stroke, independent of font metrics.
+import { cn } from "@/lib/utils";
+
+// Each mark uses the same six-pixel stroke, independent of font metrics. For
+// rules of any length, the ascii-dashes and ascii-bars utilities in globals.css
+// repeat the same "-" and "|" strokes as a background.
 const paths = {
-  "-": "M1 8H7",
   "|": "M4 5V11",
   "+": "M1 8H7M4 5V11",
-  ">": "M1 5L7 8L1 11",
-  "<": "M7 5L1 8L7 11",
-  "^": "M1 11L4 5L7 11",
-  v: "M1 5L4 11L7 5",
 } as const;
 
-export type AsciiMark = keyof typeof paths;
-
-export function isAsciiMark(character: string): character is AsciiMark {
-  return Object.hasOwn(paths, character);
-}
-
-export function AsciiGlyph({ character }: { character: AsciiMark }) {
+export function AsciiGlyph({ character }: { character: keyof typeof paths }) {
   return (
     <svg
       aria-hidden="true"
@@ -26,5 +19,22 @@ export function AsciiGlyph({ character }: { character: AsciiMark }) {
     >
       <path d={paths[character]} stroke="currentColor" strokeWidth="1" strokeLinecap="butt" />
     </svg>
+  );
+}
+
+export function PlusMark() {
+  return (
+    <span className="shrink-0 text-secondary select-none" aria-hidden="true">
+      <AsciiGlyph character="+" />
+    </span>
+  );
+}
+
+export function DashFill({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn("ascii-dashes h-4 min-w-6 flex-1 px-1 text-secondary", className)}
+      aria-hidden="true"
+    />
   );
 }

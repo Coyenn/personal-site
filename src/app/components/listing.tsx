@@ -52,10 +52,6 @@ function ListingMarker({
   );
 }
 
-function ListingDot() {
-  return <ListingMarker>·</ListingMarker>;
-}
-
 function ListingContent({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
@@ -108,7 +104,6 @@ function ListingTime({ className, ...props }: ComponentProps<"time">) {
 export const Listing = {
   Content: ListingContent,
   Description: ListingDescription,
-  Dot: ListingDot,
   ExternalLink: ListingExternalLink,
   Fill: ListingFill,
   Frame: ListingFrame,

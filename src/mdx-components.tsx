@@ -3,7 +3,6 @@ import { Children, isValidElement, type ComponentProps, type ReactNode } from "r
 import { lang } from "sugar-high/lang";
 
 import { CodeSnippet } from "@/app/components/code-snippet";
-import { Listing } from "@/app/components/listing";
 import { JustifiedParagraph } from "@/app/writing/justified-paragraph";
 import { cn } from "@/lib/utils";
 
@@ -47,10 +46,14 @@ function Heading({ children, className, ...props }: ComponentProps<"h2">) {
   );
 }
 
-function ListItem({ children, ...props }: ComponentProps<"li">) {
+function ListItem({ children, className, ...props }: ComponentProps<"li">) {
+  // A plain-text list: "- " hangs in its own column, so wrapped lines line up with the text.
   return (
-    <li {...props}>
-      <Listing.Dot /> {children}
+    <li className={cn("grid grid-cols-[1ch_minmax(0,1fr)] gap-x-[1ch]", className)} {...props}>
+      <span className="text-secondary select-none" aria-hidden="true">
+        -
+      </span>
+      <div className="min-w-0">{children}</div>
     </li>
   );
 }
